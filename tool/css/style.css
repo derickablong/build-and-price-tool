@@ -1,0 +1,203 @@
+:root {
+    --bpt-grey: #ccc;
+    --bpt-white: #fff;
+    --bpt-black: #1e2d3b;
+    --bpt-yellow: #EDCD1F;
+    --bpt-light-grey: #e5e5e5;
+    --bpt-inactive-color: #b1b1b1;
+    --bpt-active-color: #3d5975;
+    --bpt-red: #FF4040;
+}
+
+.site-main {
+    padding: 50px 7%;
+    max-width: 100%!important;
+    width: 100%!important;
+}
+.page-header,
+.page-content {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.entry-title {
+    font-family: "Wix Madefor Display", Sans-serif;
+    font-size: 55px;
+    font-weight: 800;
+    text-transform: none;
+    line-height: 1em;
+    color: var(--bpt-black);
+}
+
+.bpt-container * {
+    box-sizing: border-box;
+}
+
+.bpt-tabs {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+}
+.bpt-tabs * {
+    cursor: default;
+}
+.bpt-tabs .tab-item {
+    position: relative;    
+    min-height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+}
+.bpt-tabs .step-num {    
+    position: relative;
+    z-index: 5;
+    width: 60px;
+    height: 60px;    
+    border-radius: 50%;    
+    background-color: var(--bpt-white);
+    border: solid 1px var(--bpt-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Wix Madefor Display", Sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: -4px 2px 1px #0000000d;
+    color: var(--bpt-inactive-color);
+}
+.bpt-tabs .step-title {
+    width: calc(100% - 60px);
+    font-family: "Wix Madefor Display", Sans-serif;    
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;    
+    position: relative;
+    padding: 6px;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    color: var(--bpt-inactive-color);
+}
+.bpt-tabs .step-title span {
+    position: relative;
+    z-index: 5;
+}
+.bpt-tabs .step-title::before,
+.bpt-tabs .step-title::after {
+    content: '';
+    position: absolute;
+    top: 0;    
+    width: calc(50% + 30px);
+    height: 100%;
+    background-color: var(--bpt-white);
+    border-top: solid 1px var(--bpt-grey);
+    border-bottom: solid 1px var(--bpt-grey);
+}
+.bpt-tabs .step-title::before {
+    left: -30px;
+}
+.bpt-tabs .step-title::after {
+    right: -30px;
+}
+.bpt-tabs .tab-item:last-child .step-title::after {
+    width: 50%;
+    border-right: solid 1px var(--bpt-grey);
+    right: 0;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.bpt-tabs .tab-item.active .step-num {
+    background-color: var(--bpt-active-color);
+    color: var(--bpt-white);
+    border: solid 1px var(--bpt-active-color);
+}
+.bpt-tabs .tab-item.active .step-title {
+    color: var(--bpt-white);
+}
+.bpt-tabs .tab-item.active .step-title::before,
+.bpt-tabs .tab-item.active .step-title::after {
+    background-color: var(--bpt-active-color);
+}
+
+.bpt-tabs-content {
+    margin-top: 40px;    
+}
+
+.step-1 {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+.model-item {
+    background-color: var(--bpt-white);
+    border: solid 1px var(--bpt-light-grey);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 295px 1fr 200px;
+    column-gap: 30px;
+    row-gap: 30px;
+    border-radius: 10px;
+}
+.model-item .pic img {
+    width: 100%;
+    height: auto;
+}
+.model-item h2 {
+    font-size: 40px!important;
+    line-height: 50px!important;
+}
+.model-item h2 span {
+    display: block;
+    font-size: 24px!important;
+    line-height: 1!important;
+    color: var(--bpt-yellow);
+}
+.model-item h3 {
+    font-size: 20px !important;
+    line-height: 27px !important;
+    font-weight: 700;
+}
+.model-item p {
+    font-size: 16px!important;
+    line-height: 24px!important;
+}
+.model-item .start-price {
+    position: relative;
+}
+.model-item .start-price::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 3px;
+    background-color: var(--bpt-red);
+}
+
+.model-item .cta .buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    row-gap: 10px;
+}
+.model-item .cta a {    
+    padding: 15px 10px;
+    text-decoration: none;
+    font-family: "Wix Madefor Display", Sans-serif;
+    font-weight: 700;    
+    text-align: center;
+    font-size: 14px;
+    line-height: 1;    
+}
+.model-item .cta .learn-more {
+    background-color: #757575;
+    color: var(--bpt-white);
+}
+.model-item .cta .build-price {
+    background-color: var(--bpt-yellow);
+    color: var(--bpt-black);
+}
