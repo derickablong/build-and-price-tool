@@ -3,6 +3,7 @@
     --bpt-white: #fff;
     --bpt-black: #1e2d3b;
     --bpt-yellow: #EDCD1F;
+    --bpt-white-grey: #f7f7f7;
     --bpt-light-grey: #e5e5e5;
     --bpt-inactive-color: #b1b1b1;
     --bpt-active-color: #3d5975;
@@ -59,7 +60,7 @@
     width: 60px;
     height: 60px;    
     border-radius: 50%;    
-    background-color: var(--bpt-white);
+    background-color: var(--bpt-white-grey);
     border: solid 1px var(--bpt-grey);
     display: flex;
     align-items: center;
@@ -68,7 +69,6 @@
     font-size: 34px;
     font-weight: 800;
     line-height: 1;
-    box-shadow: -4px 2px 1px #0000000d;
     color: var(--bpt-inactive-color);
 }
 .bpt-tabs .step-title {
@@ -96,8 +96,8 @@
     width: calc(50% + 30px);
     height: 100%;
     background-color: var(--bpt-white);
-    border-top: solid 1px var(--bpt-grey);
-    border-bottom: solid 1px var(--bpt-grey);
+    border-top: dashed 1px var(--bpt-grey);
+    border-bottom: dashed 1px var(--bpt-grey);
 }
 .bpt-tabs .step-title::before {
     left: -30px;
@@ -107,7 +107,7 @@
 }
 .bpt-tabs .tab-item:last-child .step-title::after {
     width: 50%;
-    border-right: solid 1px var(--bpt-grey);
+    border-right: dashed 1px var(--bpt-grey);
     right: 0;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
@@ -124,6 +124,8 @@
 .bpt-tabs .tab-item.active .step-title::before,
 .bpt-tabs .tab-item.active .step-title::after {
     background-color: var(--bpt-black);
+    border-top: solid 1px var(--bpt-black);
+    border-bottom: solid 1px var(--bpt-black);
 }
 
 .bpt-tabs-content {
