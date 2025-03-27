@@ -1,7 +1,7 @@
 <div class="step step-1">
     <div class="model-item">
         <div class="pic">
-            <img src="/wp-content/uploads/2025/01/53b3ca_b3975310448f4499a31081219ea41915mv2.jpg" alt="">
+            <img src="<?php echo $this->url ?>tool/img/MH4900.avif" alt="">
         </div>
         <div class="description">
             <h2>
@@ -22,7 +22,7 @@
 
     <div class="model-item">
         <div class="pic">
-            <img src="/wp-content/uploads/2025/01/53b3ca_e2ebc39701e24bb7a2613c0630816ddbmv2.png" alt="">
+            <img src="<?php echo $this->url ?>tool/img/MH8500.png" alt="">
         </div>
         <div class="description">
             <h2>

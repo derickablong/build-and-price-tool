@@ -171,6 +171,7 @@
 }
 .model-item .start-price {
     position: relative;
+    color: var(--bpt-red);
 }
 .model-item .start-price::after {
     content: '';
