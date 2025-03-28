@@ -38,6 +38,7 @@
     <div class="bpt-tabs-content">
         <?php
         do_action('bpt-step-1');
+        do_action('bpt-step-2');
         ?>
     </div>
 </div>

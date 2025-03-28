@@ -17,6 +17,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+# Model Category ID
+# MODEL8500
+define('MODEL8500_FRONT_ATTACHMENT', 58);
+define('MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM', 56);
+define('MODEL8500_REAR_ATTACHMENT', 72);
+define('MODEL8500_SHOE_OPTION', 75);
+define('MODEL8500_UPGRADES', 73);
+# MODEL9500
+define('MODEL9500_FRONT_ATTACHMENT', 58);
+define('MODEL9500_QUICK_HITCH_MOUNTING_SYSTEM', 56);
+define('MODEL9500_REAR_ATTACHMENT', 72);
+define('MODEL9500_SHOE_OPTION', 75);
+define('MODEL9500_UPGRADES', 73);
+
+# Absolute path
 define('GROWTH_OPTIMIZER_BPT_DIR', plugin_dir_path( __FILE__ ));
 define('GROWTH_OPTIMIZER_BPT_URL', plugin_dir_url( __FILE__ ));
 
@@ -24,6 +39,8 @@ define('GROWTH_OPTIMIZER_BPT_URL', plugin_dir_url( __FILE__ ));
 require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/library.php');
 # Template parts
 require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/parts.php');
+# Ajax
+require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/ajax.php');
 # Shortcode
 require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/shortcode.php');
 # Build and price tool

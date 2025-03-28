@@ -25,6 +25,7 @@ trait GO_BPT_Shortcode
     {
         ob_start();
         wp_enqueue_style('go-bpt-css');
+        wp_enqueue_script('go-bpt-script');
         include(GROWTH_OPTIMIZER_BPT_DIR.'tool/parts/builder.php');
         return ob_get_clean();
     }

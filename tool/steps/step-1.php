@@ -14,7 +14,7 @@
             <h3>Prices Starting From <span class="start-price">$24,800</span></h3>
             <div class="buttons">
                 <a href="/models/magnatrac-mh4900-the-homesteader/" class="learn-more" target="_blank">Learn More</a>
-                <a href="#" class="build-price">Build & Price</a>
+                <a href="#" class="build-price" data-model="MH4900">Build & Price</a>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <h3>Prices Starting From <span class="start-price">$34,600</span></h3>
             <div class="buttons">
                 <a href="/models/magnatrac-mh8500-the-contractor/" class="learn-more" target="_blank">Learn More</a>
-                <a href="#" class="build-price">Build & Price</a>
+                <a href="#" class="build-price" data-model="MH8500">Build & Price</a>
             </div>
         </div>
     </div>    

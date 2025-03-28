@@ -32,5 +32,19 @@ trait GO_BPT_Library
             uniqid(), 
             'all' 
         );
+        wp_register_script(
+            'go-bpt-script',
+            $this->url . 'tool/js/script.js',
+            array('jquery'),
+            uniqid(),            
+            true
+        );
+        wp_localize_script(
+            'go-bpt-script',
+            'go_bpt',
+            [
+                'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) )
+            ]
+        );
     }
 }
