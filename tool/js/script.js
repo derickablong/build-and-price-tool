@@ -16,7 +16,7 @@
         model_sale_price     : 0,
         cart_total_price     : 0,
         cart_total_sale_price: 0,
-        currect_step         : 1,
+        current_step         : 1,
         selected_products    : [],
 
         _init: function() {
@@ -27,7 +27,7 @@
 
         _title: function() {            
             GO_BPT.el_title.text(
-                $('.tab-'+GO_BPT.currect_step+' .step-title').text()
+                $('.tab-'+GO_BPT.current_step+' .step-title').text()
             );
         },
 
@@ -39,14 +39,14 @@
 
         _tabs: function() {
             $('.tab-item').removeClass('active');
-            for (let step = 1; step <= GO_BPT.currect_step; step++) {
+            for (let step = 1; step <= GO_BPT.current_step; step++) {
                 $('.tab-'+step).addClass('active');
             }
         },
 
         _steps: function() {
             $('.step-1, .step-build').hide();            
-            $(GO_BPT.currect_step > 1 ? '.step-build' : '.step-1').show();            
+            $(GO_BPT.current_step > 1 ? '.step-build' : '.step-1').show();            
         },
         
         _before: function() {
@@ -68,13 +68,20 @@
             GO_BPT._request();
         },
 
-        _prev_step: function() {
-            GO_BPT.currect_step -= 1;
-            GO_BPT._navigate();
+        _prev_step: function() {            
+            if (GO_BPT.current_step === 2) {
+                GO_BPT._start_over(null);
+            } else if (GO_BPT.current_step === -1) {
+                GO_BPT.current_step = 1;
+                GO_BPT._navigate();
+            } else {
+                GO_BPT.current_step -= 1;
+                GO_BPT._navigate();
+            }            
         },
 
         _next_step: function() {
-            GO_BPT.currect_step += 1;
+            GO_BPT.current_step += 1;
             GO_BPT._navigate();
         },
 
@@ -87,7 +94,7 @@
                 data    : {
                     action: 'bpt_model_products',
                     model : GO_BPT.selected_model,
-                    step  : GO_BPT.currect_step
+                    step  : GO_BPT.current_step
                 }
             }).done(function(response) {
                 $('.suggested-products').html(response.products);
@@ -191,6 +198,23 @@
             GO_BPT._next_step();
         },
 
+        _start_over: function(e) {
+            if (e !== null) {
+                e.preventDefault();
+            }
+            if (confirm('Are you sure to start over again?')) {
+                GO_BPT.current_step          = -1;
+                GO_BPT.selected_model        = null;
+                GO_BPT.model_price           = 0;
+                GO_BPT.model_sale_price      = 0;
+                GO_BPT.cart_total_price      = 0;
+                GO_BPT.cart_total_sale_price = 0;
+                GO_BPT.selected_products     = [];
+                GO_BPT.el_cart_items.html('');
+                GO_BPT._prev_step();
+            }
+        },
+
         _actions: function() {
             GO_BPT.el_doc.on(
                 'click',
@@ -211,6 +235,11 @@
                 'click',
                 GO_BPT.el_btn_add_product,
                 GO_BPT._add_product
+            );
+            GO_BPT.el_doc.on(
+                'click',
+                GO_BPT.el_btn_start_over,
+                GO_BPT._start_over
             );
         },
 
