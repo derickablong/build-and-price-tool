@@ -21,26 +21,13 @@ trait GO_BPT_Ajax
         $model     = $_POST['model'];
         $step      = (int)$_POST['step'];
 
-        if ($step == 2) {
-            if ($model == 'MODEL8500') {
-                $tax_query = [
-                    [
-                        'taxonomy' => 'product_cat',
-                        'field'    => 'term_id',
-                        'terms'    => [MODEL8500_FRONT_ATTACHMENT, MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM]
-                    ]
-                ];
-            }
-            if ($model == 'MODEL4900') {
-                $tax_query = [
-                    [
-                        'taxonomy' => 'product_cat',
-                        'field'    => 'term_id',
-                        'terms'    => [MODEL4900_FRONT_ATTACHMENT, MODEL4900_QUICK_HITCH_MOUNTING_SYSTEM]
-                    ]
-                ];
-            }
-        }
+        $tax_query = [
+            [
+                'taxonomy' => 'product_cat',
+                'field'    => 'term_id',
+                'terms'    => $this->models[$model]['step-'.$step]
+            ]
+        ];
 
         $args = [
             'post_type'      => 'product',

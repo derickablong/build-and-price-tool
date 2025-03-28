@@ -12,10 +12,14 @@ class GO_Build_And_Price_Tool
     # Directory URL holder
     public $url;
 
-    function __construct($dir, $url)
+    # Models
+    public $models;
+
+    function __construct($dir, $url, $models)
     {
-        $this->dir = $dir;
-        $this->url = $url;
+        $this->dir    = $dir;
+        $this->url    = $url;
+        $this->models = $models;
 
         # Install libraries
         $this->register_library();

@@ -49,5 +49,19 @@ require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/tool.php');
 # Starter the CPT filter widget
 new GO_Build_And_Price_Tool(
     GROWTH_OPTIMIZER_BPT_DIR,
-    GROWTH_OPTIMIZER_BPT_URL
+    GROWTH_OPTIMIZER_BPT_URL,
+    [
+        'MH8500' => [
+            'step-2' => [
+                MODEL8500_FRONT_ATTACHMENT,
+                MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM
+            ]
+        ],
+        'MH4900' => [
+            'step-2' => [
+                MODEL9500_FRONT_ATTACHMENT,
+                MODEL9500_QUICK_HITCH_MOUNTING_SYSTEM
+            ]
+        ]
+    ]
 );
