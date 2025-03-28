@@ -10,6 +10,10 @@ trait GO_BPT_Ajax
             'wp_ajax_bpt_model_products',
             [$this, 'products']
         );
+        add_action(
+            'wp_ajax_nopriv_bpt_model_products',
+            [$this, 'products']
+        );
     }
 
 

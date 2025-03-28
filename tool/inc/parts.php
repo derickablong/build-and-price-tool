@@ -12,6 +12,10 @@ trait GO_BPT_Parts
     public function register_template_parts()
     {
         add_action(
+            'bpt-step-nav',
+            [$this, 'step_nav']
+        );
+        add_action(
             'bpt-step-1',
             [$this, 'step_1']
         );
@@ -20,9 +24,21 @@ trait GO_BPT_Parts
             [$this, 'step_2']
         );
         add_action(
+            'bpt-step-3',
+            [$this, 'step_3']
+        );
+        add_action(
+            'bpt-step-4',
+            [$this, 'step_4']
+        );
+        add_action(
             'bpt-product-item',
             [$this, 'product'],
             10, 1
+        );
+        add_action(
+            'bpt-cart',
+            [$this, 'cart']            
         );
     }
 
@@ -50,6 +66,16 @@ trait GO_BPT_Parts
 
 
     /**
+     * Step navigation
+     * @return void
+     */
+    public function step_nav()
+    {
+        $this->parts('nav');
+    }
+
+
+    /**
      * Step 1
      * @return void
      */
@@ -68,12 +94,38 @@ trait GO_BPT_Parts
     }
 
     /**
-     * Product item
-     * @param object $post
+     * Step 3
      * @return void
      */
-    public function product($post)
+    public function step_3()
+    {
+        $this->step('step-3');
+    }
+
+    /**
+     * Step 4
+     * @return void
+     */
+    public function step_4()
+    {
+        $this->step('step-4');
+    }
+
+    /**
+     * Product item     
+     * @return void
+     */
+    public function product()
     {
         $this->parts('product');
+    }
+
+    /**
+     * Cart     
+     * @return void
+     */
+    public function cart()
+    {
+        $this->parts('cart');
     }
 }

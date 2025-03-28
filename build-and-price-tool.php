@@ -55,12 +55,26 @@ new GO_Build_And_Price_Tool(
             'step-2' => [
                 MODEL8500_FRONT_ATTACHMENT,
                 MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM
+            ],
+            'step-3' => [
+                MODEL8500_REAR_ATTACHMENT
+            ],
+            'step-4' => [
+                MODEL8500_SHOE_OPTION,
+                MODEL8500_UPGRADES
             ]
         ],
         'MH4900' => [
             'step-2' => [
                 MODEL9500_FRONT_ATTACHMENT,
                 MODEL9500_QUICK_HITCH_MOUNTING_SYSTEM
+            ],
+            'step-3' => [
+                MODEL9500_REAR_ATTACHMENT
+            ],
+            'step-4' => [
+                MODEL9500_SHOE_OPTION,
+                MODEL9500_UPGRADES
             ]
         ]
     ]

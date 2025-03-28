@@ -10,6 +10,7 @@
     --bpt-inactive-color: #b1b1b1;
     --bpt-active-color: #3d5975;
     --bpt-red: #FF4040;
+    --bpt-red-hover: #ff2323;
     --bpt-btn-learn-more: #1e2d3b;
     --bpt-btn-learn-more-hover:#2c4053;
     --bpt-btn-build-price: #EDCD1F;
@@ -18,6 +19,7 @@
     --bpt-green-hover: #11e123;
     --bpt-blue: #163cff;
     --bpt-box-radius: 10px;
+    --bpt-font-heading: "Wix Madefor Display", Sans-serif;
 }
 
 .num {
@@ -38,7 +40,7 @@
     margin-right: auto;
 }
 .entry-title {
-    font-family: "Wix Madefor Display", Sans-serif;
+    font-family: var(--bpt-font-heading);
     font-size: 40px;
     font-weight: 800;
     text-transform: none;
@@ -77,7 +79,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Wix Madefor Display", Sans-serif;
+    font-family: var(--bpt-font-heading);;
     font-size: 34px;
     font-weight: 800;
     line-height: 1;
@@ -86,7 +88,7 @@
 }
 .bpt-tabs .step-title {
     width: calc(100% - 60px);
-    font-family: "Wix Madefor Display", Sans-serif;    
+    font-family: var(--bpt-font-heading);;    
     font-size: 14px;
     font-weight: 700;
     line-height: 16px;    
@@ -220,7 +222,7 @@
 .model-item .cta a {    
     padding: 15px 10px;
     text-decoration: none;
-    font-family: "Wix Madefor Display", Sans-serif;
+    font-family: var(--bpt-font-heading);;
     font-weight: 700;    
     text-align: center;
     font-size: 14px;
@@ -246,12 +248,93 @@
 }
 
 
+.step-header {
+    padding: 0 0 20px;
+}
+.step-current-title {    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.step-current-title div {
+    max-width: 450px;
+}
+.step-current-title .heading {
+    font-family: var(--bpt-font-heading);
+    font-weight: 800;
+    line-height: 1.2;
+    font-size: 30px;
+}
+.step-current-title .notes {    
+    font-family: var(--bpt-font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;            
+}
+.step-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.step-nav .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.step-nav button {
+    padding: 14px 17px;
+    border: none;
+    font-size: 14px;
+    line-height: 1;    
+}
+.step-nav .prev {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+.step-nav .next {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.step-nav .prev {
+    background-color: var(--bpt-red);
+    color: var(--bpt-white);
+}
+.step-nav .next {
+    background-color: var(--bpt-green);
+    color: var(--bpt-white);
+}
+.step-nav .prev:hover,
+.step-nav .prev:focus {
+    background-color: var(--bpt-red-hover); 
+    color: var(--bpt-white);   
+}
+.step-nav .next:hover,
+.step-nav .next:focus {
+    background-color: var(--bpt-green-hover); 
+    color: var(--bpt-white);   
+}
+.step-nav .start-over {
+    background-color: var(--bpt-btn-build-price);
+    color: var(--bpt-black);
+}
+.step-nav .start-over {
+    background-color: var(--bpt-btn-build-price-hover);
+    color: var(--bpt-black);
+}
+
+
+.step-header,
+.step-products {
+    display: grid;
+    grid-template-columns: 1fr 360px;    
+}
+
 
 .step-products {    
     background-color: var(--bpt-white);
-    border: solid 1px var(--bpt-light-grey);    
-    display: grid;
-    grid-template-columns: 1fr 360px;    
+    border: solid 1px var(--bpt-light-grey);        
     border-radius: var(--bpt-box-radius);    
 }
 .step-mini-cart {
@@ -266,7 +349,7 @@
     column-gap: 2px;
 }
 .cart-header span {
-    font-family: "Wix Madefor Display", Sans-serif;
+    font-family: var(--bpt-font-heading);;
     text-transform: uppercase;
     font-weight: 800;
     font-size: 14px;
@@ -307,7 +390,7 @@
 }
 .cart-summary span {    
     padding: 10px 0 0;
-    font-family: "Wix Madefor Display", Sans-serif;
+    font-family: var(--bpt-font-heading);;
     font-weight: 800;
     font-size: 15px;
     text-transform: uppercase;
@@ -339,7 +422,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    font-family: "Wix Madefor Display", Sans-serif;
+    font-family: var(--bpt-font-heading);;
     font-weight: 600;
     font-size: 15px;
     line-height: 1;
@@ -388,7 +471,7 @@
     justify-content: center;
 }
 .product-item-title {
-    font-family: "Wix Madefor Display", Sans-serif;
+    font-family: var(--bpt-font-heading);;
     font-size: 15px;
     line-height: 1.2;
 }
