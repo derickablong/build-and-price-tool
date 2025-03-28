@@ -17,7 +17,7 @@
     <div class="cart-summary">             
         <div class="summary-item">
             <span>Total Price:</span>
-            <span class="num">$0.00</span>                
+            <span class="num cart-total">$0.00</span>                
         </div>                
         <div class="summary-item">
             <span>Save:</span>
