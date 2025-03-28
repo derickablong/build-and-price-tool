@@ -5,25 +5,23 @@
         <span>Sale Price</span>
     </div>
     <div class="cart-items">
-        <?php for($count = 1; $count <= 5; $count++): ?>
-        <div class="cart-item">
-            <div class="cart-col model">
-                <span>MAGNATRAC®</span>
-                MH4900
-            </div>
-            <div class="cart-col num">$24,800</div>
-            <div class="cart-col num">$0.00</div>
+
+        <div class="cart-item item-model">
+            <div class="cart-col name">-</div>
+            <div class="cart-col num reg-price">$0.00</div>
+            <div class="cart-col num sale-price">$0.00</div>
         </div>
-        <?php endfor; ?>
+
+        <div class="selected-products"></div>
     </div>
     <div class="cart-summary">             
         <div class="summary-item">
             <span>Total Price:</span>
-            <span class="num">$36,000</span>                
+            <span class="num">$0.00</span>                
         </div>                
         <div class="summary-item">
             <span>Save:</span>
-            <span class="num save">$1,000</span>                
+            <span class="num save">$0.00</span>                
         </div>
     </div>
     <div class="selected-shipping">
@@ -32,7 +30,7 @@
         </span>
         <span>
             <span class="label">Shipping</span>
-            Closest Shipping Terminal
+            None
         </span>
     </div>
 </div>
