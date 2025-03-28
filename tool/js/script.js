@@ -54,6 +54,9 @@
         },
 
         _after: function() {
+            $(GO_BPT.selected_products).each(function(index, item) {
+                $('.product-item-'+item.ID).addClass('added');
+            });
             $('.suggested-products').removeClass('loading');
         },
 
