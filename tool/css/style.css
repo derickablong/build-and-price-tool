@@ -534,7 +534,14 @@
     filter: grayscale(1);
     opacity: 0.1;
 }
-.product-item:hover button {
+.product-item.added button {
+    background-color: var(--bpt-red)!important;
+}
+.product-item.added button:hover {
+    background-color: var(--bpt-red-hover)!important;
+}
+.product-item:hover button,
+.product-item.added button {
     filter: grayscale(0);
     opacity: 1;
 }
@@ -553,6 +560,12 @@
 }
 .product-item button .icon polygon {
     fill: #fff;
+}
+.product-item button .label::after {
+    content: 'Add';
+}
+.product-item.added button .label::after {
+    content: 'Remove';
 }
 .product-item-price {
     display: flex;

@@ -8,6 +8,7 @@
         el_btn_start_over : null,
         el_btn_add_product: null,
         el_title          : null,
+        el_cart_items     : null,
         selected_model    : null,
         model_price       : 0,
         model_sale_price  : 0,
@@ -101,7 +102,7 @@
                 <div class="cart-col num sale-price">$`+product.sale_price+`</div>
             </div>
             `;
-            $('.selected-products').append(item);
+            GO_BPT.el_cart_items.append(item);
         },
 
         _cart: function() {
@@ -110,16 +111,32 @@
             });
         },
 
+        _remove_item: function(ID) {            
+            const products = GO_BPT.selected_products.filter(function(item) {                
+                return ID !== item.ID
+            });
+            GO_BPT.selected_products = products;
+        },
+
         _add_product: function(e) {
             e.preventDefault();
+            GO_BPT.el_cart_items.html('');
+
             const product = $(this).closest('.product-item');
 
-            GO_BPT.selected_products.push({
-                ID        : product.data('product'),
-                title     : product.find('.product-item-title').text(),
-                reg_price : GO_BPT._format_price( product.data('reg-price') ),
-                sale_price: GO_BPT._format_price( product.data('sale-price') )
-            });
+            if (product.hasClass('added')) {                
+                console.log(product.data('product'));
+                GO_BPT._remove_item( product.data('product') );
+                product.removeClass('added');
+            } else {
+                product.addClass('added');
+                GO_BPT.selected_products.push({
+                    ID        : product.data('product'),
+                    title     : product.find('.product-item-title').text(),
+                    reg_price : GO_BPT._format_price( product.data('reg-price') ),
+                    sale_price: GO_BPT._format_price( product.data('sale-price') )
+                });
+            }            
             GO_BPT._cart();
         },
 
@@ -171,6 +188,7 @@
             GO_BPT.el_btn_next        = '.step-nav .next';
             GO_BPT.el_btn_start_over  = '.step-nav .start-over';
             GO_BPT.el_btn_add_product = '.add-product';
+            GO_BPT.el_cart_items      = $('.selected-products');
             _callback();
         }
     }
