@@ -1,4 +1,4 @@
-<div class="step step-2">
+<div class="step step-build">
 
     <?php do_action('bpt-step-nav'); ?>
 

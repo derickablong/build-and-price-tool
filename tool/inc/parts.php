@@ -20,17 +20,9 @@ trait GO_BPT_Parts
             [$this, 'step_1']
         );
         add_action(
-            'bpt-step-2',
-            [$this, 'step_2']
-        );
-        add_action(
-            'bpt-step-3',
-            [$this, 'step_3']
-        );
-        add_action(
-            'bpt-step-4',
-            [$this, 'step_4']
-        );
+            'bpt-step-build',
+            [$this, 'step_build']
+        );        
         add_action(
             'bpt-product-item',
             [$this, 'product'],
@@ -85,30 +77,12 @@ trait GO_BPT_Parts
     }
 
     /**
-     * Step 2
+     * Step 2 to last step
      * @return void
      */
-    public function step_2()
+    public function step_build()
     {
-        $this->step('step-2');
-    }
-
-    /**
-     * Step 3
-     * @return void
-     */
-    public function step_3()
-    {
-        $this->step('step-3');
-    }
-
-    /**
-     * Step 4
-     * @return void
-     */
-    public function step_4()
-    {
-        $this->step('step-4');
+        $this->step('step-build');
     }
 
     /**
