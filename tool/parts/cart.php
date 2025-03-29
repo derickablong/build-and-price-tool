@@ -30,7 +30,7 @@
         </span>
         <span>
             <span class="label">Shipping</span>
-            None
+            <span class="selected"></span>
         </span>
     </div>
 </div>

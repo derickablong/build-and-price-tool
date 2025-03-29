@@ -15,6 +15,7 @@
         el_shipping          : null,
         el_discount          : null,
         el_checkbox_group    : null,
+        el_selected_shipping : null,
         selected_model       : null,
         model_price          : 0,
         model_sale_price     : 0,
@@ -204,11 +205,11 @@
             GO_BPT.el_shipping.hide();                
 
             if (GO_BPT.current_step === 5) {
-                GO_BPT.el_discount.show();
-                GO_BPT._discount_step();
-            } else if (GO_BPT.current_step === 6) {
                 GO_BPT.el_shipping.show();
                 GO_BPT._shipping_step();
+            } else if (GO_BPT.current_step === 6) {
+                GO_BPT.el_discount.show();
+                GO_BPT._discount_step();                
             }            
         },
 
@@ -222,7 +223,10 @@
 
         _checkbox_group: function(e) {
             e.preventDefault();            
-            $(this).find('input').prop('checked', true);
+            const input = $(this).find('input');
+            input.prop('checked', true);
+            GO_BPT.el_selected_shipping.find('.selected').text(input.val());
+            GO_BPT.el_selected_shipping.addClass('applied');
         },
 
         _set_model: function(e) {
@@ -235,6 +239,15 @@
             GO_BPT._cart_summary();
             GO_BPT._cart_model();
             GO_BPT._next_step();
+        },
+
+        _reset_fields: function() {
+            GO_BPT.el_selected_shipping.removeClass('applied');            
+            $('.checkbox').find('input').prop('checked', false);            
+            $('.checkbox-group input').prop('checked', false);
+            $('.form-field input[type="checkbox"]').prop('checked', false);
+            $('.form-field select').val('');
+            $('.form-field textarea').val('');
         },
 
         _start_over: function(e) {
@@ -250,6 +263,7 @@
                 GO_BPT.cart_total_sale_price = 0;
                 GO_BPT.selected_products     = [];
                 GO_BPT.el_cart_items.html('');
+                GO_BPT._reset_fields();
                 GO_BPT._prev_step();
             }
         },
@@ -288,19 +302,20 @@
         },
 
         _elements: function(_callback) {
-            GO_BPT.el_doc             = $(document);
-            GO_BPT.el_title           = $('.step-current-title .heading');
-            GO_BPT.el_btn_back        = '.step-nav .prev';
-            GO_BPT.el_btn_next        = '.step-nav .next';
-            GO_BPT.el_btn_start_over  = '.step-nav .start-over';
-            GO_BPT.el_btn_add_product = '.add-product';
-            GO_BPT.el_checkbox_group  = '.checkbox-group';
-            GO_BPT.el_cart_items      = $('.selected-products');
-            GO_BPT.el_cart_total      = $('.summary-item .cart-total');
-            GO_BPT.el_cart_save       = $('.summary-item .save');
-            GO_BPT.el_products        = $('.suggested-products');
-            GO_BPT.el_discount        = $('.form-discount');
-            GO_BPT.el_shipping        = $('.form-shipping');
+            GO_BPT.el_doc               = $(document);
+            GO_BPT.el_title             = $('.step-current-title .heading');
+            GO_BPT.el_btn_back          = '.step-nav .prev';
+            GO_BPT.el_btn_next          = '.step-nav .next';
+            GO_BPT.el_btn_start_over    = '.step-nav .start-over';
+            GO_BPT.el_btn_add_product   = '.add-product';
+            GO_BPT.el_checkbox_group    = '.checkbox-group';
+            GO_BPT.el_cart_items        = $('.selected-products');
+            GO_BPT.el_cart_total        = $('.summary-item .cart-total');
+            GO_BPT.el_cart_save         = $('.summary-item .save');
+            GO_BPT.el_products          = $('.suggested-products');
+            GO_BPT.el_discount          = $('.form-discount');
+            GO_BPT.el_shipping          = $('.form-shipping');
+            GO_BPT.el_selected_shipping = $('.selected-shipping');
             _callback();
         }
     }
