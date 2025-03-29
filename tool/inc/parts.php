@@ -40,6 +40,10 @@ trait GO_BPT_Parts
             'bpt-cart',
             [$this, 'cart']            
         );
+        add_action(
+            'bpt-contact-number',
+            [$this, 'contact_number']            
+        );
     }
 
 
@@ -127,5 +131,14 @@ trait GO_BPT_Parts
     public function shipping()
     {
         $this->parts('shipping');
+    }
+
+    /**
+     * Contact number     
+     * @return void
+     */
+    public function contact_number()
+    {
+        $this->parts('contact-number');
     }
 }

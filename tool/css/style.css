@@ -20,10 +20,11 @@
     --bpt-blue: #163cff;
     --bpt-box-radius: 10px;
     --bpt-font-heading: "Wix Madefor Display", Sans-serif;
+    --bot-font-number: "Quantico", sans-serif;
 }
 
 .num {
-    font-family: "Quantico", sans-serif!important;
+    font-family: var(--bot-font-number)!important;
     font-style: normal!important;
     font-weight: 700!important;
 }
@@ -360,10 +361,18 @@
     border: solid 1px var(--bpt-light-grey);        
     border-radius: var(--bpt-box-radius);    
 }
-.step-mini-cart {
-    padding: 10px;
+.step-mini-cart {    
     border-left: solid 1px var(--bpt-light-grey);
     background-color: #ffd7002e;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+    gap: 40px;
+}
+.min-cart-container {
+    padding: 10px;
+    overflow: hidden;
 }
 .cart-header,
 .cart-item {
@@ -442,6 +451,49 @@
 }
 .cart-summary .save {
     color: var(--bpt-red);
+}
+
+
+.contact-number {
+    padding: 10px;
+    overflow: hidden;
+    background-color: var(--bpt-green);
+}
+.contact-number .phone {
+    display: grid    ;
+    grid-template-columns: 50px 1fr;
+    grid-gap: 10px;
+    max-width: 280px;
+    margin: 0 auto;
+}
+.contact-number .phone svg {
+    width: 100%;
+    height: auto;
+}
+.contact-number .contact-title {
+    font-family: var(--bpt-font-heading);
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+    color: var(--bpt-white);
+}
+.contact-number .icon {
+    display: flex;
+    align-items: center;
+}
+.contact-number .phone-number {
+    font-family: var(--bot-font-number);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contact-number .phone-number a {
+    text-decoration: none;
+    color: var(--bpt-white);
 }
 
 
