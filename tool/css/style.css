@@ -23,6 +23,10 @@
     --bot-font-number: "Quantico", sans-serif;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 .num {
     font-family: var(--bot-font-number)!important;
     font-style: normal!important;
@@ -340,17 +344,37 @@
     justify-content: center;
 }
 .step-nav .buttons {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 6px;
+    width: 100%;
+    max-width: 300px;
+}
+.step-nav button {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-}
-.step-nav button {
-    padding: 14px 17px;
+    padding: 10px;
     border: none;
     font-size: 14px;
-    line-height: 1;    
+    line-height: 1;
+    height: 100%;    
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+.step-nav button path {
+    fill: #fff;
+}
+.step-nav button .icon {
+    width: 24px;
+    display: flex;
+    align-items: center;
+}
+.step-nav button .icon svg {
+    width: 100%;
+    height: auto;
 }
 .step-nav .prev {
     border-top-left-radius: 50px;
