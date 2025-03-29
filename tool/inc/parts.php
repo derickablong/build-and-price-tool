@@ -22,6 +22,14 @@ trait GO_BPT_Parts
         add_action(
             'bpt-step-build',
             [$this, 'step_build']
+        );     
+        add_action(
+            'bpt-discount',
+            [$this, 'discount']
+        );   
+        add_action(
+            'bpt-shipping',
+            [$this, 'shipping']
         );        
         add_action(
             'bpt-product-item',
@@ -101,5 +109,23 @@ trait GO_BPT_Parts
     public function cart()
     {
         $this->parts('cart');
+    }
+
+    /**
+     * Discount     
+     * @return void
+     */
+    public function discount()
+    {
+        $this->parts('discount');
+    }
+
+    /**
+     * Shipping     
+     * @return void
+     */
+    public function shipping()
+    {
+        $this->parts('shipping');
     }
 }
