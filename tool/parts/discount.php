@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-field">
-        <div class="form-label">We Offer other unpublished discounts. Check the boxes that would apply.</div>
+        <div class="form-label">We offer other unpublished discounts. Check the boxes that would apply.</div>
         <div class="checkbox">
             <input type="checkbox" name="discount[]" id="checkbox-discount-1" value="First Responder and/or Military Discount - Includes the Following: Police, Fire, EMS, Nurses, Doctors & Military  |  More information will be needed by a Struck Product Specialist after you place your order.">
             <label for="checkbox-discount-1">First Responder and/or Military Discount - Includes the Following: Police, Fire, EMS, Nurses, Doctors & Military  |  More information will be needed by a Struck Product Specialist after you place your order.</label>            

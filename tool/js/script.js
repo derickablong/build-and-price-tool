@@ -3,6 +3,9 @@
 
         el_doc               : null,
         el_model             : null,
+        el_btn_continue_build: null,
+        el_btn_cancel_build  : null,
+        el_btn_build         : null,
         el_btn_back          : null,
         el_btn_next          : null,
         el_btn_start_over    : null,
@@ -82,9 +85,7 @@
         },
 
         _prev_step: function() {            
-            if (GO_BPT.current_step === 2) {
-                GO_BPT._start_over(null);
-            } else if (GO_BPT.current_step === -1) {
+            if (GO_BPT.current_step === -1) {
                 GO_BPT.current_step = 1;
                 GO_BPT._navigate();
             } else {
@@ -229,17 +230,37 @@
             GO_BPT.el_selected_shipping.addClass('applied');
         },
 
+        _before_set_model: function() {
+            $('.model-item').addClass('disabled');
+            $('.model-item').removeClass('selected');
+            GO_BPT.el_model.removeClass('disabled');
+            GO_BPT.el_model.addClass('selected');
+        },
+
+        _clear_model: function() {            
+            $('.model-item').removeClass('disabled selected');
+        },
+
+        _continue_build: function(e) {
+            e.preventDefault();
+            GO_BPT._next_step();
+        },
+
         _set_model: function(e) {
             e.preventDefault();          
             const model = $(this);  
-            GO_BPT.selected_model = model.data('model');            
-            GO_BPT.model_price = parseFloat(model.data('price'));
+
+            GO_BPT.selected_model   = model.data('model');
+            GO_BPT.model_price      = parseFloat(model.data('price'));
             GO_BPT.model_sale_price = parseFloat(model.data('sale-price'));
+
+            GO_BPT.el_model = model.closest('.model-item');
+            GO_BPT._before_set_model();
             GO_BPT._starting_cart_item();
             GO_BPT._cart_summary();
             GO_BPT._cart_model();
             GO_BPT._next_step();
-        },
+        },        
 
         _reset_fields: function() {
             GO_BPT.el_selected_shipping.removeClass('applied');            
@@ -263,6 +284,7 @@
                 GO_BPT.cart_total_sale_price = 0;
                 GO_BPT.selected_products     = [];
                 GO_BPT.el_cart_items.html('');
+                GO_BPT._clear_model();
                 GO_BPT._reset_fields();
                 GO_BPT._prev_step();
             }
@@ -271,7 +293,7 @@
         _actions: function() {
             GO_BPT.el_doc.on(
                 'click',
-                'a.build-price',
+                GO_BPT.el_btn_build,
                 GO_BPT._set_model
             );
             GO_BPT.el_doc.on(
@@ -299,23 +321,36 @@
                 GO_BPT.el_checkbox_group,
                 GO_BPT._checkbox_group
             );
+            GO_BPT.el_doc.on(
+                'click',
+                GO_BPT.el_btn_cancel_build,
+                GO_BPT._start_over
+            );
+            GO_BPT.el_doc.on(
+                'click',
+                GO_BPT.el_btn_continue_build,
+                GO_BPT._continue_build
+            );
         },
 
         _elements: function(_callback) {
-            GO_BPT.el_doc               = $(document);
-            GO_BPT.el_title             = $('.step-current-title .heading');
-            GO_BPT.el_btn_back          = '.step-nav .prev';
-            GO_BPT.el_btn_next          = '.step-nav .next';
-            GO_BPT.el_btn_start_over    = '.step-nav .start-over';
-            GO_BPT.el_btn_add_product   = '.add-product';
-            GO_BPT.el_checkbox_group    = '.checkbox-group';
-            GO_BPT.el_cart_items        = $('.selected-products');
-            GO_BPT.el_cart_total        = $('.summary-item .cart-total');
-            GO_BPT.el_cart_save         = $('.summary-item .save');
-            GO_BPT.el_products          = $('.suggested-products');
-            GO_BPT.el_discount          = $('.form-discount');
-            GO_BPT.el_shipping          = $('.form-shipping');
-            GO_BPT.el_selected_shipping = $('.selected-shipping');
+            GO_BPT.el_doc                = $(document);
+            GO_BPT.el_title              = $('.step-current-title .heading');
+            GO_BPT.el_btn_continue_build = 'a.continue';
+            GO_BPT.el_btn_build          = 'a.build-price';
+            GO_BPT.el_btn_cancel_build   = 'a.cancel-model';
+            GO_BPT.el_btn_back           = '.step-nav .prev';
+            GO_BPT.el_btn_next           = '.step-nav .next';
+            GO_BPT.el_btn_start_over     = '.step-nav .start-over';
+            GO_BPT.el_btn_add_product    = '.add-product';
+            GO_BPT.el_checkbox_group     = '.checkbox-group';
+            GO_BPT.el_cart_items         = $('.selected-products');
+            GO_BPT.el_cart_total         = $('.summary-item .cart-total');
+            GO_BPT.el_cart_save          = $('.summary-item .save');
+            GO_BPT.el_products           = $('.suggested-products');
+            GO_BPT.el_discount           = $('.form-discount');
+            GO_BPT.el_shipping           = $('.form-shipping');
+            GO_BPT.el_selected_shipping  = $('.selected-shipping');
             _callback();
         }
     }

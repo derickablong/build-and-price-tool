@@ -30,7 +30,7 @@
 }
 
 .site-main {
-    padding: 50px 7%;
+    padding: 50px 7% 0;
     max-width: 100%!important;
     width: 100%!important;
 }
@@ -192,6 +192,19 @@
     row-gap: 30px;
     border-radius: var(--bpt-box-radius);
 }
+.model-item.disabled {
+    filter: grayscale(100);
+}
+.model-item.disabled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;    
+    background-color: #ffffffa8;
+}
 .model-item:first-child .pic img {
     margin-top: 20px;
 }
@@ -269,6 +282,32 @@
 }
 .model-item .description p {
     max-width: 360px;
+}
+.model-item .cancel-model {
+    display: none;
+    background-color: var(--bpt-red);
+    color: var(--bpt-white);
+}
+.model-item .cancel-model:hover {
+    background-color: var(--bpt-red-hover);
+    color: var(--bpt-white);
+}
+.model-item .continue {
+    display: none;
+    background-color: var(--bpt-green);
+    color: var(--bpt-white);
+}
+.model-item .continue:hover {
+    background-color: var(--bpt-green-hover);
+    color: var(--bpt-white);
+}
+.model-item.selected .build-price,
+.model-item.selected .learn-more {
+    display: none;
+}
+.model-item.selected .cancel-model,
+.model-item.selected .continue {
+    display: block;
 }
 
 
@@ -623,7 +662,7 @@
     content: 'Add';
 }
 .product-item.added button .label::after {
-    content: 'Remove';
+    content: 'Cancel';
 }
 .product-item-price {
     display: flex;
@@ -703,7 +742,7 @@
     font-weight: 800;
     font-size: 20px;
     line-height: 26px;
-    color: var(--bpt-blue);
+    color: var(--bpt-green);
 }
 .checkbox-group .input-note {
     font-size: 15px;
@@ -721,15 +760,38 @@
 
 
 .bpt-footer {
-    margin-top: 10px;
-    overflow: hidden;
+    position: relative;
+    margin-top: 40px;    
+    padding: 20px 0 30px;
+}
+.bpt-footer::before,
+.bpt-footer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: var(--bpt-light-grey);
+}
+.bpt-footer::before {
+    left: -50vw;
+}
+.bpt-footer::after {
+    right: -50vw;
+}
+.bpt-footer h2,
+.bpt-footer p {
+    position: relative;
+    z-index: 5;
 }
 .bpt-footer p {
     font-size: 16px;
     line-height: 24px;
 }
-.bpt-footer h2 {
-    margin-top: 40px;
+.bpt-footer h2 {    
     font-size: 18px;
     line-height: 1;
+}
+.bpt-footer h2:not(:first-child) {
+    margin-top: 30px;
 }

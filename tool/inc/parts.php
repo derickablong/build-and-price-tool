@@ -44,6 +44,12 @@ trait GO_BPT_Parts
             'bpt-contact-number',
             [$this, 'contact_number']            
         );
+        add_action(
+            'bpt-model-cta',
+            [$this, 'model_cta'],
+            10,
+            4 
+        );
     }
 
 
@@ -59,12 +65,15 @@ trait GO_BPT_Parts
     
 
     /**
-     * Load part
-     * @param mixed $file_name
+     * Load template parts
+     * @param string $file_name
+     * @param array $variables
      * @return void
      */
-    public function parts( $file_name )
+    public function parts( $file_name, $variables = [] )
     {
+        if (!empty($variables))
+            extract($variables);
         include(GROWTH_OPTIMIZER_BPT_DIR.'tool/parts/'.$file_name.'.php');
     }
 
@@ -140,5 +149,27 @@ trait GO_BPT_Parts
     public function contact_number()
     {
         $this->parts('contact-number');
+    }
+
+    /**
+     * Model CTA
+     * 
+     * @param string $model
+     * @param string $url
+     * @param float $price
+     * @param float $sale_price
+     * @return void
+     */
+    public function model_cta($url, $model, $price = 0, $sale_price = 0)
+    {
+        $this->parts(
+            'model-cta',
+            [
+                'url'        => $url,
+                'model'      => $model,
+                'price'      => $price,
+                'sale_price' => $sale_price
+            ]
+        );
     }
 }
