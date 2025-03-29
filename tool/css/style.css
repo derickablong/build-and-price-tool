@@ -666,3 +666,18 @@
 .checkbox-group .input input {
     margin-top: 6px;
 }
+
+
+.bpt-footer {
+    margin-top: 10px;
+    overflow: hidden;
+}
+.bpt-footer p {
+    font-size: 16px;
+    line-height: 24px;
+}
+.bpt-footer h2 {
+    margin-top: 40px;
+    font-size: 18px;
+    line-height: 1;
+}
