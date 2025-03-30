@@ -39,6 +39,7 @@
         cart_total_sale_price     : 0,
         current_step              : 1,
         selected_products         : [],
+        selected_shipping         : null,
 
         _init: function() {
             GO_BPT._elements(
@@ -137,6 +138,51 @@
 
         _submit_quote: function(e) {
             e.preventDefault();
+
+            const discounts = [];
+            $('.checkbox-discount:checked').each(function() {
+                discounts.push( $(this).val() );
+            });
+
+            const shipping_address_different  = $('#show-shiipping-address').is(':checked');
+            const quote_details = {
+                model: {
+                    name      : GO_BPT.selected_model,
+                    price     : GO_BPT.model_price,
+                    sale_price: GO_BPT.model_sale_price
+                },
+                selected_products   : GO_BPT.selected_products,
+                shipping            : GO_BPT.selected_shipping,
+                email_address       : $('"#mailing_email_address"').val(),
+                subscribe_newsletter: $('#subscribe-newsletter').val(),
+                mailing_address     : {
+                    first_name    : $('#mailing_first_name').val(),
+                    last_name     : $('#mailing_last_name').val(),
+                    company       : $('#mailing_company').val(),
+                    street_address: $('#mailing_street_address').val(),
+                    city          : $('#mailing_city').val(),
+                    country       : $('#mailing_country').val(),
+                    state         : $('#mailing_state').val(),
+                    zip_code      : $('#mailing_zip_code').val(),
+                    phone_number  : $('#mailing_phone_number').val()
+                },
+                shipping_address_different: shipping_address_different,
+                shipping_address          : {
+                    first_name    : shipping_address_different ? $('#shipping_first_name').val() : '',
+                    last_name     : shipping_address_different ? $('#shipping_last_name').val() : '',
+                    company       : shipping_address_different ? $('#shipping_company').val() : '',
+                    street_address: shipping_address_different ? $('#shipping_street_address').val() : '',
+                    city          : shipping_address_different ? $('#shipping_city').val() : '',
+                    country       : shipping_address_different ? $('#shipping_country').val() : '',
+                    state         : shipping_address_different ? $('#shipping_state').val() : '',
+                    zip_code      : shipping_address_different ? $('#shipping_zip_code').val() : '',
+                    phone_number  : shipping_address_different ? $('#shipping_phone_number').val() : ''
+                },
+                hear_about_us   : $('#hear-about-us').val(),
+                discounts       : discounts,
+                other_interested: $('#other-interested').val()
+            };
+            console.log('QUOTE DETAILS', quote_details);
         },
 
         _cart_model: function() {
@@ -269,6 +315,7 @@
             e.preventDefault();            
             const input = $(this).find('input');
             input.prop('checked', true);
+            GO_BPT.selected_shipping = input.val();
             GO_BPT.el_selected_shipping.find('.selected').text(input.val());
             GO_BPT.el_selected_shipping.addClass('applied');
         },
@@ -314,6 +361,7 @@
             $('#shipping-form input').val('');
             $('.form-field textarea').val('');
             $('div.error').remove();
+            GO_BPT.el_shipping_address.removeClass('open');
         },
 
         _start_over: function(e) {

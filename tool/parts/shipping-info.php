@@ -58,7 +58,7 @@
                 <input type="text" name="mailing_phone_number" id="mailing_phone_number" placeholder="Phone">
             </div>
             <div class="checkbox">
-                <input type="checkbox" name="show-shiipping-address" id="show-shiipping-address" value="Subscribe to newsletter">
+                <input type="checkbox" name="show-shiipping-address" id="show-shiipping-address" value="1">
                 <label for="show-shiipping-address">Shipping address is different from above</label>            
             </div>
         </div>
