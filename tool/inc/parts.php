@@ -54,6 +54,12 @@ trait GO_BPT_Parts
             10,
             4 
         );
+        add_action(
+            'bpt-confirmation',
+            [$this, 'confirmation'],
+            10,
+            4 
+        );
     }
 
 
@@ -162,6 +168,15 @@ trait GO_BPT_Parts
     public function contact_number()
     {
         $this->parts('contact-number');
+    }
+
+    /**
+     * Confirmation
+     * @return void
+     */
+    public function confirmation()
+    {
+        $this->parts('confirmation');
     }
 
     /**

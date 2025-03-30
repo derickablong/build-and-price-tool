@@ -10,6 +10,7 @@
         el_btn_next               : null,
         el_btn_start_over         : null,
         el_btn_add_product        : null,
+        el_btn_submit_quote       : null,
         el_select_mailing_country : null,
         el_select_mailing_state   : null,
         el_input_mailing_phone    : null,
@@ -27,6 +28,8 @@
         el_shipping               : null,
         el_shipping_info          : null,
         el_discount               : null,
+        el_confirmation           : null,
+        el_step_header            : null,
         el_checkbox_group         : null,
         el_selected_shipping      : null,
         selected_model            : null,
@@ -88,7 +91,7 @@
                 GO_BPT.el_discount.hide();
                 GO_BPT.el_shipping.hide();
                 GO_BPT.el_products.css('display', 'grid');
-                GO_BPT._request();
+                GO_BPT._get_products();
             } else {
                 GO_BPT._shipping_discount();
             }
@@ -109,21 +112,31 @@
             GO_BPT._navigate();
         },
 
-        _request: function() {
+        _get_products: function() {
+            GO_BPT._request(
+                {
+                    action: 'bpt_model_products',
+                    model : GO_BPT.selected_model,
+                    step  : GO_BPT.current_step
+                }, function(response) {
+                    GO_BPT.el_products.html(response.products);
+                    GO_BPT._after();
+                }
+            );
+        },
+
+        _request: function(data, _callback) {
             GO_BPT._before();
             $.ajax({
                 url     : go_bpt.ajaxurl,
                 type    : 'POST',
                 dataType: 'json',
-                data    : {
-                    action: 'bpt_model_products',
-                    model : GO_BPT.selected_model,
-                    step  : GO_BPT.current_step
-                }
-            }).done(function(response) {
-                GO_BPT.el_products.html(response.products);
-                GO_BPT._after();
-            });
+                data    : data
+            }).done(_callback);
+        },
+
+        __submit_quote: function(e) {
+            e.preventDefault();
         },
 
         _cart_model: function() {
@@ -214,7 +227,9 @@
             GO_BPT.el_products.hide();
             GO_BPT.el_discount.hide();
             GO_BPT.el_shipping.hide();     
-            GO_BPT.el_shipping_info.hide();           
+            GO_BPT.el_shipping_info.hide();
+            GO_BPT.el_confirmation.hide();
+            GO_BPT.el_step_header.removeClass('disabled');
 
             if (GO_BPT.current_step === 5) {
                 GO_BPT.el_shipping.show();
@@ -222,10 +237,12 @@
             } else if (GO_BPT.current_step === 6) {
                 GO_BPT.el_shipping_info.show();
                 GO_BPT._shipping_info_step();
-            } else if (GO_BPT.current_step === 7) {
-                GO_BPT.el_shipping_info.find('form').submit();                                
-                // GO_BPT.el_discount.show();
-                // GO_BPT._discount_step();
+            } else if (GO_BPT.current_step === 7) {                
+                GO_BPT.el_discount.show();
+                GO_BPT._discount_step();
+            } else if (GO_BPT.current_step === 8) {                
+                GO_BPT.el_confirmation.show();
+                GO_BPT._confirmation_step();
             }            
         },
 
@@ -239,6 +256,10 @@
 
         _shipping_info_step: function() {
             GO_BPT.el_title.text('Shipping Details');
+        },
+
+        _confirmation_step: function() {
+            GO_BPT.el_step_header.addClass('disabled');
         },
 
         _checkbox_group: function(e) {
@@ -525,6 +546,11 @@
                 GO_BPT.el_checkbox_show_shipping,
                 GO_BPT._show_shipping_address
             );
+            GO_BPT.el_doc.on(
+                'click',
+                GO_BPT.el_btn_submit_quote,
+                GO_BPT._submit_quote
+            );
         },
 
         _elements: function(_callback) {
@@ -535,7 +561,7 @@
             GO_BPT.el_btn_cancel_build        = 'a.cancel-model';
             GO_BPT.el_btn_back                = '.step-nav .prev';
             GO_BPT.el_btn_next                = '.step-nav .next';
-            GO_BPT.el_btn_start_over          = '.step-nav .start-over';
+            GO_BPT.el_btn_start_over          = '.start-over';
             GO_BPT.el_btn_add_product         = '.add-product';
             GO_BPT.el_checkbox_group          = '.checkbox-group';
             GO_BPT.el_cart_items              = $('.selected-products');
@@ -545,6 +571,8 @@
             GO_BPT.el_discount                = $('.form-discount');
             GO_BPT.el_shipping                = $('.form-shipping');
             GO_BPT.el_shipping_info           = $('.form-shipping-info');
+            GO_BPT.el_confirmation            = $('.confirmation');
+            GO_BPT.el_step_header             = $('.step-header');
             GO_BPT.el_selected_shipping       = $('.selected-shipping');
             GO_BPT.el_select_mailing_country  = 'select#mailing_country';
             GO_BPT.el_select_mailing_state    = 'select#mailing_state';
@@ -555,6 +583,7 @@
             GO_BPT.el_shipping_address        = $('.shipping-address');
             GO_BPT.el_checkbox_show_shipping  = 'input#show-shiipping-address';
             GO_BPT.el_hidden_grecaptcha       = $('input#hidden_grecaptcha');
+            GO_BPT.el_btn_submit_quote        = '.submit-quote';
             _callback();
         }
     }

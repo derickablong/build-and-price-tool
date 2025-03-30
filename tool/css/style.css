@@ -319,6 +319,9 @@ html, body {
 .step-header {
     padding: 0 0 20px;
 }
+.step-header.disabled {
+    display: none;
+}
 .step-current-title {    
     display: flex;
     flex-direction: column;
@@ -706,7 +709,8 @@ html, body {
 
 .form-discount,
 .form-shipping,
-.form-shipping-info {
+.form-shipping-info,
+.confirmation {
     display: none;
     padding: 30px;
 }
@@ -867,4 +871,50 @@ div.error {
     line-height: 1.2;
     color: var(--bpt-red);
     margin-top: 6px;
+}
+
+.check-item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 15px;
+
+    font-family: var(--bpt-font-heading);
+    font-size: 18px;
+    font-weight: 700;
+}
+.check-item svg {
+    width: 100%;
+    height: auto;
+}
+
+.confirmation .form-label {
+    font-size: 22px;
+    font-weight: 700;
+}
+.confirmation .cta {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.confirmation .cta a {
+    font-family: var(--bpt-font-heading);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    line-height: 1;
+    padding: 10px;
+    color: var(--bpt-white)!important;
+}
+.confirmation .start-over {
+    background-color: var(--bpt-btn-learn-more);    
+}
+.confirmation .start-over:hover {
+    background-color: var(--bpt-btn-learn-more-hover);
+}
+.confirmation .submit-quote {
+    background-color: var(--bpt-green);
+}
+.confirmation .submit-quote:hover {
+    background-color: var(--bpt-green-hover);
 }
