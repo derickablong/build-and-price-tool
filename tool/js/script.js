@@ -153,8 +153,8 @@
                 },
                 selected_products   : GO_BPT.selected_products,
                 shipping            : GO_BPT.selected_shipping,
-                email_address       : $('"#mailing_email_address"').val(),
-                subscribe_newsletter: $('#subscribe-newsletter').val(),
+                email_address       : $('#mailing_email_address').val(),
+                subscribe_newsletter: $('#subscribe-newsletter').is(':checked'),
                 mailing_address     : {
                     first_name    : $('#mailing_first_name').val(),
                     last_name     : $('#mailing_last_name').val(),
