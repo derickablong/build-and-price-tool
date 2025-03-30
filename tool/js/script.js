@@ -135,7 +135,7 @@
             }).done(_callback);
         },
 
-        __submit_quote: function(e) {
+        _submit_quote: function(e) {
             e.preventDefault();
         },
 
@@ -223,14 +223,17 @@
             return price.toLocaleString("en-IN", options);
         },
 
-        _shipping_discount: function() {
+        _clear_step: function() {
             GO_BPT.el_products.hide();
             GO_BPT.el_discount.hide();
             GO_BPT.el_shipping.hide();     
             GO_BPT.el_shipping_info.hide();
             GO_BPT.el_confirmation.hide();
             GO_BPT.el_step_header.removeClass('disabled');
+        },
 
+        _shipping_discount: function() {
+            GO_BPT._clear_step();
             if (GO_BPT.current_step === 5) {
                 GO_BPT.el_shipping.show();
                 GO_BPT._shipping_step();
@@ -308,7 +311,9 @@
             $('.checkbox-group input').prop('checked', false);
             $('.form-field input[type="checkbox"]').prop('checked', false);
             $('.form-field select').val('');
+            $('#shipping-form input').val('');
             $('.form-field textarea').val('');
+            $('div.error').remove();
         },
 
         _start_over: function(e) {
@@ -316,6 +321,7 @@
                 e.preventDefault();
             }
             if (confirm('Are you sure to start over again?')) {
+                GO_BPT._clear_step();
                 GO_BPT.current_step          = -1;
                 GO_BPT.selected_model        = null;
                 GO_BPT.model_price           = 0;
