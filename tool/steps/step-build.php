@@ -6,9 +6,10 @@
         
         <div class="suggested-products"></div>
 
-        <?php 
-        do_action('bpt-discount');
+        <?php         
         do_action('bpt-shipping'); 
+        do_action('bpt-shipping-info'); 
+        do_action('bpt-discount');
         do_action('bpt-cart'); 
         ?>
         

@@ -30,6 +30,10 @@ trait GO_BPT_Parts
         add_action(
             'bpt-shipping',
             [$this, 'shipping']
+        );
+        add_action(
+            'bpt-shipping-info',
+            [$this, 'shipping_info']
         );        
         add_action(
             'bpt-product-item',
@@ -140,6 +144,15 @@ trait GO_BPT_Parts
     public function shipping()
     {
         $this->parts('shipping');
+    }
+
+    /**
+     * Shipping info
+     * @return void
+     */
+    public function shipping_info()
+    {
+        $this->parts('shipping-info');
     }
 
     /**

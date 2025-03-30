@@ -705,7 +705,8 @@ html, body {
 
 
 .form-discount,
-.form-shipping {
+.form-shipping,
+.form-shipping-info {
     display: none;
     padding: 30px;
 }
@@ -820,4 +821,50 @@ html, body {
 }
 .bpt-footer h2:not(:first-child) {
     margin-top: 30px;
+}
+
+
+.form-shipping-info .form-field {
+    margin-bottom: 40px;
+}
+.form-shipping-info .form-field,
+.mailing-address,
+.shipping-address {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.shipping-address {
+    display: none!important;
+}
+.shipping-address.open {
+    display: flex!important;
+}
+.form-shipping-info .input-group {
+    display: grid;
+    gap: 10px;
+}
+.input-group.col-2 {
+    grid-template-columns: repeat(2,1fr);
+}
+.input-group.col-3 {
+    grid-template-columns: repeat(3,1fr);
+}
+.form-shipping-info .input-full input[type="text"],
+.form-shipping-info .input-full input[type="email"],
+.form-shipping-info .input-full input[type="number"],
+.form-shipping-info .input-full input[type="phone"],
+.form-shipping-info .input-full textarea,
+.form-shipping-info .input-full select {
+    width: 100%;
+}
+.form-shipping-info .checkbox {
+    margin-top: 0;
+}
+
+div.error {
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--bpt-red);
+    margin-top: 6px;
 }

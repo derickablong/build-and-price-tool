@@ -1,0 +1,359 @@
+[
+	{
+	"name": "Alberta",
+	"shortname": "AB",
+	"country": "Canada"
+	},
+
+	{
+	"name": "British Columbia",
+	"shortname": "BC",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Manitoba",
+	"shortname": "MB",
+	"country": "Canada"
+	},
+
+	{
+	"name": "New Brunswick",
+	"shortname": "NB",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Newfoundland and Labrador",
+	"shortname": "NL",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Nova Scotia",
+	"shortname": "NS",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Ontario",
+	"shortname": "ON",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Prince Edward Island",
+	"shortname": "PE",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Quebec",
+	"shortname": "QC",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Saskatchewan",
+	"shortname": "SK",
+	"country": "Canada"
+	},
+
+	{
+	"name": "Alabama",
+	"shortname": "AL",
+	"country": "United States"
+	},
+
+	{
+	"name": "Alaska",
+	"shortname": "AK",
+	"country": "United States"
+	},
+
+	{
+	"name": "Arizona",
+	"shortname": "aZ",
+	"country": "United States"
+	},
+
+	{
+	"name": "Arkansas",
+	"shortname": "AR",
+	"country": "United States"
+	},
+
+	{
+	"name": "California",
+	"shortname": "Canada",
+	"country": "United States"
+	},
+
+	{
+	"name": "Colorado",
+	"shortname": "CO",
+	"country": "United States"
+	},
+	{
+	"name": "Connecticut",
+	"shortname": "CT",
+	"country": "United States"
+	},
+
+	{
+	"name": "Delaware",
+	"shortname": "DE",
+	"country": "United States"
+	},
+	{
+	"name": "Florida",
+	"shortname": "FL",
+	"country": "United States"
+	},
+
+	{
+	"name": "Georgia",
+	"shortname": "GA",
+	"country": "United States"
+	},
+
+	{
+	"name": "Hawaii",
+	"shortname": "HI",
+	"country": "United States"
+	},
+
+	{
+	"name": "Idaho",
+	"shortname": "ID",
+	"country": "United States"
+	},
+	{
+	"name": "Illinois",
+	"shortname": "IL",
+	"country": "United States"
+	},
+
+	{
+	"name": "Indiana",
+	"shortname": "IN",
+	"country": "United States"
+	},
+
+	{
+	"name": "Iowa",
+	"shortname": "IA",
+	"country": "United States"
+	},
+
+	{
+	"name": "Kansas",
+	"shortname": "KS",
+	"country": "United States"
+	},
+
+	{
+	"name": "Kentucky",
+	"shortname": "KY",
+	"country": "United States"
+	},
+
+	{
+	"name": "Louisiana",
+	"shortname": "LA",
+	"country": "United States"
+	},
+
+	{
+	"name": "Maine",
+	"shortname": "ME",
+	"country": "United States"
+	},
+
+	{
+	"name": "Maryland",
+	"shortname": "MD",
+	"country": "United States"
+	},
+
+	{
+	"name": "Massachusetts",
+	"shortname": "MA",
+	"country": "United States"
+	},
+
+	{
+	"name": "Michigan",
+	"shortname": "MI",
+	"country": "United States"
+	},
+
+	{
+	"name": "Minnesota",
+	"shortname": "MN",
+	"country": "United States"
+	},
+
+	{
+	"name": "Mississippi",
+	"shortname": "MS",
+	"country": "United States"
+	},
+
+	{
+	"name": "Missouri",
+	"shortname": "MO",
+	"country": "United States"
+	},
+
+	{
+	"name": "Montana",
+	"shortname": "MT",
+	"country": "United States"
+	},
+
+	{
+	"name": "Nebraska",
+	"shortname": "NE",
+	"country": "United States"
+	},
+
+	{
+	"name": "Nevada",
+	"shortname": "NV",
+	"country": "United States"
+	},
+
+	{
+	"name": "New Hampshire",
+	"shortname": "NH",
+	"country": "United States"
+	},
+
+	{
+	"name": "New Jersey",
+	"shortname": "NJ",
+	"country": "United States"
+	},
+
+	{
+	"name": "New Mexico",
+	"shortname": "NM",
+	"country": "United States"
+	},
+
+	{
+	"name": "New York",
+	"shortname": "NY",
+	"country": "United States"
+	},
+
+	{
+	"name": "North Carolina",
+	"shortname": "NC",
+	"country": "United States"
+	},
+
+	{
+	"name": "North Dakota",
+	"shortname": "ND",
+	"country": "United States"
+	},
+
+	{
+	"name": "Ohio",
+	"shortname": "OH",
+	"country": "United States"
+	},
+
+	{
+	"name": "Oklahoma",
+	"shortname": "OK",
+	"country": "United States"
+	},
+
+	{
+	"name": "Oregon",
+	"shortname": "OR",
+	"country": "United States"
+	},
+
+	{
+	"name": "Pennsylvania",
+	"shortname": "PE",
+	"country": "United States"
+	},
+
+	{
+	"name": "Rhode Island",
+	"shortname": "RI",
+	"country": "United States"
+	},
+
+	{
+	"name": "South Carolina",
+	"shortname": "SC",
+	"country": "United States"
+	},
+
+	{
+	"name": "South Dakota",
+	"shortname": "SD",
+	"country": "United States"
+	},
+
+	{
+	"name": "Tennessee",
+	"shortname": "TN",
+	"country": "United States"
+	},
+
+	{
+	"name": "Texas",
+	"shortname": "TX",
+	"country": "United States"
+	},
+
+	{
+	"name": "Utah",
+	"shortname": "UT",
+	"country": "United States"
+	},
+
+	{
+	"name": "Vermont",
+	"shortname": "VT",
+	"country": "United States"
+	},
+
+	{
+	"name": "Virginia",
+	"shortname": "VA",
+	"country": "United States"
+	},
+
+	{
+	"name": "Washington",
+	"shortname": "WA",
+	"country": "United States"
+	},
+
+	{
+	"name": "West Virginia",
+	"shortname": "WV",
+	"country": "United States"
+	},
+
+	{
+	"name": "Wisconsin",
+	"shortname": "WI",
+	"country": "United States"
+	},
+
+	{
+	"name": "Wyoming",
+	"shortname": "WY",
+	"country": "United States"
+	}
+
+]

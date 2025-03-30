@@ -33,6 +33,20 @@ trait GO_BPT_Library
             'all' 
         );
         wp_register_script(
+            'go-bpt-phone-script',
+            $this->url . 'tool/js/phone.js',
+            array('jquery'),
+            uniqid(),            
+            true
+        );
+        wp_register_script(
+            'go-bpt-validate-script',
+            $this->url . 'tool/js/validate.js',
+            array('jquery'),
+            uniqid(),            
+            true
+        );
+        wp_register_script(
             'go-bpt-script',
             $this->url . 'tool/js/script.js',
             array('jquery'),
@@ -43,7 +57,8 @@ trait GO_BPT_Library
             'go-bpt-script',
             'go_bpt',
             [
-                'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) )
+                'ajaxurl'    => esc_url( admin_url( 'admin-ajax.php' ) ),
+                'plugin_url' => $this->url
             ]
         );
     }
