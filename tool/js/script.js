@@ -177,8 +177,8 @@
                 GO_BPT.selected_products.push({
                     ID        : product.data('product'),
                     title     : product.find('.product-item-title').text(),
-                    reg_price : GO_BPT._format_price( product.data('reg-price') ),
-                    sale_price: GO_BPT._format_price( product.data('sale-price') )
+                    reg_price : GO_BPT._format_price( parseFloat(product.data('reg-price')) ),
+                    sale_price: GO_BPT._format_price( parseFloat(product.data('sale-price')) )
                 });
             }            
             GO_BPT._cart(

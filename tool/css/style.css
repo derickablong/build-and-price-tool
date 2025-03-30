@@ -3,6 +3,7 @@
 :root {
     --bpt-grey: #ccc;
     --bpt-white: #fff;
+    --bpt-dark-black: #000;
     --bpt-black: #1e2d3b;
     --bpt-yellow: #EDCD1F;
     --bpt-white-grey: #f7f7f7;
@@ -348,7 +349,7 @@ html, body {
     grid-template-columns: repeat(3,1fr);
     gap: 6px;
     width: 100%;
-    max-width: 300px;
+    max-width: 300px;    
 }
 .step-nav button {
     display: flex;
@@ -422,7 +423,8 @@ html, body {
 .step-products {    
     background-color: var(--bpt-white);
     border: solid 1px var(--bpt-light-grey);        
-    border-radius: var(--bpt-box-radius);    
+    border-radius: var(--bpt-box-radius);
+    overflow: hidden;    
 }
 .step-mini-cart {    
     border-left: solid 1px var(--bpt-light-grey);
@@ -450,12 +452,15 @@ html, body {
     font-size: 14px;
     line-height: 1;
     color: var(--bpt-black);
-    border-bottom: solid 3px var(--bpt-black);
+    border-bottom: solid 2px var(--bpt-black);
     text-align: center;
     padding-bottom: 2px;
 }
 .cart-item {
-    border-bottom: dashed 1px var(--bpt-inactive-color);
+    border-top: dashed 1px var(--bpt-inactive-color);
+}
+.cart-item.item-model {
+    border-top: none;
 }
 .cart-item.item-model .name {
     font-size: 20px!important;
@@ -467,10 +472,7 @@ html, body {
 }
 .cart-item.item-model .name,
 .cart-item.item-model .num {
-    color: #000;
-}
-.cart-item:last-child {
-    border-bottom: none;
+    color: var(--bpt-dark-black);
 }
 .cart-item .cart-col {
     font-size: 13px;
@@ -487,7 +489,7 @@ html, body {
 }
 
 .cart-summary {
-    border-top: solid 3px var(--bpt-black);
+    border-top: solid 2px var(--bpt-black);
     padding-bottom: 10px;
 }
 .cart-summary .summary-item {    
@@ -510,7 +512,7 @@ html, body {
 .cart-summary .num {
     font-size: 20px;
     font-weight: 800; 
-    color: var(--bpt-blue);   
+    color: var(--bpt-dark-black);   
 }
 .cart-summary .save {
     color: var(--bpt-red);
@@ -552,7 +554,7 @@ html, body {
     line-height: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .contact-number .phone-number a {
     text-decoration: none;
@@ -561,7 +563,7 @@ html, body {
 
 
 .selected-shipping {    
-    border-top: solid 3px var(--bpt-black);
+    border-top: solid 2px var(--bpt-black);
     padding: 10px 0;
     display: grid;
     grid-template-columns: 40px 1fr;
@@ -717,7 +719,7 @@ html, body {
     font-size: 18px;
     line-height: 1.2;
     margin-bottom: 6px;
-    color: #000;
+    color: var(--bpt-dark-black);
 }
 .form-field .checkbox {
     display: flex;
