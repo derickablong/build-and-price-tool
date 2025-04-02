@@ -182,7 +182,13 @@
                 discounts       : discounts,
                 other_interested: $('#other-interested').val()
             };
-            console.log('QUOTE DETAILS', quote_details);
+            
+            GO_BPT._request({
+                action: 'bpt_submit_quote',
+                quote_details: quote_details
+            }, function(response) {
+                console.log(response);
+            });
         },
 
         _cart_model: function() {
@@ -211,7 +217,7 @@
         },
 
         _cart_total: function(item) {
-            GO_BPT.cart_total_price += parseFloat(item.reg_price);
+            GO_BPT.cart_total_price += parseFloat(item.reg_price.replace(',',''));
             if (parseFloat(item.sale_price) > 0) {
                 GO_BPT.cart_total_sale_price += parseFloat(item.sale_price);
             }

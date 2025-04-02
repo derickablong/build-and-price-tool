@@ -35,6 +35,8 @@ define('MODEL9500_UPGRADES', 73);
 define('GROWTH_OPTIMIZER_BPT_DIR', plugin_dir_path( __FILE__ ));
 define('GROWTH_OPTIMIZER_BPT_URL', plugin_dir_url( __FILE__ ));
 
+# Database
+require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/database.php');
 # Includes
 require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/library.php');
 # Template parts

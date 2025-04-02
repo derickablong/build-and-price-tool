@@ -4,6 +4,10 @@ namespace GO_BPT;
 
 trait GO_BPT_Ajax
 {
+    /**
+     * Register AJAX
+     * @return void
+     */
     public function register_ajax()
     {
         add_action(
@@ -14,9 +18,21 @@ trait GO_BPT_Ajax
             'wp_ajax_nopriv_bpt_model_products',
             [$this, 'products']
         );
+        add_action(
+            'wp_ajax_bpt_submit_quote',
+            [$this, 'submit_quote']
+        );
+        add_action(
+            'wp_ajax_nopriv_bpt_submit_quote',
+            [$this, 'submit_quote']
+        );
     }
 
 
+    /**
+     * Get products
+     * @return void
+     */
     public function products()
     {
         ob_start();
@@ -50,6 +66,22 @@ trait GO_BPT_Ajax
 
         wp_send_json([
             'products' => ob_get_clean()
+        ]);
+        wp_die();
+    }
+
+    /**
+     * Submit quote
+     * @return void
+     */
+    public function submit_quote()
+    {
+        $quote_details = $_POST['quote_details'];
+        $respose       = $this->record($quote_details);
+
+        wp_send_json([
+            'token'   => $respose,
+            'details' => $quote_details
         ]);
         wp_die();
     }
