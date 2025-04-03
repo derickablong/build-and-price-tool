@@ -111,7 +111,7 @@
             <div class="form-label">Please click on the small square below, then click the green colored "Next" button to move forward with your build.</div>
             <script src='https://www.google.com/recaptcha/api.js'></script>
             <div class="g-recaptcha" data-sitekey="<?php echo get_option( 'rg_gforms_captcha_public_key', '' ) ?>"
-                data-callback="recaptchaCallback" data-expired-callback="recaptchaExpired"></div>
+                data-callback="recaptchaCallback" data-expired-callback="recaptchaExpired" data-size="normal"></div>
             <input id="hidden_grecaptcha" name="hidden_grecaptcha" type="text"
                 style="opacity: 0; position: absolute; top: 15; left: 0; height: 1px; width: 1px;" />
             <span>This is to prove you are an actual person</span>

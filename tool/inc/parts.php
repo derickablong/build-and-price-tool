@@ -60,6 +60,12 @@ trait GO_BPT_Parts
             10,
             4 
         );
+        add_action(
+            'bpt-quote-details',
+            [$this, 'quote_details'],
+            10,
+            4 
+        );
     }
 
 
@@ -199,5 +205,15 @@ trait GO_BPT_Parts
                 'sale_price' => $sale_price
             ]
         );
+    }
+
+    /**
+     * Quote details
+     * @param string $key
+     * @return void
+     */
+    public function quote_details($key)
+    {
+        $this->parts('quote-details', ['key' => $key]);
     }
 }
