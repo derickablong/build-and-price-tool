@@ -21,7 +21,8 @@ trait GO_BPT_Parts
         );
         add_action(
             'bpt-step-build',
-            [$this, 'step_build']
+            [$this, 'step_build'],
+            10, 1
         );     
         add_action(
             'bpt-discount',
@@ -33,7 +34,8 @@ trait GO_BPT_Parts
         );
         add_action(
             'bpt-shipping-info',
-            [$this, 'shipping_info']
+            [$this, 'shipping_info'],
+            10, 1
         );        
         add_action(
             'bpt-product-item',
@@ -66,16 +68,25 @@ trait GO_BPT_Parts
             10,
             4 
         );
+        add_action(
+            'bpt-shipping-form',
+            [$this, 'shipping_form'],
+            10,
+            1 
+        );
     }
 
 
     /**
      * Load step
      * @param mixed $file_name
+     * @param array $variables
      * @return void
      */
-    public function step( $file_name )
+    public function step( $file_name, $variables = [] )
     {
+        if (!empty($variables))
+            extract($variables);
         include(GROWTH_OPTIMIZER_BPT_DIR.'tool/steps/'.$file_name.'.php');
     }
     
@@ -115,11 +126,12 @@ trait GO_BPT_Parts
 
     /**
      * Step 2 to last step
+     * @param string $token
      * @return void
      */
-    public function step_build()
+    public function step_build($token)
     {
-        $this->step('step-build');
+        $this->step('step-build', ['token' => $token]);
     }
 
     /**
@@ -160,11 +172,12 @@ trait GO_BPT_Parts
 
     /**
      * Shipping info
+     * @param string $token
      * @return void
      */
-    public function shipping_info()
+    public function shipping_info($token)
     {
-        $this->parts('shipping-info');
+        $this->parts('shipping-info', ['token' => $token]);
     }
 
     /**
@@ -215,5 +228,15 @@ trait GO_BPT_Parts
     public function quote_details($key)
     {
         $this->parts('quote-details', ['key' => $key]);
+    }
+
+    /**
+     * Shipping form
+     * @param string $token
+     * @return void
+     */
+    public function shipping_form($token)
+    {
+        $this->parts('form', ['token' => $token]);
     }
 }

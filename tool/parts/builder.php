@@ -38,11 +38,11 @@
     <div class="bpt-tabs-content">
         <?php
         do_action('bpt-step-1');
-        do_action('bpt-step-build');        
+        do_action('bpt-step-build', $token);        
         ?>
     </div>
 
-    <div class="bpt-footer">
+    <div class="bpt-footer">        
         <h2>Please Note</h2>
         <p><strong>Prices shown are for informational purposes only. Subject to any required attachments needed, any shipping cost or sales and use tax. Your final purchase price will be reflected after you receive your final quote from us in approx. 72 hrs. </strong></p>
         <p>Shipping cost or any applicable taxes are not reflected in the build and price tool. <strong>We do NOT collect sales and use tax when we ship to an address outside of WI.</strong> We DO collect sales tax when shipping to a delivery address in WI, or if a machine is picked up at our factory, unless you are exempt from sales and use tax. Delivery to other countries: All customers outside the US and Canada must find a freight forwarder to handle the shipping, crating, and any other duties, taxes or other fees. The freight forwarders only deliver to a business address. If you do not have a business address they can deliver to the countries closest port and then you can pick up the unit at the port or make other arrangements for the items to be directly delivered to you. Merchandise is payable directly to the Struck Corporation by wire transfer or PayPal. A 40% deposit is required to place an order, with the remaining balance due right before we ship.</p>

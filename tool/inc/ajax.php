@@ -76,12 +76,14 @@ trait GO_BPT_Ajax
      */
     public function submit_quote()
     {
-        $quote_details = $_POST['quote_details'];
-        $respose       = $this->record($quote_details);
+        $model    = $_POST['model'];
+        $products = $_POST['products'];
+        $shipping = $_POST['shipping'];
+        $token    = $_POST['token'];
+        $response = $this->record($token, $model, $products, $shipping);
 
         wp_send_json([
-            'token'   => $respose,
-            'details' => $quote_details
+            'token'   => $response
         ]);
         wp_die();
     }

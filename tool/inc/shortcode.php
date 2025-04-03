@@ -23,6 +23,8 @@ trait GO_BPT_Shortcode
      */
     public function shortcode()
     {
+        $token = bin2hex(random_bytes(30));
+
         ob_start();
         wp_enqueue_style('go-bpt-css');
         wp_enqueue_script('go-bpt-phone-script');

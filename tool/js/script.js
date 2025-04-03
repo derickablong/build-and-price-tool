@@ -1,45 +1,37 @@
 (function($) {
-    GO_BPT = {
+    'use strict';
+    const GO_BPT = {
 
-        el_doc                    : null,
-        el_model                  : null,
-        el_btn_continue_build     : null,
-        el_btn_cancel_build       : null,
-        el_btn_build              : null,
-        el_btn_back               : null,
-        el_btn_next               : null,
-        el_btn_start_over         : null,
-        el_btn_add_product        : null,
-        el_btn_submit_quote       : null,
-        el_select_mailing_country : null,
-        el_select_mailing_state   : null,
-        el_input_mailing_phone    : null,
-        el_select_shipping_country: null,
-        el_select_shipping_state  : null,
-        el_input_shipping_phone   : null,
-        el_shipping_address       : null,
-        el_checkbox_show_shipping : null,
-        el_hidden_grecaptcha      : null,
-        el_title                  : null,
-        el_cart_items             : null,
-        el_cart_total             : null,
-        el_cart_save              : null,
-        el_products               : null,
-        el_shipping               : null,
-        el_shipping_info          : null,
-        el_discount               : null,
-        el_confirmation           : null,
-        el_step_header            : null,
-        el_checkbox_group         : null,
-        el_selected_shipping      : null,
-        selected_model            : null,
-        model_price               : 0,
-        model_sale_price          : 0,
-        cart_total_price          : 0,
-        cart_total_sale_price     : 0,
-        current_step              : 1,
-        selected_products         : [],
-        selected_shipping         : null,
+        el_doc               : null,
+        el_model             : null,
+        el_btn_continue_build: null,
+        el_btn_cancel_build  : null,
+        el_btn_build         : null,
+        el_btn_back          : null,
+        el_btn_next          : null,
+        el_btn_start_over    : null,
+        el_btn_add_product   : null,
+        el_input_token       : null,
+        el_title             : null,
+        el_cart_items        : null,
+        el_cart_total        : null,
+        el_cart_save         : null,
+        el_products          : null,
+        el_shipping          : null,
+        el_shipping_info     : null,
+        el_discount          : null,
+        el_confirmation      : null,
+        el_step_header       : null,
+        el_checkbox_group    : null,
+        el_selected_shipping : null,
+        selected_model       : null,
+        model_price          : 0,
+        model_sale_price     : 0,
+        cart_total_price     : 0,
+        cart_total_sale_price: 0,
+        current_step         : 1,
+        selected_products    : [],
+        selected_shipping    : null,
 
         _init: function() {
             GO_BPT._elements(
@@ -88,8 +80,7 @@
             GO_BPT._tabs();
             GO_BPT._steps();
 
-            if (GO_BPT.current_step <= 4) {
-                GO_BPT.el_discount.hide();
+            if (GO_BPT.current_step <= 4) {             
                 GO_BPT.el_shipping.hide();
                 GO_BPT.el_products.css('display', 'grid');
                 GO_BPT._get_products();
@@ -136,60 +127,22 @@
             }).done(_callback);
         },
 
-        _quote_details: function() {
-            const discounts = [];
-            $('.checkbox-discount:checked').each(function() {
-                discounts.push( GO_BPT._val(this) );
-            });
-
-            const shipping_address_different  = $('#show-shiipping-address').is(':checked');
-            const quote_details = {
-                model: {
+        _quote_details: function() {            
+            return {
+                action: 'bpt_submit_quote',
+                token : GO_BPT.el_input_token.val(),
+                model : {
                     name      : GO_BPT.selected_model,
                     price     : GO_BPT.model_price,
                     sale_price: GO_BPT.model_sale_price
                 },
-                selected_products    : GO_BPT.selected_products,
-                shipping             : GO_BPT.selected_shipping,
-                email_address        : GO_BPT._val('#mailing_email_address'),
-                confirm_email_address: GO_BPT._val('#mailing_confirm_email_address'),
-                subscribe_newsletter : $('#subscribe-newsletter').is(':checked'),
-                mailing_details      : {
-                    first_name    : GO_BPT._val('#mailing_first_name'),
-                    last_name     : GO_BPT._val('#mailing_last_name'),
-                    company       : GO_BPT._val('#mailing_company'),
-                    street_address: GO_BPT._val('#mailing_street_address'),
-                    city          : GO_BPT._val('#mailing_city'),
-                    country       : GO_BPT._val('#mailing_country'),
-                    state         : GO_BPT._val('#mailing_state'),
-                    zip_code      : GO_BPT._val('#mailing_zip_code'),
-                    phone_number  : GO_BPT._val('#mailing_phone_number')
-                },
-                shipping_address_different: shipping_address_different,
-                shipping_details          : {
-                    first_name    : shipping_address_different ? GO_BPT._val('#shipping_first_name') : '',
-                    last_name     : shipping_address_different ? GO_BPT._val('#shipping_last_name') : '',
-                    company       : shipping_address_different ? GO_BPT._val('#shipping_company') : '',
-                    street_address: shipping_address_different ? GO_BPT._val('#shipping_street_address') : '',
-                    city          : shipping_address_different ? GO_BPT._val('#shipping_city') : '',
-                    country       : shipping_address_different ? GO_BPT._val('#shipping_country') : '',
-                    state         : shipping_address_different ? GO_BPT._val('#shipping_state') : '',
-                    zip_code      : shipping_address_different ? GO_BPT._val('#shipping_zip_code') : '',
-                    phone_number  : shipping_address_different ? GO_BPT._val('#shipping_phone_number') : ''
-                },
-                hear_about_us   : GO_BPT._val('#hear-about-us'),
-                discounts       : discounts,
-                other_interested: GO_BPT._val('#other-interested')
-            };
-            return quote_details;
+                products: GO_BPT.selected_products,
+                shipping: GO_BPT.selected_shipping
+            };            
         },
 
-        _submit_quote: function(e) {
-            e.preventDefault();
-            GO_BPT._request({
-                action: 'bpt_submit_quote',
-                quote_details: GO_BPT._quote_details()
-            }, function(response) {
+        _submit_quote: function() {            
+            GO_BPT._request(GO_BPT._quote_details(), function(response) {
                 console.log(response);
             });
         },
@@ -283,78 +236,24 @@
         },
 
         _clear_step: function() {
-            GO_BPT.el_products.hide();
-            GO_BPT.el_discount.hide();
+            GO_BPT.el_products.hide();         
             GO_BPT.el_shipping.hide();     
-            GO_BPT.el_shipping_info.hide();
-            GO_BPT.el_confirmation.hide();
+            GO_BPT.el_shipping_info.hide();            
             GO_BPT.el_step_header.removeClass('disabled');
-        },
-
-        _is_not_empty: function(field) {                        
-            return typeof(field) !== 'undefined' && field !== '' && field !== null;
-        },
-
-        _validate_shipping_details: function() {
-            const quote_details = GO_BPT._quote_details();
-            const details = quote_details.mailing_details;
-            return GO_BPT._is_not_empty(quote_details.email_address) || GO_BPT._is_not_empty(quote_details.confirm_email_address) || GO_BPT._is_not_empty(details.first_name) || GO_BPT._is_not_empty(details.last_name)
-                   || GO_BPT._is_not_empty(details.street_address) || GO_BPT._is_not_empty(details.city) || GO_BPT._is_not_empty(details.country) || GO_BPT._is_not_empty(details.state)
-                   ||GO_BPT._is_not_empty(details.zip_code) || GO_BPT._is_not_empty(details.phone_number);
-        },
-
-        _validate_shipping: function(_callback) {                  
-            if (GO_BPT.current_step === 6 && GO_BPT.selected_shipping === null) {
-                alert('Please select shipping options.');
-                GO_BPT.current_step = 5;
-            } else if (GO_BPT.current_step === 7 && GO_BPT._validate_shipping_details() === false) {
-                alert('Shipping details is required.');
-                GO_BPT.el_shipping_info.find('input').each(function() {
-                    const element = $(this);
-                    element.focus();
-                    setTimeout(function() {
-                        element.blur();
-                    }, 100);
-                });
-                GO_BPT.el_shipping_info.find('select').each(function() {
-                    const element = $(this);
-                    element.focus();
-                    setTimeout(function() {
-                        element.blur();
-                    }, 100);
-                });
-                GO_BPT.current_step = 6;
-            }
-            
-            _callback();
-        },
+        },        
 
         _shipping_discount: function() {
             GO_BPT._clear_step();
-            GO_BPT._validate_shipping(
-                GO_BPT._process_shipping
-            );
-        },
-
-        _process_shipping: function() {
             if (GO_BPT.current_step === 5) {
                 GO_BPT.el_shipping.show();
                 GO_BPT._shipping_step();
-            } else if (GO_BPT.current_step === 6) {
+            } else if (GO_BPT.current_step >= 6) {
+                GO_BPT._submit_quote();
+                GO_BPT.current_step = 6;
                 GO_BPT.el_shipping_info.show();
                 GO_BPT._shipping_info_step();
-            } else if (GO_BPT.current_step === 7) {                
-                GO_BPT.el_discount.show();
-                GO_BPT._discount_step();
-            } else if (GO_BPT.current_step === 8) {                
-                GO_BPT.el_confirmation.show();
-                GO_BPT._confirmation_step();
-            }
-        },
-
-        _discount_step: function() {
-            GO_BPT.el_title.text('Discount');
-        },
+            } 
+        },                
 
         _shipping_step: function() {
             GO_BPT.el_title.text('Shipping');
@@ -362,11 +261,7 @@
 
         _shipping_info_step: function() {
             GO_BPT.el_title.text('Shipping Details');
-        },
-
-        _confirmation_step: function() {
-            GO_BPT.el_step_header.addClass('disabled');
-        },
+        },        
 
         _checkbox_group: function(e) {
             e.preventDefault();            
@@ -439,171 +334,9 @@
                 GO_BPT._reset_fields();
                 GO_BPT._prev_step();
             }
-        },
+        },                
 
-        _validate: function() {
-            GO_BPT.el_shipping_info.find('form').validate({
-                errorElement: 'div',
-                rules: {
-                    mailing_first_name    : "required",
-                    mailing_last_name     : "required",
-                    mailing_street_address: "required",
-                    mailing_city          : "required",
-                    mailing_state         : "required",
-                    mailing_zip_code      : "required",
-                    mailing_country       : "required",
-                    mailing_phone_number  : "required",
-                    mailing_email_address : {
-                        required: true,
-                        email: true
-                    },
-                    mailing_confirm_email_address: {
-                        required: true,
-                        email: true,
-                        equalTo: "#mailing_email_address"
-                    },
-                    shipping_first_name: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    shipping_last_name: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    shipping_street_address: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    shipping_street_address_2: {
-                        required: "#show-shiipping-address:checked",
-                        required: false
-                    },
-                    shipping_city: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    shipping_state: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    shipping_zip_code: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    shipping_country: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    shipping_phone_number: {
-                        required: "#show-shiipping-address:checked",
-                        required: true
-                    },
-                    hidden_grecaptcha: {
-                        required: true,
-                        minlength: "255"
-                    },
-    
-                },
-                messages: {
-                    mailing_first_name           : "Please enter your firstname",
-                    mailing_last_name            : "Please enter your lastname",
-                    mailing_street_address       : "Please enter your street address",
-                    mailing_street_address_2     : "Please enter your street address 2",
-                    mailing_city                 : "Please enter your city",
-                    mailing_state                : "Please enter your state/province",
-                    mailing_zip_code             : "Please enter your zip code",
-                    mailing_country              : "Please enter your country",
-                    shipping_first_name          : "Please enter your firstname",
-                    shipping_last_name           : "Please enter your lastname",
-                    shipping_street_address      : "Please enter your street address",
-                    shipping_street_address_2    : "Please enter your street address 2",
-                    shipping_city                : "Please enter your city",
-                    shipping_state               : "Please enter your state/province",
-                    shipping_zip_code            : "Please enter your zip code",
-                    shipping_country             : "Please enter your country",
-                    phone_number                 : "Please enter your phone number",
-                    mailing_email_address        : "Please enter a valid email address",
-                    mailing_confirm_email_address: {
-                        required: "Please provide a valid email address",
-                        equalTo: "Please enter the same email as above"
-                    },
-                    hidden_grecaptcha: "Invalid reCAPTCHA"
-                }, 
-                onfocusout: function(element, event) {
-                    this.element(element);
-                },
-                onsubmit: false
-            });           
-            
-        },
-
-        _populate_mailing_country: function() {
-            const country = GO_BPT._val(this);
-            if (country != '') {
-                GO_BPT._load_json_data(GO_BPT.el_select_mailing_state, country);
-            } else {
-                $(GO_BPT.el_select_mailing_state).html('<option value="">State</option>');                
-            }
-        },
-
-        _populate_shipping_country: function() {
-            const country = GO_BPT._val(this);
-            if (country != '') {
-                GO_BPT._load_json_data(GO_BPT.el_select_shipping_state, country);
-            } else {
-                $(GO_BPT.el_select_shipping_state).html('<option value="">State</option>');                
-            }
-        },
-
-        _show_shipping_address: function() {
-            if ($(this).is(':checked')) {
-                GO_BPT.el_shipping_address.addClass('open');
-            } else {
-                GO_BPT.el_shipping_address.removeClass('open');
-            }
-        },
-
-        _load_json_data: function(id, country) {
-            let html_code = '';
-            let jsonFile  = [];
-            if (id == GO_BPT.el_select_mailing_country || id == GO_BPT.el_select_shipping_country) {
-                html_code += '<option value="">Country</option>';
-                jsonFile = go_bpt.plugin_url + '/tool/js/country.json';
-            } else if (id == GO_BPT.el_select_mailing_state || id == GO_BPT.el_select_shipping_state) {
-                html_code += '<option value="">State</option>';
-                jsonFile = go_bpt.plugin_url + '/tool/js/state.json';
-            }
-
-            $.getJSON(jsonFile, function(data) {
-                $.each(data, function(key, value) {
-                    if (id == GO_BPT.el_select_mailing_country || id == GO_BPT.el_select_shipping_country) {
-                        html_code += '<option value="' + value.name + '">' + value.name +'</option>';
-                    } else if (id == GO_BPT.el_select_mailing_state || id == GO_BPT.el_select_shipping_state) {                        
-                        if (value.country == country) {
-                            html_code += '<option value="' + value.shortname + '">' + value.name +'</option>';
-                        }
-                    }
-                });
-                $(id).html(html_code);
-            });
-        },
-
-        _actions: function() {            
-            GO_BPT._validate();
-            GO_BPT._load_json_data(
-                GO_BPT.el_select_mailing_country,
-                null
-            );
-            GO_BPT._load_json_data(
-                GO_BPT.el_select_shipping_country,
-                null
-            );
-            GO_BPT.el_input_mailing_phone.usPhoneFormat({
-                format: '(xxx) xxx-xxxx',
-            });
-            GO_BPT.el_input_shipping_phone.usPhoneFormat({
-                format: '(xxx) xxx-xxxx',
-            });            
+        _actions: function() {                        
             GO_BPT.el_doc.on(
                 'click',
                 GO_BPT.el_btn_build,
@@ -643,27 +376,7 @@
                 'click',
                 GO_BPT.el_btn_continue_build,
                 GO_BPT._continue_build
-            );
-            GO_BPT.el_doc.on(
-                'change',
-                GO_BPT.el_select_mailing_country,
-                GO_BPT._populate_mailing_country
-            );
-            GO_BPT.el_doc.on(
-                'change',
-                GO_BPT.el_select_shipping_country,
-                GO_BPT._populate_shipping_country
-            );
-            GO_BPT.el_doc.on(
-                'click',
-                GO_BPT.el_checkbox_show_shipping,
-                GO_BPT._show_shipping_address
-            );
-            GO_BPT.el_doc.on(
-                'click',
-                GO_BPT.el_btn_submit_quote,
-                GO_BPT._submit_quote
-            );
+            );            
         },
 
         _elements: function(_callback) {
@@ -676,27 +389,16 @@
             GO_BPT.el_btn_next                = '.step-nav .next';
             GO_BPT.el_btn_start_over          = '.start-over';
             GO_BPT.el_btn_add_product         = '.add-product';
+            GO_BPT.el_input_token             = $('#quote-token');
             GO_BPT.el_checkbox_group          = '.checkbox-group';
             GO_BPT.el_cart_items              = $('.selected-products');
             GO_BPT.el_cart_total              = $('.summary-item .cart-total');
             GO_BPT.el_cart_save               = $('.summary-item .save');
-            GO_BPT.el_products                = $('.suggested-products');
-            GO_BPT.el_discount                = $('.form-discount');
+            GO_BPT.el_products                = $('.suggested-products');            
             GO_BPT.el_shipping                = $('.form-shipping');
-            GO_BPT.el_shipping_info           = $('.form-shipping-info');
-            GO_BPT.el_confirmation            = $('.confirmation');
+            GO_BPT.el_shipping_info           = $('.form-shipping-info');        
             GO_BPT.el_step_header             = $('.step-header');
-            GO_BPT.el_selected_shipping       = $('.selected-shipping');
-            GO_BPT.el_select_mailing_country  = 'select#mailing_country';
-            GO_BPT.el_select_mailing_state    = 'select#mailing_state';
-            GO_BPT.el_select_shipping_country = 'select#shipping_country';
-            GO_BPT.el_select_shipping_state   = 'select#shipping_state';
-            GO_BPT.el_input_mailing_phone     = $('input#mailing_phone_number');
-            GO_BPT.el_input_shipping_phone    = $('input#shipping_phone_number');
-            GO_BPT.el_shipping_address        = $('.shipping-address');
-            GO_BPT.el_checkbox_show_shipping  = 'input#show-shiipping-address';
-            GO_BPT.el_hidden_grecaptcha       = $('input#hidden_grecaptcha');
-            GO_BPT.el_btn_submit_quote        = '.submit-quote';
+            GO_BPT.el_selected_shipping       = $('.selected-shipping');            
             _callback();
         }
     }
