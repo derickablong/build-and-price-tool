@@ -309,7 +309,20 @@
                 GO_BPT.current_step = 5;
             } else if (GO_BPT.current_step === 7 && GO_BPT._validate_shipping_details() === false) {
                 alert('Shipping details is required.');
-                GO_BPT.el_shipping_info.find('input').focus().blur();
+                GO_BPT.el_shipping_info.find('input').each(function() {
+                    const element = $(this);
+                    element.focus();
+                    setTimeout(function() {
+                        element.blur();
+                    }, 100);
+                });
+                GO_BPT.el_shipping_info.find('select').each(function() {
+                    const element = $(this);
+                    element.focus();
+                    setTimeout(function() {
+                        element.blur();
+                    }, 100);
+                });
                 GO_BPT.current_step = 6;
             }
             
