@@ -74,6 +74,12 @@ trait GO_BPT_Parts
             10,
             1 
         );
+        add_action(
+            'bpt-footer',
+            [$this, 'footer'],
+            10,
+            1 
+        );
     }
 
 
@@ -238,5 +244,14 @@ trait GO_BPT_Parts
     public function shipping_form($token)
     {
         $this->parts('form', ['token' => $token]);
+    }
+
+    /**
+     * Footer
+     * @return void
+     */
+    public function footer()
+    {
+        $this->parts('footer');
     }
 }

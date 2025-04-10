@@ -35,11 +35,14 @@ html, body {
 }
 
 .site-main {
-    padding: 50px 7% 0;
+    padding: 50px 0 0;
     max-width: 100%!important;
     width: 100%!important;
-    padding-inline-start: 7%!important;
-    padding-inline-end: 7%!important;
+    padding-inline-start: 0!important;
+    padding-inline-end: 0!important;
+}
+.page-content {
+    margin-top: 15px;
 }
 .page-header,
 .page-content {
@@ -567,6 +570,7 @@ html, body {
     color: var(--bpt-white);
 }
 
+.strike { text-decoration: line-through!important; }
 
 .selected-shipping {    
     border-top: solid 2px var(--bpt-black);
@@ -656,9 +660,9 @@ html, body {
     color: var(--bpt-white) !important;
     border: none !important;
     text-transform: uppercase;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1;
+    font-size: 12px!important;
+    font-weight: 600!important;
+    line-height: 1!important;
     transition: all 0.3s ease-in-out;
     filter: grayscale(1);
     opacity: 0.1;
@@ -824,7 +828,7 @@ html, body {
     line-height: 24px;
 }
 .bpt-footer h2 {    
-    font-size: 18px;
+    font-size: 18px!important;
     line-height: 1;
 }
 .bpt-footer h2:not(:first-child) {
@@ -927,6 +931,13 @@ div.error {
     .entry-title {
         max-width: 100%!important;
     }
+
+    .page-content {
+        max-width: 100%!important;
+        padding-left: 7%!important;
+        padding-right: 7%!important;
+    }
+
     .bpt-tabs {
         overflow: hidden;
         border-radius: 100px;
@@ -1073,6 +1084,11 @@ div.error {
     .product-item:last-child {
         padding-bottom: 40px;
     }
+
+    .form-shipping-info{
+        padding: 0 !important;
+    }
+
 }
 @media only screen and (max-width: 600px) {
     .suggested-products {

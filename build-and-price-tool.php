@@ -17,6 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+# Build and Price Tool page
+define('BPT_PAGE', 2457);
+define('PREVIEW_PAGE', 13501);
+
 # Model Category ID
 # MODEL8500
 define('MODEL8500_FRONT_ATTACHMENT', 58);
@@ -35,6 +39,10 @@ define('MODEL9500_UPGRADES', 73);
 define('GROWTH_OPTIMIZER_BPT_DIR', plugin_dir_path( __FILE__ ));
 define('GROWTH_OPTIMIZER_BPT_URL', plugin_dir_url( __FILE__ ));
 
+# GHL
+require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/ghl.php');
+# Rewrite Role
+require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/rewrite-role.php');
 # Database
 require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/database.php');
 # Includes
