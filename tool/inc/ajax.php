@@ -40,12 +40,13 @@ trait GO_BPT_Ajax
         $tax_query = [];
         $model     = $_POST['model'];
         $step      = (int)$_POST['step'];
+        $terms     = $this->models[$model]['step-'.$step];
 
         $tax_query = [
             [
                 'taxonomy' => 'product_cat',
                 'field'    => 'term_id',
-                'terms'    => $this->models[$model]['step-'.$step]
+                'terms'    => $terms
             ]
         ];
 
@@ -55,7 +56,16 @@ trait GO_BPT_Ajax
             'posts_per_page' => -1,
             'tax_query'      => $tax_query
         ];
+
+        if (is_array($terms) && in_array(MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM, $terms)) {
+            $args['meta_query'] = [[
+                'key'   => $this->meta_box_key,
+                'value' => 1
+            ]];
+        }
+        
         $results = new \WP_Query($args);
+
         if ($results->have_posts()): 
             while ($results->have_posts()):
                 $results->the_post();                

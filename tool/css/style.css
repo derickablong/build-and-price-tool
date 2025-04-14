@@ -35,11 +35,14 @@ html, body {
 }
 
 .site-main {
-    padding: 50px 0 0;
+    padding: 0;
     max-width: 100%!important;
     width: 100%!important;
     padding-inline-start: 0!important;
     padding-inline-end: 0!important;
+}
+.page-header {
+    display: none!important;
 }
 .page-content {
     margin-top: 15px;
@@ -59,13 +62,19 @@ html, body {
     color: var(--bpt-black);
 }
 
+.bpt-container {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .bpt-container * {
     box-sizing: border-box;
 }
 
 .bpt-tabs {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: 140px 198px 1fr 1fr 1fr 1fr;
 }
 .bpt-tabs * {
     cursor: default;
@@ -82,8 +91,8 @@ html, body {
 .bpt-tabs .step-num {    
     position: relative;
     z-index: 5;
-    width: 60px;
-    height: 60px;    
+    width: 50px;
+    height: 50px;    
     border-radius: 50%;    
     background-color: var(--bpt-white-grey);
     border: solid 1px var(--bpt-grey);
@@ -91,16 +100,16 @@ html, body {
     align-items: center;
     justify-content: center;
     font-family: var(--bpt-font-heading);;
-    font-size: 34px;
+    font-size: 27px;
     font-weight: 800;
     line-height: 1;
     color: var(--bpt-inactive-color);
     transition: all 0.1s ease-out;
 }
 .bpt-tabs .step-title {
-    width: calc(100% - 60px);
+    width: calc(100% - 50px);
     font-family: var(--bpt-font-heading);;    
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     line-height: 16px;    
     position: relative;
@@ -367,11 +376,11 @@ html, body {
     justify-content: center;
     padding: 10px;
     border: none;
-    font-size: 14px;
-    line-height: 1;
+    font-size: 14px!important;
+    line-height: 1!important;
     height: 100%;    
     text-transform: uppercase;
-    font-weight: 800;
+    font-weight: 800!important;
     letter-spacing: 0.5px;
 }
 .step-nav button path {
@@ -617,6 +626,7 @@ html, body {
     grid-template-columns: 100px 1fr;
     gap: 20px;
     padding: 15px;    
+    max-height: 150px;
 }
 .product-item:nth-child(odd) {
     border-right: dashed 1px var(--bpt-light-grey);
@@ -941,6 +951,7 @@ div.error {
     .bpt-tabs {
         overflow: hidden;
         border-radius: 100px;
+        grid-template-columns: 130px 176px 1fr 1fr 1fr 1fr;
     }
     .bpt-tabs .tab-item {
         height: 50px;
@@ -1011,21 +1022,36 @@ div.error {
     }
 }
 @media only screen and (max-width: 980px) {
+    .bpt-tabs {
+        grid-template-columns: 130px 176px 1fr 1fr 1fr 133px;
+    }
+    .bpt-tabs .step-title {
+        font-size: 11px;
+    }
     .checkbox-group {
         grid-template-columns: 1fr;
     }
     .checkbox-group .img {
         display: none;
-    }
-    .form-shipping-info .input-group {
-        grid-template-columns: 1fr!important;
-    }
+    }    
 }
 @media only screen and (max-width: 950px) {
-    .bpt-tabs .step-title {
-        font-size: 11px;
-        line-height: 1;
+    .bpt-tabs {
+        border-radius: 0;
+        row-gap: 10px;    
+        grid-template-columns: repeat(3,1fr);
     }
+    .bpt-tabs .tab-3 .step-title::after {
+        width: 50%;
+        border-right: dashed 1px var(--bpt-grey);
+        right: 0;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+    }
+    .bpt-tabs .step-title {
+        font-size: 14px;
+        line-height: 1.2;
+    }    
 }
 @media only screen and (max-width: 767px) {
     .entry-title,
@@ -1040,19 +1066,11 @@ div.error {
         overflow: unset;
         height: unset;
         min-height: unset;
-        grid-template-columns: repeat(3,1fr);
-        row-gap: 10px;
+        grid-template-columns: 178px 200px 1fr;
     }
-    .bpt-tabs .step-title {
-        font-size: 11px;
-        line-height: 1;
+    .bpt-tabs .step-title {                
         padding-right: 15px;
-    }
-    .bpt-tabs .tab-3 .step-title::after {
-        border-top-right-radius: 40px;
-        border-bottom-right-radius: 40px;
-        right: 0;
-    }    
+    }       
 
     .model-item {
         grid-template-columns: 1fr;
@@ -1090,7 +1108,20 @@ div.error {
     }
 
 }
+@media only screen and (max-width: 630px) {
+    .bpt-tabs {
+        grid-template-columns: 155px 200px 1fr;
+    }
+}
 @media only screen and (max-width: 600px) {
+
+    .bpt-tabs {
+        grid-template-columns: 150px 181px 1fr;
+    }
+    .bpt-tabs .step-title {                
+        font-size: 12px;
+    }
+
     .suggested-products {
         grid-template-columns: 1fr;
     }
@@ -1103,9 +1134,9 @@ div.error {
         overflow: hidden;
     }
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 550px) {
     .bpt-tabs {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: 167px 1fr;
     }
     .bpt-tabs .tab-3 .step-title::after {
         border-top-right-radius: 0;
@@ -1118,4 +1149,17 @@ div.error {
         border-bottom-right-radius: 40px;
         right: 0;
     }    
+}
+@media only screen and (max-width: 420px) {
+    .bpt-tabs {
+        grid-template-columns: 146px 1fr;
+    }
+}
+@media only screen and (max-width: 380px) {
+    .bpt-tabs {
+        grid-template-columns: 137px 1fr;
+    }
+    .bpt-tabs .tab-2 .step-title {
+        font-size: 11px;
+    }
 }

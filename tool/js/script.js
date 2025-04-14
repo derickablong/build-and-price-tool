@@ -80,7 +80,7 @@
             GO_BPT._tabs();
             GO_BPT._steps();
 
-            if (GO_BPT.current_step <= 4) {             
+            if (GO_BPT.current_step <= 5) {             
                 GO_BPT.el_shipping.hide();
                 GO_BPT.el_products.css('display', 'grid');
                 GO_BPT._get_products();
@@ -247,13 +247,13 @@
 
         _shipping_discount: function() {
             GO_BPT._clear_step();
-            if (GO_BPT.current_step === 5) {
+            if (GO_BPT.current_step === 6) {
                 GO_BPT.el_shipping.show();
                 GO_BPT._shipping_step();
-            } else if (GO_BPT.current_step >= 6) {
+            } else if (GO_BPT.current_step >= 7) {
                 if (GO_BPT.selected_shipping === null) {
                     alert('Please select shipping.');
-                    GO_BPT.current_step = 5;
+                    GO_BPT.current_step = 6;
                     GO_BPT._navigate();
                 } else {
                     GO_BPT._submit_quote();
@@ -321,8 +321,7 @@
             $('.form-field select').val('');
             $('#shipping-form input').val('');
             $('.form-field textarea').val('');
-            $('div.error').remove();
-            GO_BPT.el_shipping_address.removeClass('open');
+            $('div.error').remove();            
         },
 
         _start_over: function(e) {

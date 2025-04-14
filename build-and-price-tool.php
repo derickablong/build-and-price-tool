@@ -5,7 +5,7 @@
  * Description:     Custom model build and price tool
  * Author:          Growth Optimizer
  * Author URI:      https://growthoptimizer.com/
- * Text Domain:     go-kit
+ * Text Domain:     go-bpt
  * Domain Path:     /languages
  * Version:         0.1.0
  *
@@ -35,10 +35,16 @@ define('MODEL9500_REAR_ATTACHMENT', 72);
 define('MODEL9500_SHOE_OPTION', 75);
 define('MODEL9500_UPGRADES', 73);
 
+# Metabox
+define('METABOX_FRONT_REAR_MOUNTING_OPTIONS_KEY', '_front_rear_mounting_options');
+
 # Absolute path
 define('GROWTH_OPTIMIZER_BPT_DIR', plugin_dir_path( __FILE__ ));
 define('GROWTH_OPTIMIZER_BPT_URL', plugin_dir_url( __FILE__ ));
 
+
+# Meta
+require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/metabox.php');
 # GHL
 require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/ghl.php');
 # Rewrite Role
@@ -63,29 +69,34 @@ new GO_Build_And_Price_Tool(
     [
         'MH8500' => [
             'step-2' => [
-                MODEL8500_FRONT_ATTACHMENT,
                 MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM
             ],
             'step-3' => [
-                MODEL8500_REAR_ATTACHMENT
+                MODEL8500_FRONT_ATTACHMENT                
             ],
             'step-4' => [
+                MODEL8500_REAR_ATTACHMENT
+            ],
+            'step-5' => [
                 MODEL8500_SHOE_OPTION,
                 MODEL8500_UPGRADES
             ]
         ],
         'MH4900' => [
-            'step-2' => [
-                MODEL9500_FRONT_ATTACHMENT,
+            'step-2' => [              
                 MODEL9500_QUICK_HITCH_MOUNTING_SYSTEM
             ],
             'step-3' => [
-                MODEL9500_REAR_ATTACHMENT
+                MODEL9500_FRONT_ATTACHMENT                
             ],
             'step-4' => [
+                MODEL9500_REAR_ATTACHMENT
+            ],
+            'step-5' => [
                 MODEL9500_SHOE_OPTION,
                 MODEL9500_UPGRADES
             ]
         ]
-    ]
+    ],
+    METABOX_FRONT_REAR_MOUNTING_OPTIONS_KEY
 );

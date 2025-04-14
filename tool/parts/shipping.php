@@ -45,8 +45,8 @@
         <div class="checkbox-group">
             <div class="input-group">
                 <div class="input">
-                    <input type="radio" name="shipping-checkbox" id="shipping-checkbox-4" value="Factory Pick-up in Cedarburg, WI">
-                    <label for="shipping-checkbox-4">Factory Pick-up in Cedarburg, WI</label>
+                    <input type="radio" name="shipping-checkbox" id="shipping-checkbox-4" value="Factory Pick-up in Niagara Wisconsin">
+                    <label for="shipping-checkbox-4">Factory Pick-up in Niagara Wisconsin</label>
                 </div>
                 <div class="input-note">Subject to a 5.5% Sales Tax, unless you are tax exempt. Talk with a Struck Product Specialist for more information.</div>
             </div>
