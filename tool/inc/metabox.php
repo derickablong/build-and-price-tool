@@ -30,46 +30,7 @@ trait GO_BPT_Metabox
 		if (!is_array($selected)) {
 			$selected = [];
 		}
-		?>		
-        <div class="bpt-metabox-field">
-            <span>
-                <input type="checkbox" id="bpt_rear_mount_options_1" name="bpt_rear_mount_options[]" value="B-SERIES" <?php echo in_array('B-SERIES', $selected) ? 'checked':'' ?>>
-            </span>
-            <label for="bpt_rear_mount_options_1">
-                <?php _e( 'B-SERIES', 'go-bpt' ); ?>
-            </label>
-        </div>
-        <div class="bpt-metabox-field">
-            <span>
-                <input type="checkbox" id="bpt_rear_mount_options_2" name="bpt_rear_mount_options[]" value="S-SERIES" <?php echo in_array('S-SERIES', $selected) ? 'checked':'' ?>>
-            </span>
-            <label for="bpt_rear_mount_options_2">
-                <?php _e( 'S-SERIES', 'go-bpt' ); ?>
-            </label>
-        </div>
-		<div class="bpt-metabox-field">
-            <span>
-                <input type="checkbox" id="bpt_rear_mount_options_3" name="bpt_rear_mount_options[]" value="MH4900" <?php echo in_array('MH4900', $selected) ? 'checked':'' ?>>
-            </span>
-            <label for="bpt_rear_mount_options_3">
-                <?php _e( 'MH4900', 'go-bpt' ); ?>
-            </label>
-        </div>
-		<div class="bpt-metabox-field">
-            <span>
-                <input type="checkbox" id="bpt_rear_mount_options_4" name="bpt_rear_mount_options[]" value="MH8500" <?php echo in_array('MH8500', $selected) ? 'checked':'' ?>>
-            </span>
-            <label for="bpt_rear_mount_options_4">
-                <?php _e( 'MH8500', 'go-bpt' ); ?>
-            </label>
-        </div>
-        <style>
-            .bpt-metabox-field {
-                display: grid;
-                grid-template-columns: 23px 1fr;
-            }            
-        </style>
-		<?php
+		do_action('bpt-metabox', $selected);
 	}
 
     public function save_metabox( $post_id ) {

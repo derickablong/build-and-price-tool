@@ -18,12 +18,22 @@ class GO_Build_And_Price_Tool
     # Metabox key
     public $meta_box_key;
 
+    # Table
+    public $table_bpt;
+    public $table_model;
+    public $table_model_category;
+
     function __construct($dir, $url, $meta_box_key)
     {
-        $this->dir          = $dir;
-        $this->url          = $url;
-        $this->models       = $this->models_steps();
-        $this->meta_box_key = $meta_box_key;
+        global $wpdb;
+
+        $this->dir                  = $dir;
+        $this->url                  = $url;
+        $this->models               = $this->models_steps();
+        $this->meta_box_key         = $meta_box_key;
+        $this->table_bpt            = $wpdb->prefix . 'bpt';
+        $this->table_model          = $wpdb->prefix . 'bpt_models';
+        $this->table_model_category = $wpdb->prefix . 'bpt_model_categories';
 
         # Admin
         $this->create_admin();

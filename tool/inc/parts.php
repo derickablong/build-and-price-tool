@@ -91,7 +91,13 @@ trait GO_BPT_Parts
             [$this, 'admin_model'],
             10,
             1
-        );        
+        );
+        add_action(
+            'bpt-metabox',
+            [$this, 'admin_metabox'],
+            10,
+            1
+        );
     }
 
 
@@ -243,6 +249,16 @@ trait GO_BPT_Parts
     public function confirmation()
     {
         $this->parts('confirmation');
+    }
+
+    /**
+     * Metabox
+     * @param string $selected
+     * @return void
+     */
+    public function admin_metabox($selected)
+    {
+        $this->parts('admin_metabox', ['selected' => $selected]);
     }
 
     /**

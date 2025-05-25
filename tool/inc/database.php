@@ -10,9 +10,8 @@ trait GO_BPT_Database
 
         $charset_collate = $wpdb->get_charset_collate();
 
-        # BPT table for quote submition
-        $table_name = $wpdb->prefix . 'bpt';
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        # BPT table for quote submition        
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->table_bpt} (
             id mediumint(9) NOT NULL AUTO_INCREMENT,            
             token tinytext NOT NULL,
             model tinytext,
@@ -24,9 +23,8 @@ trait GO_BPT_Database
         ) $charset_collate;";
         $this->generate($sql);
 
-        # BTP table for models
-        $table_name = $wpdb->prefix . 'bpt_models';
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        # BTP table for models       
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->table_model} (
             id mediumint(9) NOT NULL AUTO_INCREMENT,            
             sub_title VARCHAR(200) DEFAULT NULL,
             title VARCHAR(200) NOT NULL,
@@ -39,9 +37,8 @@ trait GO_BPT_Database
         ) $charset_collate;";
         $this->generate($sql);
 
-        # BTP table for model steps
-        $table_name = $wpdb->prefix . 'bpt_model_categories';
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        # BTP table for model steps        
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->table_model_category} (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             model_id mediumint(9) NOT NULL DEFAULT 0,            
             parent_category INT(5) NOT NULL DEFAULT 0,
@@ -77,8 +74,7 @@ trait GO_BPT_Database
      */
     public function record($token = '', $model = array(), $products = array(), $shipping_method = '', $shipping_details = array())
     {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'bpt';        
+        global $wpdb;        
 
         $data = [
             'token'            => stripslashes($token),
@@ -101,7 +97,7 @@ trait GO_BPT_Database
 
         if ($update === FALSE || $update < 1) {
             $wpdb->insert(
-                $table_name,
+                $this->table_bpt,
                 $data,
                 $format
             );        
@@ -119,11 +115,10 @@ trait GO_BPT_Database
      */
     public function update($data, $where, $format, $con_format)
     {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'bpt';        
+        global $wpdb;       
 
         return $wpdb->update(
-            $table_name,
+            $this->table_bpt,
             $data,
             $where,
             $format,
@@ -137,11 +132,10 @@ trait GO_BPT_Database
      */
     public function get($token)
     {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'bpt';
+        global $wpdb;        
         return $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM {$table_name} WHERE token=%s",
+                "SELECT * FROM {$this->table_bpt} WHERE token=%s",
                 $token
             )
         );

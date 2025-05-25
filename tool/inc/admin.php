@@ -31,16 +31,15 @@ trait GO_BPT_Admin
     
     private function models()
     {
-        global $wpdb;
-        $table  = $wpdb->prefix . 'bpt_models';
-        return $wpdb->get_results("SELECT * FROM {$table}");
+        global $wpdb;        
+        return $wpdb->get_results("SELECT * FROM {$this->table_model}");
     }
     
-    private function get_model($table, $model_id)
+    private function get_model($model_id)
     {
         global $wpdb;
         return $wpdb->get_row(
-                $wpdb->prepare("SELECT * FROM {$table} WHERE id=%d", [$model_id]),
+                $wpdb->prepare("SELECT * FROM {$this->table_model} WHERE id=%d", [$model_id]),
                 ARRAY_A
             );
     }
@@ -71,10 +70,9 @@ trait GO_BPT_Admin
             wp_enqueue_media();
         }
         wp_enqueue_style('go-bpt-admin-css');
-        wp_enqueue_script('go-bpt-admin-script');
+        wp_enqueue_script('go-bpt-admin-script');        
 
-        $table  = $wpdb->prefix . 'bpt_models';
-        $models = $wpdb->get_results("SELECT * FROM {$table}");
+        $models = $wpdb->get_results("SELECT * FROM {$this->table_model}");
         $models = !is_array($models) ? [$models] : $models;
 
         $default_model = [
@@ -87,9 +85,9 @@ trait GO_BPT_Admin
             'image'        => ''
         ];
 
-        $edit_model         = isset($_GET['model']) ? $this->get_model($table, $_GET['model']) : $default_model;
-        $manage_model       = isset($_GET['manage-model']) ? $this->get_model($table, $_GET['manage-model']) : $default_model;
-        $product_attachment = isset($_GET['product-attachment']) ? $this->get_model($table, $_GET['product-attachment']) : $default_model;
+        $edit_model         = isset($_GET['model']) ? $this->get_model($_GET['model']) : $default_model;
+        $manage_model       = isset($_GET['manage-model']) ? $this->get_model($_GET['manage-model']) : $default_model;
+        $product_attachment = isset($_GET['product-attachment']) ? $this->get_model($_GET['product-attachment']) : $default_model;
 
         do_action('bpt-admin', $models, $edit_model, $manage_model, $product_attachment);
     }
@@ -98,13 +96,12 @@ trait GO_BPT_Admin
     private function model_categories($model)
     {
         global $wpdb;
-
-        $table  = $wpdb->prefix . 'bpt_model_categories';
+        
         $model_id = is_array($model) ? $model['id'] : $model;
 
         $model_details = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM {$table} WHERE model_id=%d",
+                "SELECT * FROM {$this->table_model_category} WHERE model_id=%d",
                 [$model_id]
             ),
             ARRAY_A
@@ -142,6 +139,19 @@ trait GO_BPT_Admin
         ];
     }
 
+    private function has_attachment($model_id = 0)
+    {
+        global $wpdb;
+        return is_array(
+            $wpdb->get_row(
+                $wpdb->prepare(
+                    "SELECT * FROM {$this->table_model_category} WHERE model_id=%d",
+                    [$model_id]
+                ),
+                ARRAY_A
+            )
+        );
+    }
 
     private function submit_model()
     {
@@ -153,7 +163,7 @@ trait GO_BPT_Admin
 
         if (isset($_GET['model'])) {
             $wpdb->update(
-                $wpdb->prefix . 'bpt_models',
+                $this->table_model,
                 $model,
                 [
                     'id' => $_GET['model']
@@ -171,7 +181,7 @@ trait GO_BPT_Admin
             exit;
         } else {
             $wpdb->insert(
-                $wpdb->prefix . 'bpt_models',
+                $this->table_model,
                 $model,
                 [
                     '%s',
@@ -206,10 +216,9 @@ trait GO_BPT_Admin
             'upgrade'          => serialize($upgrade)
         ];
         $format = ['%d', '%d', '%s', '%s', '%s'];
-
-        $table = $wpdb->prefix . 'bpt_model_categories';
+        
         $update = $wpdb->update(
-            $table,
+            $this->table_model_category,
             $model,
             [
                 'model_id' => $model_id
@@ -219,7 +228,7 @@ trait GO_BPT_Admin
 
         if (!$update) {
             $wpdb->insert(
-                $table,
+                $this->table_model_category,
                 $model,
                 $format
             );

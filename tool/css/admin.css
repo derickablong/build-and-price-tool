@@ -126,7 +126,8 @@
     font-size: 14px;
     font-weight: 700;
 }
-.model-item .title {
+.model-item .title,
+.attachment-setup .title {
     font-size: 18px;
     font-weight: 700;
 }
@@ -198,4 +199,22 @@
     justify-content: flex-end;
     margin-top: 15px;
     gap: 10px;
+}
+
+
+.attachment-setup {
+    max-width: 600px;
+    margin-top: 15px;
+}
+.attachment-setup .title {
+    margin-bottom: 15px;
+}
+.row-attachment {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 0;
+}
+.row-attachment .col {
+    background-color: #fff;
+    padding: 15px;
 }
