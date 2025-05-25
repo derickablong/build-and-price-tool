@@ -173,7 +173,7 @@
             GO_BPT.el_cart_items.append(item);
         },        
 
-        _cart: function(_callback) {
+        _cart: function(_callback) {            
             $(GO_BPT.selected_products).each(function(index, item) {
                 GO_BPT._cart_item( item );
                 GO_BPT._cart_total( item );
@@ -227,14 +227,14 @@
             _callback(is_attachment, attachment_item);
         },
 
-        _push_product: function(product) {
+        _push_product: function(product) {            
             product.addClass('added');
             GO_BPT.selected_products.push({
                 ID        : product.data('product'),
                 title     : product.find('.product-item-title').text(),
                 reg_price : GO_BPT._format_price( parseFloat(product.data('reg-price')) ),
                 sale_price: GO_BPT._format_price( parseFloat(product.data('sale-price')) )
-            });
+            });            
         },
 
         _product: function(product, attachments) {
@@ -246,6 +246,7 @@
                     GO_BPT._popup(attachment_item);
                 } else {
                     GO_BPT._push_product(product);
+                    GO_BPT._cart(GO_BPT._cart_summary);
                 }
 
             });            
@@ -261,16 +262,12 @@
                 GO_BPT._starting_cart_item();
                 GO_BPT.el_cart_items.html('');            
 
-                if (product.hasClass('added')) {                
-                    console.log(product.data('product'));
+                if (product.hasClass('added')) {                                    
                     GO_BPT._remove_item( product.data('product') );
                     product.removeClass('added');
                 } else {
                     GO_BPT._product(product, attachments);
-                }            
-                GO_BPT._cart(
-                    GO_BPT._cart_summary
-                );
+                }                           
 
             });
         },
@@ -292,6 +289,17 @@
             GO_BPT.el_popup.removeClass('show');
             GO_BPT.el_popup.find('.groups').html('');
             GO_BPT.el_doc.find('html').removeClass('no-scroll');                
+        },
+
+        _add_attachments: function(e) {
+            e.preventDefault();
+
+            $('.attachment-item.selected .product-item').each(function() {
+                const product = $(this);                
+                GO_BPT._push_product(product);
+            });
+            GO_BPT._cart(GO_BPT._cart_summary);
+            GO_BPT._close_popup(e);      
         },
 
         _cart_summary: function() {          
@@ -468,6 +476,11 @@
                 GO_BPT.el_popup_cancel,
                 GO_BPT._close_popup
             ); 
+            GO_BPT.el_doc.on(
+                'click',
+                GO_BPT.el_popup_add,
+                GO_BPT._add_attachments
+            );
             GO_BPT.el_doc.on(
                 'click',
                 GO_BPT.el_group_item,
