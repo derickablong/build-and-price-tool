@@ -22,6 +22,7 @@ class GO_Build_And_Price_Tool
     public $table_bpt;
     public $table_model;
     public $table_model_category;
+    public $table_attachment;
 
     function __construct($dir, $url, $meta_box_key)
     {
@@ -34,6 +35,7 @@ class GO_Build_And_Price_Tool
         $this->table_bpt            = $wpdb->prefix . 'bpt';
         $this->table_model          = $wpdb->prefix . 'bpt_models';
         $this->table_model_category = $wpdb->prefix . 'bpt_model_categories';
+        $this->table_attachment     = $wpdb->prefix . 'bpt_attachments';
 
         # Admin
         $this->create_admin();

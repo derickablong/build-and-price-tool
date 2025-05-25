@@ -1,5 +1,6 @@
 <?php 
-$categories = $this->model_categories($model['id']); 
+$model_attachments = $this->attachments($model['id']);
+$categories        = $this->model_categories($model['id']);
 
 $terms = array_merge(
     $categories['front_attachment'],
@@ -72,28 +73,18 @@ $loaded_products = [];
         endif;
         ?>
         <form action="" method="post">
-            <input type="hidden" name="model-attachment" value="1">            
-            <div class="row-attachment group">                
-                <div class="col">       
-                    <div class="title">Attachment Group</div>         
-                    <select name="attachment-require[]" class="attachment-require" multiple="multiple">
-                        <option value="">--- Select Product ---</option>
-                        <?php foreach ($attachments as $product_id => $product): ?>
-                            <option value="<?php echo $product_id ?>"><?php echo $product ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col buttons">
-                    <div class="cta">
-                        <a href="#" class="remove">
-                            <svg height="30px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M256,32C132.3,32,32,132.3,32,256s100.3,224,224,224s224-100.3,224-224S379.7,32,256,32z M384,272H128v-32h256V272z"/></g></svg>
-                        </a>
-                        <a href="#" class="add">
-                            <svg height="30px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M256,32C132.3,32,32,132.3,32,256s100.3,224,224,224s224-100.3,224-224S379.7,32,256,32z M384,272H272v112h-32V272H128v-32   h112V128h32v112h112V272z"/></g></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <input type="hidden" name="model-attachment" value="<?php echo $model['id'] ?>">    
+            
+            <?php 
+            $current_index = 0;
+            foreach ($model_attachments as $index => $item) {
+                $current_index = $index;
+                do_action('bpt-attachment', $index, $attachments, $item);
+            }
+            ?>
+
+            
+            <?php do_action('bpt-attachment', $current_index, $attachments, []) ?>
 
             <div class="submit">
                 <a href="<?php echo admin_url('/admin.php?page=bpt') ?>" class="button black">Back</a>
@@ -106,6 +97,23 @@ $loaded_products = [];
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
+
+    const group = ['A', 'B', 'C', 'D', 'E', 'E', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'];
+
+    const naming = function() {
+        $('.row-attachment').each(function(index, _row) {
+            const $row = $(this);
+            const alpa = group[index];
+
+            $row.attr('data-group', index);
+            $row.find('.title').text('Attachment '+alpa);
+            $row.find('select').attr('name', 'attachment-require['+ alpa.toLowerCase() +'][]');
+            $row.find('.select2-container').remove();
+            $row.find('select').select2();
+            $row.removeClass('loading');
+        });
+    }
+
     $('.row-attachment select').select2();
 
     $(document).on('click', '.add', function(e) {
@@ -113,14 +121,24 @@ jQuery(document).ready(function($) {
 
         const $item     = $(this).closest('.row-attachment');
         let   $new_item = $item.clone();
-
-        $new_item.find('.select2-container').remove();
-        $new_item.insertAfter($item);        
-        $new_item.find('select').select2();
+        
+        $new_item.insertAfter($item);   
+        naming();             
     });
 
-    $(document.body).on("change", ".attachment-item",function(){
-        console.log(this.value);
+    $(document).on('click', '.remove', function(e) {
+        e.preventDefault();
+
+        const $item = $(this).closest('.row-attachment');
+        if ($('.row-attachment').length > 1) {
+            $item.remove();        
+        } else {
+            $item.find('select').val(null).trigger('change');
+        }
+
+        naming();
     });
+
+    setTimeout(naming, 2000);
 });
 </script>

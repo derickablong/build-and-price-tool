@@ -98,6 +98,12 @@ trait GO_BPT_Parts
             10,
             1
         );
+        add_action(
+            'bpt-attachment',
+            [$this, 'admin_attachment'],
+            10,
+            3
+        );
     }
 
 
@@ -128,6 +134,18 @@ trait GO_BPT_Parts
     {
         $this->parts('admin-model', ['model' => $model]);
     }  
+
+    /**
+     * Get model attachments
+     * @param int $index
+     * @param int $attachment
+     * @param array|object $attachment
+     * @return void
+     */
+    public function admin_attachment($index, $attachments, $group)
+    {
+        $this->parts('admin-attachment', ['index' => $index, 'attachments' => $attachments, 'group' => $group]);
+    }
 
 
     /**

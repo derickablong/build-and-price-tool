@@ -12,6 +12,7 @@ trait GO_BPT_Admin
         );
         $this->submit_model();
         $this->submit_model_setup();
+        $this->submit_attachments();
     }
 
 
@@ -139,6 +140,17 @@ trait GO_BPT_Admin
         ];
     }
 
+    private function attachments($model)
+    {
+        global $wpdb;
+        return $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT * FROM {$this->table_attachment} WHERE model_id=%d",
+                [$model]
+            )
+        );
+    }
+
     private function has_attachment($model_id = 0)
     {
         global $wpdb;
@@ -232,6 +244,40 @@ trait GO_BPT_Admin
                 $model,
                 $format
             );
+        }
+    }
+
+    private function submit_attachments()
+    {
+        global $wpdb;
+
+        if ((defined('DOING_AJAX') && DOING_AJAX)) return;
+        if (!isset($_POST['model-attachment'])) return;
+
+        $model       = $_POST['model-attachment'];
+        $attachments = $_POST['attachment-require'];
+
+        $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM {$this->table_attachment} WHERE model_id=%d",
+                [$model]
+            )
+        );
+
+        foreach ($attachments as $attachment) {
+
+            $data = [
+                'model_id' => $model,
+                'attachment' => serialize($attachment)
+            ];
+            $format = ['%d', '%s'];
+
+            $wpdb->insert(
+                $this->table_attachment,
+                $data,            
+                $format
+            );           
+
         }
     }
 
