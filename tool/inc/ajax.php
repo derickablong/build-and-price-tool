@@ -37,32 +37,38 @@ trait GO_BPT_Ajax
     {
         ob_start();
 
-        $tax_query = [];
-        $model     = $_POST['model'];
-        $step      = (int)$_POST['step'];
-        $terms     = $this->models[$model]['step-'.$step];
+        $tax_query  = [];
+        $meta_query = [];
+        $model      = $_POST['model'];
+        $step       = (int)$_POST['step'];
+        $terms      = $this->models[$model]['step-'.$step];       
+        
 
-        $tax_query = [
-            [
-                'taxonomy' => 'product_cat',
-                'field'    => 'term_id',
-                'terms'    => $terms
-            ]
-        ];
+        if ($step == 2) {
+            $meta_query = [[
+                'key'     => $this->meta_box_key,
+                'value'   => $model,
+                'compare' => 'LIKE'
+            ]];
+            $tax_query = [];
+        } else {
+            $tax_query = [
+                [
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => $terms
+                ]
+            ];
+        }
+
 
         $args = [
             'post_type'      => 'product',
             'post_status'    => 'publish',
             'posts_per_page' => -1,
-            'tax_query'      => $tax_query
+            'tax_query'      => $tax_query,
+            'meta_query'     => $meta_query
         ];
-
-        if (is_array($terms) && in_array(MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM, $terms)) {
-            $args['meta_query'] = [[
-                'key'   => $this->meta_box_key,
-                'value' => 1
-            ]];
-        }
         
         $results = new \WP_Query($args);
 

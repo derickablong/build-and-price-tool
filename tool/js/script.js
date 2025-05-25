@@ -82,7 +82,7 @@
 
             if (GO_BPT.current_step <= 5) {             
                 GO_BPT.el_shipping.hide();
-                GO_BPT.el_products.css('display', 'grid');
+                GO_BPT.el_products.show();
                 GO_BPT._get_products();
             } else {
                 GO_BPT._shipping_discount();
@@ -111,7 +111,7 @@
                     model : GO_BPT.selected_model,
                     step  : GO_BPT.current_step
                 }, function(response) {
-                    GO_BPT.el_products.html(response.products);
+                    GO_BPT.el_products.find('.bpt-products').html(response.products);
                     GO_BPT._after();
                 }
             );

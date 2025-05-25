@@ -1,0 +1,201 @@
+:root {
+    --bpt-grey: #ccc;
+    --bpt-white: #fff;
+    --bpt-dark-black: #000;
+    --bpt-black: #1e2d3b;
+    --bpt-yellow: #EDCD1F;
+    --bpt-white-grey: #f7f7f7;
+    --bpt-light-grey: #e5e5e5;
+    --bpt-inactive-color: #b1b1b1;
+    --bpt-active-color: #3d5975;
+    --bpt-red: #FF4040;
+    --bpt-red-hover: #ff2323;
+    --bpt-btn-learn-more: #1e2d3b;
+    --bpt-btn-learn-more-hover:#2c4053;
+    --bpt-btn-build-price: #EDCD1F;
+    --bpt-btn-build-price-hover:#f7d620;
+    --bpt-green: #06b315;
+    --bpt-green-hover: #11e123;
+    --bpt-blue: #163cff;
+    --bpt-box-radius: 10px;
+    --bpt-font-heading: "Wix Madefor Display", Sans-serif;
+    --bot-font-number: "Quantico", sans-serif;
+}
+
+
+.notice {
+    display: none!important;
+}
+
+.bpt-models,
+.bpt-models * {
+    box-sizing: border-box;
+    outline: none!important;
+    box-shadow: none!important;
+    text-shadow: none!important;
+}
+
+.button {
+    background-color: var(--bpt-btn-build-price)!important;
+    border: none!important;
+    color: var(--bpt-dark-black)!important;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+.button:hover {
+    background-color: var(--bpt-btn-build-price-hover)!important;
+}
+.button.black {
+    background-color: var(--bpt-btn-learn-more)!important;
+    color: var(--bpt-white)!important;
+}
+.button.black:hover {
+    background-color: var(--bpt-btn-learn-more-hover)!important;
+}
+
+.model-form {    
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 10px;
+}
+.model-form a {
+    outline: none;
+    box-shadow: none;
+}
+.model-form .fields {
+    display: grid;
+    grid-template-columns: 150px 200px 1fr 200px;
+    gap: 30px;
+}
+.fields .col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.field.description,
+.field.description textarea {
+    height: 100%;
+}
+.field input,
+.field textarea {
+    width: 100%;
+}
+.field .label {
+    font-weight: 700;
+    font-size: 14px;
+}
+.submit .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;    
+    justify-content: flex-end;
+    gap: 10px;
+}
+.photo img {
+    width: 100%;
+    height: auto;
+}
+
+.con-w {
+    max-width: 1200px;
+}
+
+.models {    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+.model-item {
+    display: grid;
+    grid-template-columns: 150px 150px 1fr 150px;
+    gap: 30px;
+    background-color: #fff;
+    padding: 20px;
+}
+.model-item .col {
+    overflow: hidden;
+}
+.model-item .sub-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+.model-item .title {
+    font-size: 18px;
+    font-weight: 700;
+}
+.model-item .title a {
+    text-decoration: none;
+}
+.model-item .title a:hover {
+    text-decoration: underline;
+}
+.model-item .price {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: right;
+}
+.model-item .cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;    
+    margin-top: 10px;
+    gap: 10px;
+}
+.model-item .photo img {
+    width: 100%;
+    height: auto;
+}
+.model-item .description .text {  
+    display: -webkit-box;  
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+.model-item .button {
+    width: 140px;
+    text-align: center;
+}
+
+
+.steps-categories {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+.steps-categories .col {
+    background-color: #fff;
+    padding: 15px;
+}
+.steps-categories .title {    
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+.term-item {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+}
+.term-item:not(:last-child) {
+    margin-bottom: 6px;
+}
+.term-item .label {
+    line-height: 1;
+}
+.model-setup .cta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 15px;
+    gap: 10px;
+}

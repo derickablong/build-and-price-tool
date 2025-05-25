@@ -4,7 +4,7 @@ namespace GO_BPT;
 
 class GO_Build_And_Price_Tool
 {
-    use GO_BPT_Database, GO_BPT_Library, GO_BPT_Shortcode, GO_BPT_Parts, GO_BPT_Ajax, GO_BPT_GHL, GO_BPT_Metabox;
+    use GO_BPT_Database, GO_BPT_Library, GO_BPT_Shortcode, GO_BPT_Parts, GO_BPT_Ajax, GO_BPT_GHL, GO_BPT_Metabox, GO_BPT_Admin;
 
     # Directory path holder
     public $dir;
@@ -18,12 +18,15 @@ class GO_Build_And_Price_Tool
     # Metabox key
     public $meta_box_key;
 
-    function __construct($dir, $url, $models, $meta_box_key)
+    function __construct($dir, $url, $meta_box_key)
     {
         $this->dir          = $dir;
         $this->url          = $url;
-        $this->models       = $models;
+        $this->models       = $this->models_steps();
         $this->meta_box_key = $meta_box_key;
+
+        # Admin
+        $this->create_admin();
 
         # Metabox
         $this->metabox();
@@ -44,6 +47,6 @@ class GO_Build_And_Price_Tool
         $this->register_ajax();
 
         # Shortcode
-        $this->register_shortcode();
+        $this->register_shortcode();        
     }    
 }

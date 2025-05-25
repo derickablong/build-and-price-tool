@@ -1,0 +1,106 @@
+selector .uael-has-submenu-container a {
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+}
+
+selector .sub-arrow {
+    display: none;
+}
+selector .sub-menu {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    left: 50%!important;
+    transform: translate(-50%, 0)!important;
+}
+selector .sub-menu .menu-item {
+    text-align: center!important;
+}
+selector .sub-menu .menu-item a {
+    justify-content: center;
+    padding-left: 2px!important;
+    padding-right: 2px!important;
+}
+selector .menu-item a:hover {
+    color: #fff!important;
+}
+selector .sub-parent.current-menu-parent .uael-has-submenu-container a:not(:hover) {
+    color: #1E2D3B!important;
+}
+
+selector .my-account-menu .sub-menu {
+    width: 220px!important;
+}
+selector .mega-contact .sub-menu {
+    width: 220px!important;
+}
+selector .mega-models .sub-menu {
+    width: 430px!important;
+}
+selector .mega-attachments .sub-menu {
+    width: 230px!important;
+}
+selector .mega-owners .sub-menu {
+    width: 270px!important;
+}
+selector .mega-staff .sub-menu {
+    width: 185px!important;
+    min-width: 185px!important;
+}
+selector .mega-shop .sub-menu {
+    width: 330px!important;    
+}
+
+@media only screen and (max-width: 1180px) {
+    selector .uael-menu-item {
+        font-size: 15px!important;
+    }
+    body.logged-in selector .uael-has-submenu-container a {
+        padding-left: 5px!important;
+        padding-right: 5px!important;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    selector .uael-nav-menu__toggle {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    selector nav {
+        padding-top: 0!important;
+        padding-bottom: 0!important;
+        padding-left: 7%!important;
+        padding-right: 7%!important;
+        background-color: transparent!important;
+        border: none!important;        
+    }
+    selector nav .uael-nav-menu {
+        background-color: #EDCD1F;
+        border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: #3B3A3A;
+        padding: 10px!important;
+        margin-top: 30px;
+    }
+    selector .menu-item a {
+        line-height: 1.2!important;
+    }
+    selector .menu-item a:hover {
+        color: #3D5975!important;
+    }
+    selector .sub-menu a {
+        justify-content: flex-start!important;
+        text-align: left!important;
+    }
+    selector .sub-menu {
+        background-color: transparent!important;
+        border: none!important;
+        padding-left: 20px;
+        padding-bottom: 10px;
+
+        position: static!important;
+        transform: none!important;
+        width: 100%!important;
+        padding: 0 0 0 10px;
+    }
+}

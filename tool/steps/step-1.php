@@ -1,55 +1,38 @@
+<?php $models = $this->models(); ?>
 <div class="step step-1">
+    <?php 
+    foreach ($models as $model): 
+        $image_url = wp_get_attachment_image_url( $model->image, 'medium' );
+    ?>
 
-    <div class="model-item">
+	<div class="model-item model-<?php echo sanitize_title($model->title) ?>">
         <div class="pic">
-            <img src="<?php echo $this->url ?>tool/img/MH4900.avif" alt="">
+            <img src="<?php echo $image_url ?>" alt="">
         </div>
+        
         <div class="description">
             <h2>
-                <span>MAGNATRAC®</span>
-                MH4900
+                <?php if ($model->sub_title): ?>
+                <span><?php echo $model->sub_title ?></span>
+                <?php endif; ?>
+                <?php echo $model->title ?>
             </h2>
-            <p>Step up to SERIOUS WORK POWER with the MAGNATRAC® MH4900! Many available upgrades are available to suit your needs and budget. It’s the perfect match for homesteaders or large property owners that want to keep the cost down, but still get great performance. Need the versatility of a track loader one day and the fine finish grading capabilities of a true bulldozer the next? No problem! Available as a track loader or bulldozer, we offer one machine to do it all. Attachment options include: backhoe, category 1 three point hitch, 540 RPM PTO implements and universal skid steer mount attachments. This makes the MAGNATRAC® MH4900 an affordable, compact, powerful and versatile machine with amazing power, traction, stability and Made in the USA quality.</p>
+            <p><?php echo trim($model->descriptions) ?></p>
         </div>
         <div class="cta">
-            <h3>Prices Starting From <span class="start-price num">$24,800</span></h3>
+            <h3>Prices Starting From <span class="start-price num">$<?php echo $model->price ?></span></h3>
 
             <?php 
             do_action(
                 'bpt-model-cta', 
-                '/models/magnatrac-mh4900-the-homesteader/', 
-                'MH4900',
-                24800,
+                $model->url, 
+                $model->title,
+                str_replace(',', '', $model->price),
                 0
             ); 
             ?>
         </div>
     </div>
 
-
-    <div class="model-item">
-        <div class="pic">
-            <img src="<?php echo $this->url ?>tool/img/MH8500.png" alt="">
-        </div>
-        <div class="description">
-            <h2>
-                <span>MAGNATRAC®</span>
-                MH8500
-            </h2>
-            <p>Our top of the line machine is the MAGNATRAC® MH8500. It’s diesel powered and BAD to the BONE! Powered by a 3 cylinder liquid cooled Kubota DIESEL engine and an efficient Hydro-Static drive system, it’s the perfect match for large property owners, farmers, ranchers, or contractors. This machine is the Swiss army Knife of Earth Movers! Need a track loader one day and a true bulldozer with a 6-way blade the next? No problem! Attachment options include: backhoes, category 1 three point hitch, 540 RPM PTO implements and universal skid steer front attachment compatibility, make the MAGNATRAC® MH8500 a compact, powerful and versatile machine with amazing power, traction, stability and Made in the USA quality.</p>
-        </div>
-        <div class="cta">
-            <h3>Prices Starting From <span class="start-price num">$34,600</span></h3>
-
-            <?php 
-            do_action(
-                'bpt-model-cta', 
-                '/models/magnatrac-mh8500-the-contractor/', 
-                'MH8500',
-                34600,
-                0
-            ); 
-            ?>            
-        </div>
-    </div>    
+    <?php endforeach; ?>
 </div>

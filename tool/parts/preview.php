@@ -1,8 +1,8 @@
 <?php 
-$total      = (float)$model->price;
-$total_sale = (float)$model->sale_price;
+$total      = (float)str_replace(',', '', $model->price);
+$total_sale = (float)str_replace(',' ,'', $model->sale_price);
 ?>
-<div class="bpt-details">
+<div class="bpt-details" data-token="<?php echo $token ?>">
     <div class="col details">
         <div class="detail-title first">Personal Info</div>
 
@@ -74,10 +74,15 @@ $total_sale = (float)$model->sale_price;
             </div>
             <div class="cart-items">
 
+                <?php
+                $regular_price = (float)str_replace(',', '', $model->price);
+                $sale_price  = (float)str_replace(',', '', $model->sale_price);
+                ?>
+
                 <div class="cart-item item-model">
                     <div class="cart-col name"><?php echo $model->name ?></div>
-                    <div class="cart-col num reg-price <?php echo $model->sale_price > 0 ? 'strike' : 'normal'?>"><?php echo wc_price($model->price) ?></div>
-                    <div class="cart-col num sale-price"><?php echo wc_price($model->sale_price) ?></div>
+                    <div class="cart-col num reg-price <?php echo $sale_price > 0 ? 'strike' : 'normal'?>"><?php echo wc_price($regular_price) ?></div>
+                    <div class="cart-col num sale-price"><?php echo wc_price($sale_price) ?></div>
                 </div>
 
                 
@@ -85,8 +90,8 @@ $total_sale = (float)$model->sale_price;
                 <?php 
                 foreach($products as $product): 
 
-                    $regular_price = (float)$product->reg_price;
-                    $sale_price    = (float)$product->sale_price;
+                    $regular_price = (float)str_replace(',', '', $product->reg_price);
+                    $sale_price    = (float)str_replace(',', '', $product->sale_price);
 
                     $total += $sale_price > 0 ? $sale_price : $regular_price;
                     $total_sale += $sale_price > 0 ? $regular_price - $sale_price : $sale_price;
@@ -94,8 +99,8 @@ $total_sale = (float)$model->sale_price;
 
                     <div class="cart-item">
                         <div class="cart-col name"><?php echo stripslashes($product->title) ?></div>
-                        <div class="cart-col num reg-price <?php echo $sale_price > 0 ? 'strike' : 'normal' ?>"><?php echo wc_price( $product->reg_price ) ?></div>
-                        <div class="cart-col num sale-price"><?php echo wc_price( $product->sale_price ) ?></div>
+                        <div class="cart-col num reg-price <?php echo $sale_price > 0 ? 'strike' : 'normal' ?>"><?php echo wc_price( $regular_price ) ?></div>
+                        <div class="cart-col num sale-price"><?php echo wc_price( $sale_price ) ?></div>
                     </div>
 
                 <?php endforeach; ?>

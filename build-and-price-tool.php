@@ -19,9 +19,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 # Build and Price Tool page
 define('BPT_PAGE', 2457);
-define('PREVIEW_PAGE', 13501);
+define('PREVIEW_PAGE', 13764);
 
 # Model Category ID
+# B-SERIES
+define('BSERIES_FRONT_ATTACHMENT', 216);
+define('BSERIES_FRONT_MOUNTING_SYSTEM', 229);
+define('BSERIES_REAR_MOUNTING_SYSTEM', 227);
+define('BSERIES_REAR_ATTACHMENT', 230);
+define('BSERIES_SHOE_OPTION', 231);
+define('BSERIES_UPGRADES', 228);
+# S-SERIES
+define('SSERIES_FRONT_ATTACHMENT', 238);
+define('SSERIES_FRONT_MOUNTING_SYSTEM', 236);
+define('SSERIES_REAR_MOUNTING_SYSTEM', 237);
+define('SSERIES_REAR_ATTACHMENT', 239);
+define('SSERIES_UPGRADES', 241);
 # MODEL8500
 define('MODEL8500_FRONT_ATTACHMENT', 58);
 define('MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM', 56);
@@ -43,6 +56,8 @@ define('GROWTH_OPTIMIZER_BPT_DIR', plugin_dir_path( __FILE__ ));
 define('GROWTH_OPTIMIZER_BPT_URL', plugin_dir_url( __FILE__ ));
 
 
+# Admin
+require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/admin.php');
 # Meta
 require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/metabox.php');
 # GHL
@@ -66,37 +81,5 @@ require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/tool.php');
 new GO_Build_And_Price_Tool(
     GROWTH_OPTIMIZER_BPT_DIR,
     GROWTH_OPTIMIZER_BPT_URL,
-    [
-        'MH8500' => [
-            'step-2' => [
-                MODEL8500_QUICK_HITCH_MOUNTING_SYSTEM
-            ],
-            'step-3' => [
-                MODEL8500_FRONT_ATTACHMENT                
-            ],
-            'step-4' => [
-                MODEL8500_REAR_ATTACHMENT
-            ],
-            'step-5' => [
-                MODEL8500_SHOE_OPTION,
-                MODEL8500_UPGRADES
-            ]
-        ],
-        'MH4900' => [
-            'step-2' => [              
-                MODEL9500_QUICK_HITCH_MOUNTING_SYSTEM
-            ],
-            'step-3' => [
-                MODEL9500_FRONT_ATTACHMENT                
-            ],
-            'step-4' => [
-                MODEL9500_REAR_ATTACHMENT
-            ],
-            'step-5' => [
-                MODEL9500_SHOE_OPTION,
-                MODEL9500_UPGRADES
-            ]
-        ]
-    ],
     METABOX_FRONT_REAR_MOUNTING_OPTIONS_KEY
 );

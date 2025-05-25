@@ -80,7 +80,48 @@ trait GO_BPT_Parts
             10,
             1 
         );
+        add_action(
+            'bpt-admin',
+            [$this, 'admin_part'],
+            10,
+            4
+        );
+        add_action(
+            'bpt-admin-model',
+            [$this, 'admin_model'],
+            10,
+            1
+        );        
     }
+
+
+    /**
+     * Admin page
+     * @param array|object $models
+     * @param array|object $edit_model
+     * @param array|object $manage_model
+     * @param array|object $product_attachment
+     * @return void
+     */
+    public function admin_part($models = [], $edit_model = [], $manage_model = [], $product_attachment = 0)
+    {
+        if ($manage_model['id'])
+            $this->parts('admin-manage', ['model' => $manage_model, 'categories' => $this->model_categories($manage_model)]);
+        else if ($product_attachment['id'])
+            $this->parts('admin-product-attachment', ['model' => $product_attachment]);
+        else
+            $this->parts('admin', ['models' => $models, 'edit_model' => $edit_model]);
+    }
+
+    /**
+     * Admin model
+     * @param array|object $model     
+     * @return void
+     */
+    public function admin_model($model)
+    {
+        $this->parts('admin-model', ['model' => $model]);
+    }  
 
 
     /**

@@ -8,10 +8,10 @@ trait GO_BPT_Database
     {
         global $wpdb;
 
-        $table_name = $wpdb->prefix . 'bpt';
-
         $charset_collate = $wpdb->get_charset_collate();
 
+        # BPT table for quote submition
+        $table_name = $wpdb->prefix . 'bpt';
         $sql = "CREATE TABLE IF NOT EXISTS $table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,            
             token tinytext NOT NULL,
@@ -22,7 +22,46 @@ trait GO_BPT_Database
             date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY  (id)
         ) $charset_collate;";
+        $this->generate($sql);
 
+        # BTP table for models
+        $table_name = $wpdb->prefix . 'bpt_models';
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,            
+            sub_title VARCHAR(200) DEFAULT NULL,
+            title VARCHAR(200) NOT NULL,
+            image VARCHAR(50) NOT NULL DEFAULT 0,
+            descriptions text DEFAULT NULL,
+            price VARCHAR(100) DEFAULT 0,
+            url tinytext DEFAULT NULL,
+            date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+        $this->generate($sql);
+
+        # BTP table for model steps
+        $table_name = $wpdb->prefix . 'bpt_model_categories';
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            model_id mediumint(9) NOT NULL DEFAULT 0,            
+            parent_category INT(5) NOT NULL DEFAULT 0,
+            front_attachment VARCHAR(50),
+            rear_attachment VARCHAR(50),
+            upgrade VARCHAR(50),
+            date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+        $this->generate($sql);
+        
+    }
+
+    /**
+     * Generate database table
+     * @param string $sql
+     * @return void
+     */
+    private function generate($sql)
+    {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql );
     }
@@ -42,7 +81,7 @@ trait GO_BPT_Database
         $table_name = $wpdb->prefix . 'bpt';        
 
         $data = [
-            'token'            => $token,
+            'token'            => stripslashes($token),
             'model'            => json_encode($model),
             'products'         => json_encode($products),
             'shipping'         => $shipping_method,

@@ -4,7 +4,9 @@
 
     <div class="step-products">
         
-        <div class="suggested-products"></div>
+        <div class="suggested-products">
+            <div class="bpt-products"></div>
+        </div>
 
         <?php         
         do_action('bpt-shipping'); 

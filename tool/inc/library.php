@@ -16,6 +16,32 @@ trait GO_BPT_Library
             'wp_enqueue_scripts', 
             [$this, 'library']  
         );
+        add_action(
+            'admin_enqueue_scripts',
+            [$this, 'admin_library']
+        );
+    }
+
+    /**
+     * Admin library
+     * @return void
+     */
+    public function admin_library()
+    {
+        wp_register_style( 
+            'go-bpt-admin-css', 
+            $this->url . 'tool/css/admin.css',
+            array(), 
+            uniqid(), 
+            'all' 
+        );
+        wp_register_script(
+            'go-bpt-admin-script',
+            $this->url . 'tool/js/admin.js',
+            array('jquery'),
+            uniqid(),            
+            true
+        );
     }
 
     /**
@@ -27,12 +53,12 @@ trait GO_BPT_Library
     {
         global $post;
         if ($post->ID == BPT_PAGE && !isset($_GET['id'])) {
-            $token = bin2hex(random_bytes(15));
+            $token = bin2hex(random_bytes(15));            
+            $params = $_SERVER['QUERY_STRING'];
             wp_redirect(
-                home_url('/build-and-price-tool/?id='.$token)
+                home_url('/build-and-price-tool/?id='.$token.($params ? '&'.$params : ''))
             );
         }
-
         
         wp_register_style( 
             'go-bpt-css', 
