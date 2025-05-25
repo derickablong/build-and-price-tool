@@ -24,6 +24,9 @@ class GO_Build_And_Price_Tool
     public $table_model_category;
     public $table_attachment;
 
+    # Alphabets
+    public $alphabets;
+
     function __construct($dir, $url, $meta_box_key)
     {
         global $wpdb;
@@ -36,6 +39,7 @@ class GO_Build_And_Price_Tool
         $this->table_model          = $wpdb->prefix . 'bpt_models';
         $this->table_model_category = $wpdb->prefix . 'bpt_model_categories';
         $this->table_attachment     = $wpdb->prefix . 'bpt_attachments';
+        $this->alphabets            = ['A', 'B', 'C', 'D', 'E', 'E', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'];
 
         # Admin
         $this->create_admin();

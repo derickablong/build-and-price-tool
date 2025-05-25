@@ -26,6 +26,14 @@ trait GO_BPT_Ajax
             'wp_ajax_nopriv_bpt_submit_quote',
             [$this, 'submit_quote']
         );
+        add_action(
+            'wp_ajax_bpt_attachment_products',
+            [$this, 'attachment_products']
+        );
+        add_action(
+            'wp_ajax_nopriv_bpt_attachment_products',
+            [$this, 'attachment_products']
+        );
     }
 
 
@@ -100,6 +108,44 @@ trait GO_BPT_Ajax
 
         wp_send_json([
             'token'   => $response
+        ]);
+        wp_die();
+    }
+
+    public function attachment_products()
+    {
+        ob_start();
+
+        $groups = $_POST['groups'];        
+
+        foreach ($groups as $index => $group) {
+            $args = [
+                'post_type'      => 'product',
+                'post_status'    => 'publish',
+                'posts_per_page' => -1,
+                'post__in'       => $group
+            ];
+            
+            $results = new \WP_Query($args);            
+
+            if ($results->have_posts()): 
+                echo '<div class="attachment-item '.($index == 0 ? 'selected' : '').'">';
+                echo '<div class="group-item">';
+                echo '<input type="radio" '.($index == 0 ? 'checked' : '').' value="'.$index.'" name="group-radio" class="group-radio" id="group-radio-'.$index.'" >';
+                echo '<label for="group-radio-'.$index.'">Attachment '. $this->alphabets[$index] .'</label>';
+                echo '</div>';
+                echo '<div class="attachment-products">';
+                while ($results->have_posts()):
+                    $results->the_post();                
+                    do_action('bpt-product-item');
+                endwhile;
+                echo '</div></div>';
+                wp_reset_query();
+            endif;
+        }
+
+        wp_send_json([
+            'products' => ob_get_clean()
         ]);
         wp_die();
     }

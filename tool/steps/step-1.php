@@ -23,6 +23,8 @@
             <h3>Prices Starting From <span class="start-price num">$<?php echo $model->price ?></span></h3>
 
             <?php 
+            do_action('bpt-model-attachments', $model);
+
             do_action(
                 'bpt-model-cta', 
                 $model->url, 

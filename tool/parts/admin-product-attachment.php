@@ -43,7 +43,7 @@ $loaded_products = [];
 ?>
 
 <div class="wrap">
-    <h1>Product attachment for model <?php echo $model['title'] ?></h1>    
+    <h1>Attachment management for model <?php echo $model['title'] ?></h1>    
     <div class="attachment-setup">
         <?php
         $result_one = new WP_Query($products_one);
@@ -98,7 +98,7 @@ $loaded_products = [];
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 
-    const group = ['A', 'B', 'C', 'D', 'E', 'E', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'];
+    const group = BPT_ALPHABET;
 
     const naming = function() {
         $('.row-attachment').each(function(index, _row) {

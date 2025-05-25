@@ -20,6 +20,13 @@ trait GO_BPT_Library
             'admin_enqueue_scripts',
             [$this, 'admin_library']
         );
+        add_action('wp_head', function() {
+            echo '<script>var BPT_ATTACHMENTS = [];</script>';
+            echo '<script>var BPT_ALPHABET = '.json_encode($this->alphabets).';</script>';
+        });
+        add_action('admin_head', function() {
+            echo '<script>var BPT_ALPHABET = '.json_encode($this->alphabets).';</script>';
+        });
     }
 
     /**

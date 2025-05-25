@@ -104,6 +104,18 @@ trait GO_BPT_Parts
             10,
             3
         );
+        add_action(
+            'bpt-model-attachments',
+            [$this, 'model_attachments'],
+            10,
+            1
+        );
+        add_action(
+            'bpt-popup',
+            [$this, 'popup'],
+            10,
+            1
+        );
     }
 
 
@@ -328,5 +340,25 @@ trait GO_BPT_Parts
     public function footer()
     {
         $this->parts('footer');
+    }
+
+    /**
+     * Model attachments
+     * @param object $model
+     * @return void
+     */
+    public function model_attachments($model)
+    {
+        $this->parts('attachment', ['model' => $model, 'attachments' => $this->attachments($model->id)]);
+    }
+
+    /**
+     * Popup attachment
+     * @param string $products
+     * @return void
+     */
+    public function popup($products)
+    {
+        $this->parts('popup', ['products' => $products]);
     }
 }

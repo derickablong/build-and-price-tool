@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="bpt-tabs-content">
-        <?php
+        <?php        
         do_action('bpt-step-1');
         do_action('bpt-step-build', $token);        
         ?>
@@ -51,3 +51,4 @@
 
     <?php do_action('bpt-footer') ?>
 </div>
+<?php do_action('bpt-popup'); ?>

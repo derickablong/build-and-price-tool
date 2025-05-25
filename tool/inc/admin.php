@@ -149,7 +149,7 @@ trait GO_BPT_Admin
                 [$model]
             )
         );
-    }
+    }    
 
     private function has_attachment($model_id = 0)
     {
