@@ -27,12 +27,15 @@
     display: none!important;
 }
 
-.bpt-models,
-.bpt-models * {
-    box-sizing: border-box;
+* {
     outline: none!important;
     box-shadow: none!important;
     text-shadow: none!important;
+}
+
+.bpt-models,
+.bpt-models * {
+    box-sizing: border-box;    
 }
 
 .button {
@@ -128,8 +131,9 @@
 }
 .model-item .title,
 .attachment-setup .title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
+    text-transform: uppercase;
 }
 .model-item .title a {
     text-decoration: none;
@@ -178,9 +182,10 @@
 }
 .steps-categories .title {    
     font-weight: 800;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.3;
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 .term-item {
     display: grid;
@@ -202,19 +207,88 @@
 }
 
 
-.attachment-setup {
-    max-width: 600px;
-    margin-top: 15px;
+.attachment-setup,
+.attachment-setup * {
+    box-sizing: border-box;
 }
-.attachment-setup .title {
-    margin-bottom: 15px;
+.attachment-setup {
+    max-width: 500px;
+    margin-top: 15px;
 }
 .row-attachment {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 0;
-}
-.row-attachment .col {
+    grid-template-columns: 1fr 64px;
+    gap: 15px;
     background-color: #fff;
     padding: 15px;
+}
+.row-attachment .col {
+    overflow: hidden;
+}
+.row-attachment .col.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.row-attachment select {
+    width: 100%;
+}
+.row-attachment .checkbox {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+}
+.row-attachment .checkbox:not(:last-child) {
+    margin-bottom: 6px;
+}
+.row-attachment .checkbox label {
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+}
+.row-attachment.group .title {
+    margin-bottom: 6px;
+}
+.row-attachment .cta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+.row-attachment .cta a {
+    width: 25px;
+}
+.row-attachment .cta svg {
+    width: 100%;
+    height: auto;
+}
+.row-attachment a.remove g {
+    fill: var(--bpt-red);
+}
+.row-attachment a.remove:hover g {
+    fill: var(--bpt-red-hover);
+}
+.row-attachment a.add g {
+    fill: var(--bpt-green);
+}
+.row-attachment a.add:hover g {
+    fill: var(--bpt-green-hover);
+}
+.row-attachment .select2-choices {
+    min-height: 70px;
+}
+.select2-container {
+    width: 100%!important;
+}
+.wp-core-ui select {
+    max-width: 100%!important;
+}
+
+.attachment-setup .submit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
 }
