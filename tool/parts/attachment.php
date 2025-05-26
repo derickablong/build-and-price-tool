@@ -5,10 +5,10 @@ foreach ($attachments as $attachment) {
 
     $details = unserialize($attachment->attachment);    
 
-    echo 'temp_attachment.push('. json_encode($details) .');';
+    echo 'temp_attachment.push({ID: '.$attachment->id.', group:'. json_encode($details) .'});';
 }
 ?>
-BPT_ATTACHMENTS.push({
+BPT_ATTACHMENTS.push({    
     model : '<?php echo $model->title ?>',
     attachments: temp_attachment
 });

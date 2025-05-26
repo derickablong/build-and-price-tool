@@ -26,6 +26,7 @@ trait GO_BPT_Library
         });
         add_action('admin_head', function() {
             echo '<script>var BPT_ALPHABET = '.json_encode($this->alphabets).';</script>';
+            echo '<style>.current.toplevel_page_bpt {background-color: #EDCD1F!important;color: #000!important;}.current.toplevel_page_bpt .wp-menu-image::before {color: #000!important;}</style>';
         });
     }
 

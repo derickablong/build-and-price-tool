@@ -1,0 +1,2 @@
+ - Cancel products that belongs to attachment group
+ - Don't show attachment group if one of product member already added

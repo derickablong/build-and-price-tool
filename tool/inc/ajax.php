@@ -49,7 +49,8 @@ trait GO_BPT_Ajax
         $meta_query = [];
         $model      = $_POST['model'];
         $step       = (int)$_POST['step'];
-        $terms      = $this->models[$model]['step-'.$step];       
+        $models     = $this->models_steps();
+        $terms      = $models[$model]['step-'.$step];
         
 
         if ($step == 2) {
@@ -84,8 +85,9 @@ trait GO_BPT_Ajax
             while ($results->have_posts()):
                 $results->the_post();                
                 do_action('bpt-product-item');
-            endwhile;
+            endwhile;            
         endif;
+        wp_reset_query();
 
 
         wp_send_json([
@@ -123,13 +125,13 @@ trait GO_BPT_Ajax
                 'post_type'      => 'product',
                 'post_status'    => 'publish',
                 'posts_per_page' => -1,
-                'post__in'       => $group
+                'post__in'       => $group['group']
             ];
             
             $results = new \WP_Query($args);            
 
             if ($results->have_posts()): 
-                echo '<div class="attachment-item '.($index == 0 ? 'selected' : '').'">';
+                echo '<div class="attachment-item '.($index == 0 ? 'selected' : '').'" data-attachment='.$group['ID'].'>';
                 echo '<div class="group-item">';
                 echo '<input type="radio" '.($index == 0 ? 'checked' : '').' value="'.$index.'" name="group-radio" class="group-radio" id="group-radio-'.$index.'" >';
                 echo '<label for="group-radio-'.$index.'">Attachment '. $this->alphabets[$index] .'</label>';
@@ -139,9 +141,9 @@ trait GO_BPT_Ajax
                     $results->the_post();                
                     do_action('bpt-product-item');
                 endwhile;
-                echo '</div></div>';
-                wp_reset_query();
+                echo '</div></div>';                
             endif;
+            wp_reset_query();
         }
 
         wp_send_json([

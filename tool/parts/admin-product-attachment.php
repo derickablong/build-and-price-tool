@@ -55,9 +55,9 @@ $loaded_products = [];
                 if ($product->get_price() <= 0) continue;
                 $attachments[$post->ID] = $post->post_title;
                 $loaded_products[] = $post->ID;
-            endwhile;
-            wp_reset_query();
+            endwhile;            
         endif;
+        wp_reset_query();
 
         $products_two['post__not_in'] = $loaded_products;
         $result_two = new WP_Query($products_two);
@@ -68,9 +68,9 @@ $loaded_products = [];
                 $product = new \WC_Product( $post->ID ); 
                 if ($product->get_price() <= 0) continue;
                 $attachments[$post->ID] = $post->post_title;                
-            endwhile;
-            wp_reset_query();
+            endwhile;            
         endif;
+        wp_reset_query();
         ?>
         <form action="" method="post">
             <input type="hidden" name="model-attachment" value="<?php echo $model['id'] ?>">    
