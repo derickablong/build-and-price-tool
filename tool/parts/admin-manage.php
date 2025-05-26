@@ -82,8 +82,23 @@
 </div>
 <script>
 jQuery(document).ready(function($) {
+    function checkbox() {
+        $('.term-item').each(function() {
+            $term = $(this);
+            if ($term.find('input').is(':checked')) {
+                $term.addClass('selected');
+            } else {
+                $term.removeClass('selected');
+            }
+        });
+    }
+
     $('#parent-categories').on('change', function() {
         window.location = this.value;
     });
+
+    $('.term-item input').on('change', checkbox);
+    checkbox();
+    
 });
 </script>

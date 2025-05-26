@@ -1,2 +1,6 @@
  - Cancel products that belongs to attachment group
  - Don't show attachment group if one of product member already added
+
+
+ Is it possible that product can be associated with multiple attachment.
+ If it is possible, does it also added multiple times in the build and price tool

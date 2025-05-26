@@ -266,15 +266,22 @@
         },
 
         _remove_attachments: function(attachment_id) {
+            let other_attachment = [];
             $.each(GO_BPT.attachment_items, function(index, _item) {
                 if (_item.attachment === attachment_id) {                   
                     
+                    let _other_id = GO_BPT._has_attachment(_item.product_id);
+                    if (_other_id && _other_id !== attachment_id) {
+                        other_attachment.push(_other_id);
+                    }
+
                     GO_BPT._remove_item( _item.product_id );
                     const product = $('.product-item-'+_item.product_id);
                     product.removeClass('added');                   
 
                 }
             });
+            console.log(other_attachment);
             GO_BPT._cart(GO_BPT._cart_summary);
         },
 
