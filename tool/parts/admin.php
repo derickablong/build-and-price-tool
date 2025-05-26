@@ -45,7 +45,7 @@
                             <input type="text" name="model[url]" value="<?php echo trim($edit_model['url']) ?>">
                         </div>
                         <div class="field">
-                            <span class="label">Price</span>
+                            <span class="label">Price($)</span>
                             <input type="text" name="model[price]" value="<?php echo trim($edit_model['price']) ?>">
                         </div>
                     </div>

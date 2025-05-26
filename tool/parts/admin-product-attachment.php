@@ -122,7 +122,8 @@ jQuery(document).ready(function($) {
         const $item     = $(this).closest('.row-attachment');
         let   $new_item = $item.clone();
         
-        $new_item.insertAfter($item);   
+        $new_item.insertAfter($item);
+        $new_item.find('select').val(null)
         naming();             
     });
 
