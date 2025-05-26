@@ -29,6 +29,7 @@
         el_popup             : null,
         el_group_item        : null,
         selected_model       : null,
+        attachment_items     : [],
         model_price          : 0,
         model_sale_price     : 0,
         cart_total_price     : 0,
@@ -255,7 +256,7 @@
             GO_BPT._get_attachments(attachments, product_id.toString(), function(is_attachment, attachment_item) {
                 
                 if (is_attachment) {
-                    GO_BPT._popup(attachment_item);
+                    GO_BPT._popup(product, attachment_item);
                 } else {
                     GO_BPT._push_product(product);
                     GO_BPT._cart(GO_BPT._cart_summary);
@@ -264,14 +265,27 @@
             });            
         },
 
-        _remove_attachments: function(ID) {
-            $('.product-item[data-attachment="'+ID+'"]').each(function() {
-                const product = $(this);
-                GO_BPT._remove_item( product.data('product') );
-                product.removeClass('added');
-                product.removeAttr('data-attachment');
-            });            
+        _remove_attachments: function(attachment_id) {
+            $.each(GO_BPT.attachment_items, function(index, _item) {
+                if (_item.attachment === attachment_id) {                   
+                    
+                    GO_BPT._remove_item( _item.product_id );
+                    const product = $('.product-item-'+_item.product_id);
+                    product.removeClass('added');                   
+
+                }
+            });
             GO_BPT._cart(GO_BPT._cart_summary);
+        },
+
+        _has_attachment: function(product_id) {
+            let has_attachment = 0;
+            $.each(GO_BPT.attachment_items, function(index, _item) {
+                if (_item.product_id === product_id) {
+                    has_attachment = _item.attachment;
+                }
+            });
+            return has_attachment;
         },
 
         _add_product: function(e) {
@@ -284,12 +298,13 @@
                 GO_BPT._starting_cart_item();                
 
                 if (product.hasClass('added')) {                                    
-
-                    const item = product.closest('.product-item');
-                    const item_attachment = item.data('attachment');
                     
-                    if (typeof(item_attachment) !== 'undefined') {
-                        GO_BPT._remove_attachments(item_attachment);
+                    const attachment_id = GO_BPT._has_attachment(product.data('product'));
+
+                    if (attachment_id) {
+                        if (confirm(product.find('.product-item-title').text() + ' has a product attachment. Removing it will also remove other products associated with the attachment.')) {
+                            GO_BPT._remove_attachments(attachment_id);
+                        }                        
                     } else {                        
                         GO_BPT._remove_item( product.data('product') );
                         product.removeClass('added');
@@ -304,12 +319,13 @@
             });
         },
 
-        _popup: function(groups) {            
+        _popup: function(product, groups) {            
             GO_BPT._request({
                 action: 'bpt_attachment_products',
                 groups: groups
             }, function(response) {
                 GO_BPT.el_doc.find('html').addClass('no-scroll');                
+                GO_BPT.el_popup.find('h2').text(product.find('.product-item-title').text() + ' has a product attachment');
                 GO_BPT.el_popup.find('.groups').html(response.products);
                 GO_BPT.el_popup.addClass('show');
                 GO_BPT._after();
@@ -331,7 +347,10 @@
                 const target_product = $('.bpt-products .product-item-'+product.data('product'));
 
                 target_product.addClass('added');        
-                target_product.attr('data-attachment', product.closest('.attachment-item').data('attachment'));
+                GO_BPT.attachment_items.push({
+                    attachment: product.closest('.attachment-item').data('attachment'),
+                    product_id: product.data('product')
+                });                
                 GO_BPT._push_product(product);
             });
             GO_BPT._cart(GO_BPT._cart_summary);

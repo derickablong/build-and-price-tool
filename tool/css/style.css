@@ -296,6 +296,9 @@ html, body {
     line-height: 1;    
     transition: all 0.3s ease-in-out;
 }
+.popup-footer a {
+    min-width: 80px;
+}
 .model-item .cta .learn-more,
 .popup-footer .cancel {
     background-color: var(--bpt-btn-learn-more);
