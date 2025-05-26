@@ -994,6 +994,12 @@ div.error {
 .popup-con h2 {
     font-size: 20px!important;
     line-height: 1.3!important;
+    text-transform: capitalize!important;
+}
+.popup-con h2 span {
+    color: var(--bpt-black);
+    background-color: var(--bpt-btn-build-price);    
+    display: inline;
 }
 .popup-con .groups {
     display: flex;
@@ -1089,7 +1095,8 @@ div.error {
         right: 1px;
     }
     
-    .step-products {
+    .step-products,
+    .popup-con .attachment-products {
         grid-template-columns: 1fr;
     }
 

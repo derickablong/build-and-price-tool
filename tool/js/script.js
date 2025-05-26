@@ -325,7 +325,7 @@
                 groups: groups
             }, function(response) {
                 GO_BPT.el_doc.find('html').addClass('no-scroll');                
-                GO_BPT.el_popup.find('h2').text(product.find('.product-item-title').text() + ' has a product attachment');
+                GO_BPT.el_popup.find('h2').html('<span>' + product.find('.product-item-title').text() + '</span> has a product attachment');
                 GO_BPT.el_popup.find('.groups').html(response.products);
                 GO_BPT.el_popup.addClass('show');
                 GO_BPT._after();
