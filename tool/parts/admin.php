@@ -2,7 +2,7 @@
     <h1>Build and Price Tool Settings</h1>
 
     <div class="bpt-models con-w">
-        <div class="model-form">
+        <div class="model-form <?php echo isset($_GET['model']) ? 'form-edit' : 'form-add' ?>">
             <form method="post">                
                 <div class="fields">
                     <div class="col">

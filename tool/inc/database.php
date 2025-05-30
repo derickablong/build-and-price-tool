@@ -53,8 +53,9 @@ trait GO_BPT_Database
         # BTP table for product attachments
         $sql = "CREATE TABLE IF NOT EXISTS {$this->table_attachment} (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
-            model_id mediumint(9) NOT NULL DEFAULT 0,                        
-            attachment VARCHAR(100),
+            model_id mediumint(9) NOT NULL DEFAULT 0,
+            products VARCHAR(200),
+            requirement mediumint(9) NOT NULL DEFAULT 0,
             date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY  (id)
         ) $charset_collate;";

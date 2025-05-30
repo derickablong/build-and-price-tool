@@ -38,12 +38,12 @@ $products_two = [
     'tax_query'      => $tax_query    
 ];
 
-$attachments     = [];
+$products        = [];
 $loaded_products = [];
 ?>
 
 <div class="wrap">
-    <h1>Attachment management for model <?php echo $model['title'] ?></h1>    
+    <h1>Machine and Attachment for model <?php echo $model['title'] ?></h1>    
     <div class="attachment-setup">
         <?php
         $result_one = new WP_Query($products_one);
@@ -53,7 +53,7 @@ $loaded_products = [];
                 global $post;
                 $product = new \WC_Product( $post->ID ); 
                 if ($product->get_price() <= 0) continue;
-                $attachments[$post->ID] = $post->post_title;
+                $products[$post->ID] = $post->post_title;
                 $loaded_products[] = $post->ID;
             endwhile;            
         endif;
@@ -67,24 +67,23 @@ $loaded_products = [];
                 global $post;
                 $product = new \WC_Product( $post->ID ); 
                 if ($product->get_price() <= 0) continue;
-                $attachments[$post->ID] = $post->post_title;                
+                $products[$post->ID] = $post->post_title;                
             endwhile;            
         endif;
         wp_reset_query();
         ?>
         <form action="" method="post">
             <input type="hidden" name="model-attachment" value="<?php echo $model['id'] ?>">    
-            
-            <?php 
-            $current_index = 0;
-            foreach ($model_attachments as $index => $item) {
-                $current_index = $index;
-                do_action('bpt-attachment', $index, $attachments, $item);
-            }
-            ?>
+            <div class="row-attachment">
+                <?php                 
+                foreach ($model_attachments as $item) {                    
+                    do_action('bpt-attachment', $item, $products);
+                }
+                ?>
 
-            
-            <?php do_action('bpt-attachment', $current_index, $attachments, []) ?>
+                
+                <?php do_action('bpt-attachment', [], $products) ?>
+            </div>
 
             <div class="submit">
                 <a href="<?php echo admin_url('/admin.php?page=bpt') ?>" class="button black">Back</a>
@@ -97,49 +96,75 @@ $loaded_products = [];
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
+    const process = function() {
+        $('.attachment-item').each(function(index, _row) {
+            const $row = $(this);            
+            
+            naming($row);
 
-    const group = BPT_ALPHABET;
-
-    const naming = function() {
-        $('.row-attachment').each(function(index, _row) {
-            const $row = $(this);
-            const alpa = group[index];
-
-            $row.attr('data-group', index);
-            $row.find('.title').text('Attachment '+alpa);
-            $row.find('select').attr('name', 'attachment-require['+ alpa.toLowerCase() +'][]');
             $row.find('.select2-container').remove();
             $row.find('select').select2();
             $row.removeClass('loading');
         });
+    }   
+    
+    const remove_duplicate = function($products, selected) {
+        let _products = $products.val();
+        let _new_products = _products.filter(function(item) {
+            return item !== selected
+        });
+        $products.find('option').show();        
+        $products.find('option[value="'+selected+'"]').hide();
+        $products.val(_new_products).trigger('change');
     }
 
-    $('.row-attachment select').select2();
+    const naming = function($row) {
+        const $products    = $row.find('select.attachment-products');
+        const $requirement = $row.find('select.attachment-requirement');
+
+        const selected = ($requirement.val()).toString();
+        const name = 'attachment-' + selected;
+        
+        remove_duplicate($products, selected);
+
+        $products.attr('name', 'attachment-products['+ name +']');
+        $requirement.attr('name', 'attachment-requirement['+ name +']');
+    }
+
+    $('.attachment-item select').select2();
+
+    $(document).on('change', '.attachment-requirement', function() {
+        const $item = $(this).closest('.attachment-item');
+        naming($item);
+    });
 
     $(document).on('click', '.add', function(e) {
         e.preventDefault();
 
-        const $item     = $(this).closest('.row-attachment');
-        let   $new_item = $item.clone();
+        const $item     = $(this).closest('.attachment-item');
+        const $new_item = $item.clone();
         
         $new_item.insertAfter($item);
-        $new_item.find('select').val(null)
-        naming();             
+        $new_item.find('.attachment-products').val(null);
+        $new_item.find('.attachment-requirement').val(0);
+
+        process();             
     });
 
     $(document).on('click', '.remove', function(e) {
         e.preventDefault();
 
-        const $item = $(this).closest('.row-attachment');
-        if ($('.row-attachment').length > 1) {
+        const $item = $(this).closest('.attachment-item');
+        if ($('.attachment-item').length > 1) {
             $item.remove();        
-        } else {
-            $item.find('select').val(null).trigger('change');
+        } else {            
+            $item.find('.attachment-products').val(null).trigger('change');
+            $item.find('.attachment-requirement').val(0).trigger('change');
         }
 
-        naming();
+        process();
     });
 
-    setTimeout(naming, 2000);
+    setTimeout(process, 2000);
 });
 </script>

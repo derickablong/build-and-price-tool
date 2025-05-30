@@ -2,5 +2,6 @@
  - Don't show attachment group if one of product member already added
 
 
- Is it possible that product can be associated with multiple attachment.
- If it is possible, does it also added multiple times in the build and price tool
+ Is it possible for a product to be associated with multiple attachments?
+
+ If it is possible, in front-end the product with multiple attachment can also added multiple at the same time?

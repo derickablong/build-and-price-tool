@@ -24,7 +24,7 @@
         <div class="price">$<?php echo trim($model->price) ?></div>
         <div class="cta">                        
             <?php if ($this->has_attachment($model->id)): ?>
-            <a href="<?php echo admin_url('/admin.php?page=bpt&product-attachment='.$model->id) ?>" class="button">Product Attachment</a>
+            <a href="<?php echo admin_url('/admin.php?page=bpt&product-attachment='.$model->id) ?>" class="button">Machine and Attachment</a>
             <?php endif; ?>
             <a href="<?php echo admin_url('/admin.php?page=bpt&manage-model='.$model->id) ?>" class="button">Manage Categories</a>                        
             <a href="<?php echo admin_url('/admin.php?page=bpt&model='.$model->id) ?>" class="button">Edit Model</a>

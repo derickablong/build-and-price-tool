@@ -102,7 +102,7 @@ trait GO_BPT_Parts
             'bpt-attachment',
             [$this, 'admin_attachment'],
             10,
-            3
+            2
         );
         add_action(
             'bpt-model-attachments',
@@ -115,6 +115,12 @@ trait GO_BPT_Parts
             [$this, 'popup'],
             10,
             1
+        );
+        add_action(
+            'bpt-preview',
+            [$this, 'do_preview'],
+            10,
+            5
         );
     }
 
@@ -148,15 +154,14 @@ trait GO_BPT_Parts
     }  
 
     /**
-     * Get model attachments
-     * @param int $index
-     * @param int $attachment
-     * @param array|object $attachment
+     * Get model attachments     
+     * @param int $products
+     * @param array|object $item
      * @return void
      */
-    public function admin_attachment($index, $attachments, $group)
+    public function admin_attachment($item, $products)
     {
-        $this->parts('admin-attachment', ['index' => $index, 'attachments' => $attachments, 'group' => $group]);
+        $this->parts('admin-attachment', ['products' => $products, 'item' => $item]);
     }
 
 
@@ -349,7 +354,10 @@ trait GO_BPT_Parts
      */
     public function model_attachments($model)
     {
-        $this->parts('attachment', ['model' => $model, 'attachments' => $this->attachments($model->id)]);
+        $this->parts('attachment', [
+            'model' => $model, 
+            'attachments' => $this->attachments($model->id)
+        ]);
     }
 
     /**
@@ -360,5 +368,25 @@ trait GO_BPT_Parts
     public function popup($products)
     {
         $this->parts('popup', ['products' => $products]);
+    }
+
+    /**
+     * Quote Preview
+     * @param objeckt $quote
+     * @param array|object $model
+     * @param array|object $products
+     * @param array|object $shipping
+     * @param array|object $details
+     * @return void
+     */
+    public function do_preview($quote, $model, $products, $shipping, $details)
+    {
+        $this->parts('preview', [
+            'quote'    => $quote,
+            'model'    => $model,
+            'products' => $products,
+            'shipping' => $shipping,
+            'details'  => $details
+        ]);
     }
 }

@@ -2,6 +2,10 @@
 $total      = (float)str_replace(',', '', $model->price);
 $total_sale = (float)str_replace(',' ,'', $model->sale_price);
 ?>
+
+<style>h1.entry-title {margin-bottom: 5px!important;}</style>
+<div style="margin-bottom: 20px"><?php echo date('F j, Y', strtotime($quote->date_created)) ?></div>
+
 <div class="bpt-details" data-token="<?php echo $token ?>">
     <div class="col details">
         <div class="detail-title first">Personal Info</div>
