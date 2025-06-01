@@ -3,10 +3,10 @@ $group       = !empty($item) ? unserialize($item->products) : [];
 $requirement = !empty($item) ? $item->requirement : 0;
 ?>
 
-<div class="attachment-item">
+<div class="attachment-item loading">
     <div class="col">       
         <div class="title">Products</div>         
-        <select name="attachment-products[attachment-0]" class="attachment-products" multiple="multiple">                       
+        <select name="attachment-products" class="attachment-products" multiple="multiple">                       
             <?php foreach ($products as $product_id => $product): ?>
                 <option <?php echo in_array($product_id, $group) ? 'selected' : '' ?> value="<?php echo $product_id ?>"><?php echo $product ?></option>
             <?php endforeach; ?>
@@ -14,8 +14,8 @@ $requirement = !empty($item) ? $item->requirement : 0;
     </div>
     <div class="col">       
         <div class="title">Requirement</div>         
-        <select name="attachment-requirement[attachment-0]" class="attachment-requirement">
-            <option value="0">-------</option>               
+        <select name="attachment-requirement" class="attachment-requirement">
+            <option value="0"></option>               
             <?php foreach ($products as $product_id => $product): ?>
                 <option <?php echo $product_id == $requirement ? 'selected' : '' ?> value="<?php echo $product_id ?>"><?php echo $product ?></option>
             <?php endforeach; ?>

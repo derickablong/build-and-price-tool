@@ -30,7 +30,7 @@ trait GO_BPT_Shortcode
         
         $token = isset($_GET['id']) ? $_GET['id'] : bin2hex(random_bytes(15));
         ob_start();        
-        include(GROWTH_OPTIMIZER_BPT_DIR.'tool/parts/builder.php');
+        do_action('bpt-builder', $token);
         return ob_get_clean();
     }
 
@@ -59,7 +59,8 @@ trait GO_BPT_Shortcode
             $details  = json_decode($quote->shipping_details);
         }
         
-        include(GROWTH_OPTIMIZER_BPT_DIR.'tool/parts/preview.php');
+        do_action('bpt-preview', $quote, $model, $products, $shipping, $details);
+
         return ob_get_clean();
     }
 }

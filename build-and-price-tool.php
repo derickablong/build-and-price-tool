@@ -28,27 +28,24 @@ define('METABOX_FRONT_REAR_MOUNTING_OPTIONS_KEY', '_front_rear_mounting_options'
 define('GROWTH_OPTIMIZER_BPT_DIR', plugin_dir_path( __FILE__ ));
 define('GROWTH_OPTIMIZER_BPT_URL', plugin_dir_url( __FILE__ ));
 
+# Builder
+$builder = [
+    'inc/admin', # Admin
+    'inc/metabox', # Metabox
+    'inc/ghl', # Go High Level
+    'inc/rewrite-role', # Rewrite Role
+    'inc/database', # Database tables
+    'inc/library', # Library
+    'inc/parts', # Template parts
+    'inc/ajax', # Ajax request
+    'inc/shortcode', # Shortcodes
+    'tool' # Builder
+];
 
-# Admin
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/admin.php');
-# Meta
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/metabox.php');
-# GHL
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/ghl.php');
-# Rewrite Role
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/rewrite-role.php');
-# Database
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/database.php');
-# Includes
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/library.php');
-# Template parts
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/parts.php');
-# Ajax
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/ajax.php');
-# Shortcode
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/inc/shortcode.php');
-# Build and price tool
-require_once(GROWTH_OPTIMIZER_BPT_DIR.'tool/tool.php');
+# Let's load required files
+foreach ($builder as $require) {
+    require_once(GROWTH_OPTIMIZER_BPT_DIR."tool/{$require}.php");
+}
 
 # Starter the CPT filter widget
 new GO_Build_And_Price_Tool(

@@ -255,22 +255,23 @@ trait GO_BPT_Admin
         if (!isset($_POST['model-attachment'])) return;
 
         $model       = $_POST['model-attachment'];
-        $attachments = $_POST['attachment-require'];
+        $attachments = $_POST['attachment-products'];
 
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$this->table_attachment} WHERE model_id=%d",
                 [$model]
             )
-        );
+        );        
 
-        foreach ($attachments as $attachment) {
+        foreach ($attachments as $requirement => $attachment) {
 
             $data = [
-                'model_id' => $model,
-                'attachment' => serialize($attachment)
+                'model_id'    => $model,
+                'products'    => serialize($attachment),
+                'requirement' => $requirement
             ];
-            $format = ['%d', '%s'];
+            $format = ['%d', '%s', '%d'];
 
             $wpdb->insert(
                 $this->table_attachment,

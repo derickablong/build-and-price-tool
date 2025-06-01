@@ -122,6 +122,12 @@ trait GO_BPT_Parts
             10,
             5
         );
+        add_action(
+            'bpt-builder',
+            [$this, 'builder'],
+            10,
+            1
+        );
     }
 
 
@@ -388,5 +394,15 @@ trait GO_BPT_Parts
             'shipping' => $shipping,
             'details'  => $details
         ]);
+    }
+
+    /**
+     * Builder
+     * @param string $token
+     * @return void
+     */
+    public function builder($token)
+    {
+        $this->parts('builder', ['token' => $token]);
     }
 }

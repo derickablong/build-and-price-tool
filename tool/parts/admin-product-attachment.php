@@ -95,48 +95,38 @@ $loaded_products = [];
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.js"></script>
 <script type="text/javascript">
-jQuery(document).ready(function($) {
+jQuery(document).ready(function($) {   
+
+    const _select2 = function($row) {
+        $row.find('.select2-container').remove();
+
+        const $select = $row.find('select');   
+        $select.removeClass('select2-offscreen');     
+        $select.select2();        
+        
+        $row.removeClass('loading');
+    }
+
     const process = function() {
         $('.attachment-item').each(function(index, _row) {
-            const $row = $(this);            
-            
-            naming($row);
-
-            $row.find('.select2-container').remove();
-            $row.find('select').select2();
-            $row.removeClass('loading');
+            const $row = $(this);                        
+            naming($row, _select2);            
         });
     }   
-    
-    const remove_duplicate = function($products, selected) {
-        let _products = $products.val();
-        let _new_products = _products.filter(function(item) {
-            return item !== selected
-        });
-        $products.find('option').show();        
-        $products.find('option[value="'+selected+'"]').hide();
-        $products.val(_new_products).trigger('change');
-    }
 
-    const naming = function($row) {
+    const naming = function($row, _callback) {
         const $products    = $row.find('select.attachment-products');
         const $requirement = $row.find('select.attachment-requirement');
-
-        const selected = ($requirement.val()).toString();
-        const name = 'attachment-' + selected;
         
-        remove_duplicate($products, selected);
+        const requirement_data = $requirement.select2('data');        
+        const selected = requirement_data.id ? requirement_data.id : $requirement.val();                
 
-        $products.attr('name', 'attachment-products['+ name +']');
-        $requirement.attr('name', 'attachment-requirement['+ name +']');
+        $products.attr('name', 'attachment-products['+ selected +'][]');
+        $requirement.attr('name', 'attachment-requirement['+ selected +']');               
+
+        _callback($row);
     }
-
-    $('.attachment-item select').select2();
-
-    $(document).on('change', '.attachment-requirement', function() {
-        const $item = $(this).closest('.attachment-item');
-        naming($item);
-    });
+    
 
     $(document).on('click', '.add', function(e) {
         e.preventDefault();
@@ -145,8 +135,8 @@ jQuery(document).ready(function($) {
         const $new_item = $item.clone();
         
         $new_item.insertAfter($item);
-        $new_item.find('.attachment-products').val(null);
-        $new_item.find('.attachment-requirement').val(0);
+        $new_item.find('select.attachment-products').val(null);
+        $new_item.find('select.attachment-requirement').val(0);
 
         process();             
     });
@@ -158,11 +148,19 @@ jQuery(document).ready(function($) {
         if ($('.attachment-item').length > 1) {
             $item.remove();        
         } else {            
-            $item.find('.attachment-products').val(null).trigger('change');
-            $item.find('.attachment-requirement').val(0).trigger('change');
+            $item.find('select.attachment-products').val(null).trigger('change');
+            $item.find('select.attachment-requirement').val(0).trigger('change');
         }
 
         process();
+    });
+
+    $('select').on('change', function() {
+        console.log('Processing...');
+        const $row = $(this).closest('.attachment-item');        
+        naming($row, function(_row) {
+            console.log('Done.');
+        });
     });
 
     setTimeout(process, 2000);
