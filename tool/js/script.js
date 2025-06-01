@@ -41,7 +41,7 @@
         _init: function() {
             GO_BPT._elements(
                 GO_BPT._actions
-            );            
+            );
         },
 
         _title: function() {            
@@ -215,18 +215,34 @@
             _callback(attachments);
         },
 
+        _requirement_exist: function(requirement_id) {            
+            if (GO_BPT._product_exists(requirement_id)) {
+                return 0;
+            } else {
+                $.each(GO_BPT.attachment_items, function(index, _item) {
+                    if (requirement_id === _item.requirement)
+                        requirement_id = 0;
+                });            
+                return requirement_id;
+            }
+        },
+
         _get_attachments: function(attachments, product_id, _callback) {
             let is_attachment = false;
-            let attachment_item = [];
+            let requirement = 0;
             
             $.each(attachments, function(index, group) {                                
                 if (group.group.includes(product_id)) {
                     is_attachment = true;
-                    attachment_item.push(group);
+                    requirement = group.ID;
                 }
                 
             });
-            _callback(is_attachment, attachment_item);
+
+            requirement = GO_BPT._requirement_exist(requirement);
+            is_attachment = requirement ? is_attachment : false;
+
+            _callback(is_attachment, requirement);
         },
 
         _product_exists: function(ID) {
@@ -253,10 +269,10 @@
         _product: function(product, attachments) {
             const product_id = product.data('product');          
 
-            GO_BPT._get_attachments(attachments, product_id.toString(), function(is_attachment, attachment_item) {
+            GO_BPT._get_attachments(attachments, product_id.toString(), function(is_attachment, requirement) {
                 
                 if (is_attachment) {
-                    GO_BPT._popup(product, attachment_item);
+                    GO_BPT._popup(product, requirement);
                 } else {
                     GO_BPT._push_product(product);
                     GO_BPT._cart(GO_BPT._cart_summary);
@@ -265,34 +281,33 @@
             });            
         },
 
-        _remove_attachments: function(attachment_id) {
-            let other_attachment = [];
+        _remove_attachments: function(attachment_id) {            
             $.each(GO_BPT.attachment_items, function(index, _item) {
-                if (_item.attachment === attachment_id) {                   
+                if (_item.requirement === attachment_id) {
                     
-                    let _other_id = GO_BPT._has_attachment(_item.product_id);
-                    if (_other_id && _other_id !== attachment_id) {
-                        other_attachment.push(_other_id);
-                    }
-
-                    GO_BPT._remove_item( _item.product_id );
-                    const product = $('.product-item-'+_item.product_id);
-                    product.removeClass('added');                   
+                    GO_BPT._remove_item( _item.product );
+                    const product = $('.product-item-'+_item.product);
+                    product.removeClass('added');       
+                    
+                    GO_BPT.attachment_items.splice(index, 1);
 
                 }
             });
-            console.log(other_attachment);
+            GO_BPT._remove_item(attachment_id);
+            const requirement = $('.product-item-'+attachment_id);
+            requirement.removeClass('added');                   
+
             GO_BPT._cart(GO_BPT._cart_summary);
         },
 
         _has_attachment: function(product_id) {
-            let has_attachment = 0;
+            let requirement = 0;
             $.each(GO_BPT.attachment_items, function(index, _item) {
-                if (_item.product_id === product_id) {
-                    has_attachment = _item.attachment;
+                if (_item.requirement === product_id) {
+                    requirement = _item.requirement;
                 }
             });
-            return has_attachment;
+            return requirement;
         },
 
         _add_product: function(e) {
@@ -309,7 +324,7 @@
                     const attachment_id = GO_BPT._has_attachment(product.data('product'));
 
                     if (attachment_id) {
-                        if (confirm(product.find('.product-item-title').text() + ' has a product attachment. Removing it will also remove other products associated with the attachment.')) {
+                        if (confirm(product.find('.product-item-title').text() + ' required by another product has been added to your quote. Removing it will also remove any associated products.')) {
                             GO_BPT._remove_attachments(attachment_id);
                         }                        
                     } else {                        
@@ -326,13 +341,14 @@
             });
         },
 
-        _popup: function(product, groups) {            
+        _popup: function(product, requirement) {            
             GO_BPT._request({
-                action: 'bpt_attachment_products',
-                groups: groups
+                action     : 'bpt_attachment_products',
+                product_id: product.data('product'),
+                requirement: requirement
             }, function(response) {
                 GO_BPT.el_doc.find('html').addClass('no-scroll');                
-                GO_BPT.el_popup.find('h2').html('<span>' + product.find('.product-item-title').text() + '</span> has a product attachment');
+                GO_BPT.el_popup.find('h2').html(product.find('.product-item-title').text() + ' require:');
                 GO_BPT.el_popup.find('.groups').html(response.products);
                 GO_BPT.el_popup.addClass('show');
                 GO_BPT._after();
@@ -349,17 +365,25 @@
         _add_attachments: function(e) {
             e.preventDefault();
 
-            $('.attachment-item.selected .product-item').each(function() {
-                const product = $(this);        
-                const target_product = $('.bpt-products .product-item-'+product.data('product'));
+            const attachment = $('.attachment-item.selected');
+            const product_id = attachment.data('product');
 
-                target_product.addClass('added');        
-                GO_BPT.attachment_items.push({
-                    attachment: product.closest('.attachment-item').data('attachment'),
-                    product_id: product.data('product')
-                });                
-                GO_BPT._push_product(product);
+            const target_requirement = attachment.find('.product-item'); 
+            const target_product = $('.bpt-products .product-item-'+product_id); 
+            
+            const requirement_id = target_requirement.data('product');            
+
+            target_product.addClass('added');
+            $('.bpt-products .product-item-'+requirement_id).addClass('added');
+                
+            GO_BPT.attachment_items.push({
+                requirement: requirement_id,
+                product: product_id
             });
+
+            GO_BPT._push_product(target_product);
+            GO_BPT._push_product(target_requirement);
+
             GO_BPT._cart(GO_BPT._cart_summary);
             GO_BPT._close_popup(e);      
         },

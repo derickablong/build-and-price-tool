@@ -3,9 +3,9 @@ var temp_attachment = [];
 <?php 
 foreach ($attachments as $attachment) {
 
-    $details = unserialize($attachment->attachment);    
+    $products = unserialize($attachment->products);    
 
-    echo 'temp_attachment.push({ID: '.$attachment->id.', group:'. json_encode($details) .'});';
+    echo 'temp_attachment.push({ID: '.$attachment->requirement.', group:'. json_encode($products) .'});';
 }
 ?>
 BPT_ATTACHMENTS.push({    

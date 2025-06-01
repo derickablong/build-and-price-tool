@@ -118,34 +118,28 @@ trait GO_BPT_Ajax
     {
         ob_start();
 
-        $groups = $_POST['groups'];        
+        $requirement = $_POST['requirement'];
+        $product_id  = $_POST['product_id'];
 
-        foreach ($groups as $index => $group) {
-            $args = [
-                'post_type'      => 'product',
-                'post_status'    => 'publish',
-                'posts_per_page' => -1,
-                'post__in'       => $group['group']
-            ];
-            
-            $results = new \WP_Query($args);            
+        $args = [
+            'post_type'   => 'product',
+            'post_status' => 'publish',
+            'p'           => $requirement
+        ];
+        
+        $results = new \WP_Query($args);            
 
-            if ($results->have_posts()): 
-                echo '<div class="attachment-item '.($index == 0 ? 'selected' : '').'" data-attachment='.$group['ID'].'>';
-                echo '<div class="group-item">';
-                echo '<input type="radio" '.($index == 0 ? 'checked' : '').' value="'.$index.'" name="group-radio" class="group-radio" id="group-radio-'.$index.'" >';
-                echo '<label for="group-radio-'.$index.'">Attachment '. $this->alphabets[$index] .'</label>';
-                echo '</div>';
-                echo '<div class="attachment-products">';
-                while ($results->have_posts()):
-                    $results->the_post();                
-                    do_action('bpt-product-item');
-                endwhile;
-                echo '</div></div>';                
-            endif;
-            wp_reset_query();
-        }
-
+        if ($results->have_posts()): 
+            echo '<div class="attachment-item selected" data-product="'.$product_id.'">';
+            echo '<div class="attachment-products">';
+            while ($results->have_posts()):
+                $results->the_post();                
+                do_action('bpt-product-item');
+            endwhile;
+            echo '</div></div>';                
+        endif;
+        wp_reset_query();
+       
         wp_send_json([
             'products' => ob_get_clean()
         ]);
