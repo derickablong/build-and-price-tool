@@ -193,9 +193,9 @@
             }
         },
 
-        _remove_item: function(ID) {            
+        _remove_item: function(ID) {                        
             const products = GO_BPT.selected_products.filter(function(item) {                
-                return ID !== item.ID
+                return parseInt(ID) !== parseInt(item.ID)
             });
             GO_BPT.selected_products = products;
         },
@@ -211,12 +211,26 @@
                 if (_attachments.model === GO_BPT.selected_model) {                                      
                     attachments = _attachments.attachments;
                 }
-            });            
+            });                  
             _callback(attachments);
         },
 
-        _requirement_exist: function(requirement_id) {            
+        _requirement_exist: function(product_id, requirement_id) {            
             if (GO_BPT._product_exists(requirement_id)) {
+
+                let exists = false;
+                $.each(GO_BPT.attachment_items, function(index, _item) {
+                    if (product_id === _item.product && requirement_id === _item.requirement)
+                        exists = true;
+                });
+
+                if (!exists) {
+                    GO_BPT.attachment_items.push({
+                        requirement: requirement_id,
+                        product: product_id
+                    });
+                }
+
                 return 0;
             } else {
                 $.each(GO_BPT.attachment_items, function(index, _item) {
@@ -239,7 +253,7 @@
                 
             });
 
-            requirement = GO_BPT._requirement_exist(requirement);
+            requirement = GO_BPT._requirement_exist(product_id, requirement);
             is_attachment = requirement ? is_attachment : false;
 
             _callback(is_attachment, requirement);
@@ -267,9 +281,9 @@
         },
 
         _product: function(product, attachments) {
-            const product_id = product.data('product');          
+            const product_id = parseInt(product.data('product'));          
 
-            GO_BPT._get_attachments(attachments, product_id.toString(), function(is_attachment, requirement) {
+            GO_BPT._get_attachments(attachments, product_id, function(is_attachment, requirement) {
                 
                 if (is_attachment) {
                     GO_BPT._popup(product, requirement);
@@ -281,22 +295,36 @@
             });            
         },
 
+        _defined: function(el) {
+            return typeof(el) !== 'undefined';
+        },
+
+        _remove: function(id) {
+            GO_BPT._remove_item( id );
+            const product = $('.product-item-'+id);
+            product.removeClass('added');
+        },
+
         _remove_attachments: function(attachment_id) {            
-            $.each(GO_BPT.attachment_items, function(index, _item) {
-                if (_item.requirement === attachment_id) {
-                    
-                    GO_BPT._remove_item( _item.product );
-                    const product = $('.product-item-'+_item.product);
-                    product.removeClass('added');       
-                    
-                    GO_BPT.attachment_items.splice(index, 1);
+            const model = BPT_ATTACHMENTS.filter(function(_item) {
+                return _item.model === GO_BPT.selected_model
+            });            
+            $.each(model[0].attachments, function(index1, _item1) {
+                if(_item1.ID === attachment_id) {
+                    $.each(_item1.group, function(index2, product) {
+                        
+                        GO_BPT._remove(product);                            
 
+                        $.each(GO_BPT.attachment_items, function(index3, _item2) {                
+                            if (GO_BPT._defined(_item2) && _item2.product === product)
+                                GO_BPT.attachment_items.splice(index3, 1);
+                        });
+
+                    });
                 }
-            });
-            GO_BPT._remove_item(attachment_id);
-            const requirement = $('.product-item-'+attachment_id);
-            requirement.removeClass('added');                   
-
+            });                       
+            
+            GO_BPT._remove(attachment_id);                   
             GO_BPT._cart(GO_BPT._cart_summary);
         },
 
@@ -321,15 +349,16 @@
 
                 if (product.hasClass('added')) {                                    
                     
-                    const attachment_id = GO_BPT._has_attachment(product.data('product'));
+                    const attachment_id = GO_BPT._has_attachment(
+                        parseInt(product.data('product'))
+                    );
 
                     if (attachment_id) {
                         if (confirm(product.find('.product-item-title').text() + ' required by another product has been added to your quote. Removing it will also remove any associated products.')) {
                             GO_BPT._remove_attachments(attachment_id);
                         }                        
                     } else {                        
-                        GO_BPT._remove_item( product.data('product') );
-                        product.removeClass('added');
+                        GO_BPT._remove(product.data('product'));
                         GO_BPT._cart(GO_BPT._cart_summary);
                     }                   
 
@@ -366,12 +395,12 @@
             e.preventDefault();
 
             const attachment = $('.attachment-item.selected');
-            const product_id = attachment.data('product');
+            const product_id = parseInt(attachment.data('product'));
 
             const target_requirement = attachment.find('.product-item'); 
             const target_product = $('.bpt-products .product-item-'+product_id); 
             
-            const requirement_id = target_requirement.data('product');            
+            const requirement_id = parseInt(target_requirement.data('product'));            
 
             target_product.addClass('added');
             $('.bpt-products .product-item-'+requirement_id).addClass('added');
