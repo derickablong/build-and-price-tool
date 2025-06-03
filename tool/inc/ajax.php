@@ -118,13 +118,18 @@ trait GO_BPT_Ajax
     {
         ob_start();
 
-        $requirement = $_POST['requirement'];
-        $product_id  = $_POST['product_id'];
+        $requirements = $_POST['requirements'];
+        $product_id   = $_POST['product_id'];
+
+        $attachments = [];
+        foreach ($requirements as $req) {
+            $attachments[] = $req['requirement'];
+        }
 
         $args = [
             'post_type'   => 'product',
             'post_status' => 'publish',
-            'p'           => $requirement
+            'post__in'    => $attachments
         ];
         
         $results = new \WP_Query($args);            

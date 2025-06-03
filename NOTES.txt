@@ -1,7 +1,1 @@
- - Cancel products that belongs to attachment group
- - Don't show attachment group if one of product member already added
-
-
- Is it possible for a product to be associated with multiple attachments?
-
- If it is possible, in front-end the product with multiple attachment can also added multiple at the same time?
+DELETE attachment
