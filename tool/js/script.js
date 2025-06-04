@@ -38,8 +38,8 @@
         requirements         : [],
         selected_products    : [],
         selected_shipping    : null,
-        model_attachments    : [],
-        product_attachments  : [],
+        model_attachments    : [],        
+
 
         _init: function() {
             GO_BPT._elements(
@@ -320,12 +320,23 @@
                 GO_BPT._remove(_product);
             });
             GO_BPT._cart(GO_BPT._cart_summary);
+        },        
+
+        _requirements: function(group) {
+            GO_BPT.product_attachments = GO_BPT.product_attachments.concat(group);
+            $.each(group, function(index, product) {
+                $.each(GO_BPT.model_attachments, function(index2, product2) {
+                    if (product2.ID === product)
+                        GO_BPT.product_attachments = GO_BPT.product_attachments.concat(product2.group);
+                });
+            });
         },
 
         _has_attachment: function(product_id, _callback) {            
             $.each(GO_BPT.model_attachments, function(index, _product) {
-                if (_product.ID === product_id) {                    
-                    GO_BPT.product_attachments = GO_BPT.product_attachments.concat(_product.group);
+                if (_product.ID === product_id) {  
+                    GO_BPT.product_attachments.push(_product.ID);                  
+                    GO_BPT._requirements(_product.group);
                 }
                 if (_product.group.includes(product_id)) {
                     GO_BPT.product_attachments.push(_product.ID);
